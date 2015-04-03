@@ -11,6 +11,7 @@
 
 	<!-- toolkit styles -->
 	<link rel="stylesheet" href="assets/toolkit/styles/toolkit.css">
+	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<!-- /toolkit styles -->
 
 </head>
@@ -57,32 +58,31 @@
 			<ul>
 		
 				<li>
-					<a href="index.html" class="f-menu__heading">Overview</a>
-				</li>
-		
-				<li>
 					<a href="components.html" class="f-menu__heading">Components</a>
 					<ul>
 						<li>
 							<a href="components.html#button">Button</a>
 						</li>
 						<li>
-							<a href="components.html#checkbox">Checkbox</a>
+							<a href="components.html#footer">Footer</a>
+						</li>
+						<li>
+							<a href="components.html#header-bar">Header Bar</a>
+						</li>
+						<li>
+							<a href="components.html#hero">Hero</a>
 						</li>
 						<li>
 							<a href="components.html#lists">Lists</a>
 						</li>
 						<li>
+							<a href="components.html#page-header">Page Header</a>
+						</li>
+						<li>
 							<a href="components.html#paragraph">Paragraph</a>
 						</li>
 						<li>
-							<a href="components.html#radio">Radio</a>
-						</li>
-						<li>
-							<a href="components.html#select">Select</a>
-						</li>
-						<li>
-							<a href="components.html#table">Table</a>
+							<a href="components.html#symbols">Symbols</a>
 						</li>
 						<li>
 							<a href="components.html#text-input">Text Input</a>
@@ -92,20 +92,12 @@
 						</li>
 					</ul>
 				</li>
-				<li>
-					<a href="structures.html" class="f-menu__heading">Structures</a>
-					<ul>
-						<li>
-							<a href="structures.html#form">Form</a>
-						</li>
-					</ul>
-				</li>
 		
 				<li>
-					<a href="pages.html" class="f-menu__heading">Pages</a>
+					<a href="docs.html" class="f-menu__heading">Docs</a>
 					<ul>
 						<li>
-							<a href="pages/home.html">Home</a>
+							<a href="docs/index.html">Index</a>
 						</li>
 					</ul>
 				</li>
@@ -113,9 +105,6 @@
 				<li>
 					<a href="docs.html" class="f-menu__heading">Docs</a>
 					<ul>
-						<li>
-							<a href="docs.html#javascript">Javascript</a>
-						</li>
 					</ul>
 				</li>
 		
@@ -135,7 +124,11 @@
 					</div>
 				</div>
 
-
+	<svg style="display: none">
+		<symbol id="symbol-bolt" viewBox="0 0 24 39">
+			<path d="M15.55 24.013L23.224 0 11.767 17.797l-3.31-3.853L0 38.454l11.932-18.378 3.62 3.937z"/>
+		</symbol>
+	</svg>
 	
 
 <h1 data-f-toggle="details">Components</h1>
@@ -172,10 +165,10 @@
 </div>
 
 
-<div class="f-item-group" id="checkbox">
+<div class="f-item-group" id="footer">
 
 	<div class="f-item-heading-group" data-f-toggle="labels">
-		<h2 class="f-item-heading">Checkbox</h2>
+		<h2 class="f-item-heading">Footer</h2>
 		<div class="f-item-controls">
 			
 			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
@@ -186,14 +179,92 @@
 		</div>
 	</div>
 <div class="f-item-preview">
-	<label>
-    <input type="checkbox"> Checkbox
-</label>
+	<div class="footer">
+    <p>Fabricator is developed by <a href="https://github.com/LukeAskew/">@LukeAskew</a></p>
+    <p>This site was built with <a href="components.html">Fabricator</a></p>
+</div>
 </div>
 <div class="f-item-code f-item-hidden" data-f-toggle="code">
-	<pre><code class="language-markup">&lt;label&gt;
-    &lt;input type=&quot;checkbox&quot;&gt; Checkbox
-&lt;/label&gt;</code></pre>
+	<pre><code class="language-markup">&lt;div class=&quot;footer&quot;&gt;
+    &lt;p&gt;Fabricator is developed by &lt;a href=&quot;https://github.com/LukeAskew/&quot;&gt;@LukeAskew&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;This site was built with &lt;a href=&quot;components.html&quot;&gt;Fabricator&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+</div>
+
+
+</div>
+
+
+<div class="f-item-group" id="header-bar">
+
+	<div class="f-item-heading-group" data-f-toggle="labels">
+		<h2 class="f-item-heading">Header Bar</h2>
+		<div class="f-item-controls">
+			
+			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
+				<svg>
+					<use xlink:href="#f-icon-code" />
+				</svg>
+			</span>
+		</div>
+	</div>
+<div class="f-item-preview">
+	<div class="header-bar">
+    <a href="docs">Docs</a>
+    <span class="header-bar__divider">
+		<svg class="bolt">
+			<use xlink:href="#symbol-bolt" />
+		</svg>
+	</span>
+    <a href="https://github.com/fbrctr/fabricator">Source</a>
+</div>
+</div>
+<div class="f-item-code f-item-hidden" data-f-toggle="code">
+	<pre><code class="language-markup">&lt;div class=&quot;header-bar&quot;&gt;
+    &lt;a href=&quot;docs&quot;&gt;Docs&lt;/a&gt;
+    &lt;span class=&quot;header-bar__divider&quot;&gt;
+		&lt;svg class=&quot;bolt&quot;&gt;
+			&lt;use xlink:href=&quot;#symbol-bolt&quot; /&gt;
+		&lt;/svg&gt;
+	&lt;/span&gt;
+    &lt;a href=&quot;https://github.com/fbrctr/fabricator&quot;&gt;Source&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+</div>
+
+
+</div>
+
+
+<div class="f-item-group" id="hero">
+
+	<div class="f-item-heading-group" data-f-toggle="labels">
+		<h2 class="f-item-heading">Hero</h2>
+		<div class="f-item-controls">
+			
+			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
+				<svg>
+					<use xlink:href="#f-icon-code" />
+				</svg>
+			</span>
+		</div>
+	</div>
+<div class="f-item-preview">
+	<div class="hero">
+    <img src="assets/toolkit/images/logo.svg" alt="">
+    <div class="hero__byline">
+        Build your UI toolkit
+    </div>
+    <a href="https://github.com/fbrctr/fabricator/archive/master.zip" class="button">Start Building</a>
+</div>
+</div>
+<div class="f-item-code f-item-hidden" data-f-toggle="code">
+	<pre><code class="language-markup">&lt;div class=&quot;hero&quot;&gt;
+    &lt;img src=&quot;assets/toolkit/images/logo.svg&quot; alt=&quot;&quot;&gt;
+    &lt;div class=&quot;hero__byline&quot;&gt;
+        Build your UI toolkit
+    &lt;/div&gt;
+    &lt;a href=&quot;https://github.com/fbrctr/fabricator/archive/master.zip&quot; class=&quot;button&quot;&gt;Start Building&lt;/a&gt;
+&lt;/div&gt;</code></pre>
 </div>
 
 
@@ -265,6 +336,38 @@
 </div>
 
 
+<div class="f-item-group" id="page-header">
+
+	<div class="f-item-heading-group" data-f-toggle="labels">
+		<h2 class="f-item-heading">Page Header</h2>
+		<div class="f-item-controls">
+			
+			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
+				<svg>
+					<use xlink:href="#f-icon-code" />
+				</svg>
+			</span>
+		</div>
+	</div>
+<div class="f-item-preview">
+	<div class="page-header">
+    <a href="/">
+        <img src="assets/toolkit/images/head.svg" alt="Fabricator">
+    </a>
+</div>
+</div>
+<div class="f-item-code f-item-hidden" data-f-toggle="code">
+	<pre><code class="language-markup">&lt;div class=&quot;page-header&quot;&gt;
+    &lt;a href=&quot;/&quot;&gt;
+        &lt;img src=&quot;assets/toolkit/images/head.svg&quot; alt=&quot;Fabricator&quot;&gt;
+    &lt;/a&gt;
+&lt;/div&gt;</code></pre>
+</div>
+
+
+</div>
+
+
 <div class="f-item-group" id="paragraph">
 
 	<div class="f-item-heading-group" data-f-toggle="labels">
@@ -291,178 +394,45 @@
 </div>
 
 
-<div class="f-item-group" id="radio">
+<div class="f-item-group" id="symbols">
 
 	<div class="f-item-heading-group" data-f-toggle="labels">
-		<h2 class="f-item-heading">Radio</h2>
+		<h2 class="f-item-heading">Symbols</h2>
 		<div class="f-item-controls">
-			
+			<span class="f-control f-icon" data-f-toggle-control="notes" title="Toggle Notes">
+				<svg>
+					<use xlink:href="#f-icon-notes" />
+				</svg>
+			</span>
 			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
 				<svg>
 					<use xlink:href="#f-icon-code" />
 				</svg>
 			</span>
 		</div>
-	</div>
+	</div><div class="f-item-notes" data-f-toggle="notes">
+	<p>Symbols are SVG and the <code>&lt;symbol&gt;</code> method described here - <a href="https://css-tricks.com/svg-symbol-good-choice-icons/">CSS-Tricks - SVG symbol a Good Choice for Icons</a></p>
+<p>This element is a hidden <code>&lt;svg&gt;</code> element that persists on every page.</p>
+<p>Include a symbol using the following syntax:</p>
+<pre><code class="language-markup">&lt;svg&gt;
+    &lt;use xlink:href=&quot;#symbol-{name}&quot; /&gt;
+&lt;/svg&gt;
+</code></pre>
+
+</div>
 <div class="f-item-preview">
-	<label>
-    <input type="radio" name="groupName" id="radio1" /> Radio 1
-</label>
-
-<label>
-    <input type="radio" name="groupName" id="radio2" /> Radio 2
-</label>
-
-<label>
-    <input type="radio" name="groupName" id="radio3" /> Radio 3
-</label>
+	<svg style="display: none">
+    <symbol id="symbol-bolt" viewBox="0 0 24 39">
+        <path d="M15.55 24.013L23.224 0 11.767 17.797l-3.31-3.853L0 38.454l11.932-18.378 3.62 3.937z" />
+    </symbol>
+</svg>
 </div>
 <div class="f-item-code f-item-hidden" data-f-toggle="code">
-	<pre><code class="language-markup">&lt;label&gt;
-    &lt;input type=&quot;radio&quot; name=&quot;groupName&quot; id=&quot;radio1&quot; /&gt; Radio 1
-&lt;/label&gt;
-
-&lt;label&gt;
-    &lt;input type=&quot;radio&quot; name=&quot;groupName&quot; id=&quot;radio2&quot; /&gt; Radio 2
-&lt;/label&gt;
-
-&lt;label&gt;
-    &lt;input type=&quot;radio&quot; name=&quot;groupName&quot; id=&quot;radio3&quot; /&gt; Radio 3
-&lt;/label&gt;</code></pre>
-</div>
-
-
-</div>
-
-
-<div class="f-item-group" id="select">
-
-	<div class="f-item-heading-group" data-f-toggle="labels">
-		<h2 class="f-item-heading">Select</h2>
-		<div class="f-item-controls">
-			
-			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
-				<svg>
-					<use xlink:href="#f-icon-code" />
-				</svg>
-			</span>
-		</div>
-	</div>
-<div class="f-item-preview">
-	<select name="" id="">
-    <option value="">Option 1</option>
-    <option value="">Option 2</option>
-    <option value="">Option 3</option>
-    <option value="">Option 4</option>
-    <option value="">Option 5</option>
-</select>
-</div>
-<div class="f-item-code f-item-hidden" data-f-toggle="code">
-	<pre><code class="language-markup">&lt;select name=&quot;&quot; id=&quot;&quot;&gt;
-    &lt;option value=&quot;&quot;&gt;Option 1&lt;/option&gt;
-    &lt;option value=&quot;&quot;&gt;Option 2&lt;/option&gt;
-    &lt;option value=&quot;&quot;&gt;Option 3&lt;/option&gt;
-    &lt;option value=&quot;&quot;&gt;Option 4&lt;/option&gt;
-    &lt;option value=&quot;&quot;&gt;Option 5&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-</div>
-
-
-</div>
-
-
-<div class="f-item-group" id="table">
-
-	<div class="f-item-heading-group" data-f-toggle="labels">
-		<h2 class="f-item-heading">Table</h2>
-		<div class="f-item-controls">
-			
-			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
-				<svg>
-					<use xlink:href="#f-icon-code" />
-				</svg>
-			</span>
-		</div>
-	</div>
-<div class="f-item-preview">
-	<table>
-    <thead>
-        <tr>
-            <th>Table Heading 1</th>
-            <th>Table Heading 2</th>
-            <th>Table Heading 3</th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th>Table Footer 1</th>
-            <th>Table Footer 2</th>
-            <th>Table Footer 3</th>
-        </tr>
-    </tfoot>
-    <tbody>
-        <tr>
-            <td>Table Cell 1</td>
-            <td>Table Cell 2</td>
-            <td>Table Cell 3</td>
-        </tr>
-        <tr>
-            <td>Table Cell 1</td>
-            <td>Table Cell 2</td>
-            <td>Table Cell 3</td>
-        </tr>
-        <tr>
-            <td>Table Cell 1</td>
-            <td>Table Cell 2</td>
-            <td>Table Cell 3</td>
-        </tr>
-        <tr>
-            <td>Table Cell 1</td>
-            <td>Table Cell 2</td>
-            <td>Table Cell 3</td>
-        </tr>
-    </tbody>
-</table>
-</div>
-<div class="f-item-code f-item-hidden" data-f-toggle="code">
-	<pre><code class="language-markup">&lt;table&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Table Heading 1&lt;/th&gt;
-            &lt;th&gt;Table Heading 2&lt;/th&gt;
-            &lt;th&gt;Table Heading 3&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tfoot&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Table Footer 1&lt;/th&gt;
-            &lt;th&gt;Table Footer 2&lt;/th&gt;
-            &lt;th&gt;Table Footer 3&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/tfoot&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Table Cell 1&lt;/td&gt;
-            &lt;td&gt;Table Cell 2&lt;/td&gt;
-            &lt;td&gt;Table Cell 3&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Table Cell 1&lt;/td&gt;
-            &lt;td&gt;Table Cell 2&lt;/td&gt;
-            &lt;td&gt;Table Cell 3&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Table Cell 1&lt;/td&gt;
-            &lt;td&gt;Table Cell 2&lt;/td&gt;
-            &lt;td&gt;Table Cell 3&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Table Cell 1&lt;/td&gt;
-            &lt;td&gt;Table Cell 2&lt;/td&gt;
-            &lt;td&gt;Table Cell 3&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
+	<pre><code class="language-markup">&lt;svg style=&quot;display: none&quot;&gt;
+    &lt;symbol id=&quot;symbol-bolt&quot; viewBox=&quot;0 0 24 39&quot;&gt;
+        &lt;path d=&quot;M15.55 24.013L23.224 0 11.767 17.797l-3.31-3.853L0 38.454l11.932-18.378 3.62 3.937z&quot; /&gt;
+    &lt;/symbol&gt;
+&lt;/svg&gt;</code></pre>
 </div>
 
 
