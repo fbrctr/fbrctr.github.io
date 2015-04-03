@@ -1,1 +1,878 @@
-!function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var r=t.util.type(e);switch(r){case"Object":var a={};for(var n in e)e.hasOwnProperty(n)&&(a[n]=t.util.clone(e[n]));return a;case"Array":return e.slice()}return e}},languages:{extend:function(e,r){var a=t.util.clone(t.languages[e]);for(var n in r)a[n]=r[n];return a},insertBefore:function(e,r,a,n){n=n||t.languages;var o=n[e],i={};for(var l in o)if(o.hasOwnProperty(l)){if(l==r)for(var s in a)a.hasOwnProperty(s)&&(i[s]=a[s]);i[l]=o[l]}return n[e]=i},DFS:function(e,r){for(var a in e)r.call(e,a,e[a]),"Object"===t.util.type(e)&&t.languages.DFS(e[a],r)}},highlightAll:function(e,r){for(var a,n=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'),o=0;a=n[o++];)t.highlightElement(a,e===!0,r)},highlightElement:function(a,n,o){for(var i,l,s=a;s&&!e.test(s.className);)s=s.parentNode;if(s&&(i=(s.className.match(e)||[,""])[1],l=t.languages[i]),l){a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+i,s=a.parentNode,/pre/i.test(s.nodeName)&&(s.className=s.className.replace(e,"").replace(/\s+/g," ")+" language-"+i);var c=a.textContent;if(c){c=c.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ");var g={element:a,language:i,grammar:l,code:c};if(t.hooks.run("before-highlight",g),n&&self.Worker){var u=new Worker(t.filename);u.onmessage=function(e){g.highlightedCode=r.stringify(JSON.parse(e.data),i),t.hooks.run("before-insert",g),g.element.innerHTML=g.highlightedCode,o&&o.call(g.element),t.hooks.run("after-highlight",g)},u.postMessage(JSON.stringify({language:g.language,code:g.code}))}else g.highlightedCode=t.highlight(g.code,g.grammar,g.language),t.hooks.run("before-insert",g),g.element.innerHTML=g.highlightedCode,o&&o.call(a),t.hooks.run("after-highlight",g)}}},highlight:function(e,a,n){return r.stringify(t.tokenize(e,a),n)},tokenize:function(e,r){var a=t.Token,n=[e],o=r.rest;if(o){for(var i in o)r[i]=o[i];delete r.rest}e:for(var i in r)if(r.hasOwnProperty(i)&&r[i]){var l=r[i],s=l.inside,c=!!l.lookbehind,g=0;l=l.pattern||l;for(var u=0;u<n.length;u++){var f=n[u];if(n.length>e.length)break e;if(!(f instanceof a)){l.lastIndex=0;var d=l.exec(f);if(d){c&&(g=d[1].length);var m=d.index-1+g,d=d[0].slice(g),p=d.length,h=m+p,v=f.slice(0,m+1),b=f.slice(h+1),y=[u,1];v&&y.push(v);var w=new a(i,s?t.tokenize(d,s):d);y.push(w),b&&y.push(b),Array.prototype.splice.apply(n,y)}}}}return n},hooks:{all:{},add:function(e,r){var a=t.hooks.all;a[e]=a[e]||[],a[e].push(r)},run:function(e,r){var a=t.hooks.all[e];if(a&&a.length)for(var n,o=0;n=a[o++];)n(r)}}},r=t.Token=function(e,t){this.type=e,this.content=t};if(r.stringify=function(e,a,n){if("string"==typeof e)return e;if("[object Array]"==Object.prototype.toString.call(e))return e.map(function(t){return r.stringify(t,a,e)}).join("");var o={type:e.type,content:r.stringify(e.content,a,n),tag:"span",classes:["token",e.type],attributes:{},language:a,parent:n};"comment"==o.type&&(o.attributes.spellcheck="true"),t.hooks.run("wrap",o);var i="";for(var l in o.attributes)i+=l+'="'+(o.attributes[l]||"")+'"';return"<"+o.tag+' class="'+o.classes.join(" ")+'" '+i+">"+o.content+"</"+o.tag+">"},!self.document)return void self.addEventListener("message",function(e){var r=JSON.parse(e.data),a=r.language,n=r.code;self.postMessage(JSON.stringify(t.tokenize(n,t.languages[a]))),self.close()},!1);var a=document.getElementsByTagName("script");a=a[a.length-1],a&&(t.filename=a.src,document.addEventListener&&!a.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll))}(),Prism.languages.markup={comment:/&lt;!--[\w\W]*?-->/g,prolog:/&lt;\?.+?\?>/,doctype:/&lt;!DOCTYPE.+?>/,cdata:/&lt;!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?>/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|>|"/g}},punctuation:/\/?>/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi},Prism.hooks.add("wrap",function(e){"entity"===e.type&&(e.attributes.title=e.content.replace(/&amp;/,"&"))}),Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*{))/gi,inside:{punctuation:/[;:]/g}},url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\};]*(?=\s*\{)/g,property:/(\b|\B)[\w-]+(?=\s*:)/gi,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g},Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/gi,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/gi,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}}),Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|(^|[^:])\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,"class-name":{pattern:/((?:class|interface|extends|implements|trait|instanceof|new)\s+)[a-z0-9_\.\\]+/gi,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,"function":{pattern:/[a-z0-9_]+\(/gi,inside:{punctuation:/\(/}},number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?)\b/g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\/|\~|\^|\%/g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g},Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?|NaN|-?Infinity)\b/g}),Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}}),Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/gi,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/gi,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}}),function(){if(self.Prism&&self.document&&document.querySelector){var e={js:"javascript",html:"markup",svg:"markup"};Array.prototype.slice.call(document.querySelectorAll("pre[data-src]")).forEach(function(t){var r=t.getAttribute("data-src"),a=(r.match(/\.(\w+)$/)||[,""])[1],n=e[a]||a,o=document.createElement("code");o.className="language-"+n,t.textContent="",o.textContent="Loading…",t.appendChild(o);var i=new XMLHttpRequest;i.open("GET",r,!0),i.onreadystatechange=function(){4==i.readyState&&(i.status<400&&i.responseText?(o.textContent=i.responseText,Prism.highlightElement(o)):o.textContent=i.status>=400?"✖ Error "+i.status+" while fetching file: "+i.statusText:"✖ Error: File does not exist or is empty")},i.send(null)})}}();var fabricator=window.fabricator={};fabricator.options={toggles:{details:!0,notes:!0,code:!1}},fabricator.test={},fabricator.test.localStorage=function(){var e="_f";try{return localStorage.setItem(e,e),localStorage.removeItem(e),!0}catch(t){return!1}}(),fabricator.test.localStorage&&(localStorage.fabricator=localStorage.fabricator||JSON.stringify(fabricator.options)),fabricator.dom={primaryMenu:document.querySelector(".f-menu"),menuItems:document.querySelectorAll(".f-menu li a"),menuToggle:document.querySelector(".f-menu-toggle")},fabricator.buildColorChips=function(){for(var e,t=document.querySelectorAll(".f-color-chip"),r=t.length-1;r>=0;r--)e=t[r].querySelector(".f-color-chip__color").innerHTML,t[r].style.borderTopColor=e,t[r].style.borderBottomColor=e;return this},fabricator.setActiveItem=function(){var e=function(){for(var e,t,r=[],a=fabricator.dom.menuItems.length-1;a>=0;a--)fabricator.dom.menuItems[a].classList.remove("f-active"),t=fabricator.dom.menuItems[a].getAttribute("href"),e=t.indexOf("#")>-1?t.split("#").pop():t.split("/").pop().replace(/\.[^/.]+$/,""),r.push(e);return r.reverse()},t=function(){var t,r,a=window.location.href,n=e();t=a.indexOf("#")>-1?window.location.hash.replace("#",""):window.location.pathname.split("/").pop().replace(/\.[^/.]+$/,""),""===t&&(t="index"),r=n.indexOf(t)>-1?n.indexOf(t):0,fabricator.dom.menuItems[r].classList.add("f-active")};return window.addEventListener("hashchange",t),t(),this},fabricator.primaryMenuControls=function(){var e=fabricator.dom.menuToggle,t=function(){document.querySelector("html").classList.toggle("state--menu-active")};e.addEventListener("click",function(){t()});for(var r=function(){t()},a=0;a<fabricator.dom.menuItems.length;a++)fabricator.dom.menuItems[a].addEventListener("click",r);return this},fabricator.allItemsToggles=function(){for(var e={details:document.querySelectorAll('[data-f-toggle="details"]'),notes:document.querySelectorAll('[data-f-toggle="notes"]'),code:document.querySelectorAll('[data-f-toggle="code"]')},t=document.querySelectorAll(".f-controls [data-f-toggle-control]"),r=fabricator.test.localStorage?JSON.parse(localStorage.fabricator):fabricator.options,a=function(t,a){for(var n=document.querySelector(".f-controls [data-f-toggle-control="+t+"]"),o=e[t],i=0;i<o.length;i++)a?o[i].classList.remove("f-item-hidden"):o[i].classList.add("f-item-hidden");a?n.classList.add("f-active"):n.classList.remove("f-active"),r.toggles[t]=a,fabricator.test.localStorage&&localStorage.setItem("fabricator",JSON.stringify(r))},n=0;n<t.length;n++)t[n].addEventListener("click",function(e){var t=e.currentTarget.getAttribute("data-f-toggle-control"),r=e.currentTarget.className.indexOf("f-active")<0;a(t,r)});for(var o in r.toggles)r.toggles.hasOwnProperty(o)&&a(o,r.toggles[o]);return this},fabricator.singleItemToggle=function(){for(var e=document.querySelectorAll(".f-item-group [data-f-toggle-control]"),t=function(e){var t=this.parentNode.parentNode.parentNode,r=e.currentTarget.getAttribute("data-f-toggle-control");t.querySelector("[data-f-toggle="+r+"]").classList.toggle("f-item-hidden")},r=0;r<e.length;r++)e[r].addEventListener("click",t);return this},fabricator.bindCodeAutoSelect=function(){for(var e=document.querySelectorAll(".f-item-code"),t=function(e){var t=window.getSelection(),r=document.createRange();r.selectNodeContents(e.querySelector("code")),t.removeAllRanges(),t.addRange(r)},r=e.length-1;r>=0;r--)e[r].addEventListener("click",t.bind(this,e[r]))},function(){fabricator.primaryMenuControls().allItemsToggles().singleItemToggle().buildColorChips().setActiveItem().bindCodeAutoSelect(),Prism.highlightAll()}();
+
+
+/* **********************************************
+     Begin prism-core.js
+********************************************** */
+
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */
+
+(function(){
+
+// Private helper vars
+var lang = /\blang(?:uage)?-(?!\*)(\w+)\b/i;
+
+var _ = self.Prism = {
+	util: {
+		type: function (o) { 
+			return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
+		},
+		
+		// Deep clone a language definition (e.g. to extend it)
+		clone: function (o) {
+			var type = _.util.type(o);
+
+			switch (type) {
+				case 'Object':
+					var clone = {};
+					
+					for (var key in o) {
+						if (o.hasOwnProperty(key)) {
+							clone[key] = _.util.clone(o[key]);
+						}
+					}
+					
+					return clone;
+					
+				case 'Array':
+					return o.slice();
+			}
+			
+			return o;
+		}
+	},
+	
+	languages: {
+		extend: function (id, redef) {
+			var lang = _.util.clone(_.languages[id]);
+			
+			for (var key in redef) {
+				lang[key] = redef[key];
+			}
+			
+			return lang;
+		},
+		
+		// Insert a token before another token in a language literal
+		insertBefore: function (inside, before, insert, root) {
+			root = root || _.languages;
+			var grammar = root[inside];
+			var ret = {};
+				
+			for (var token in grammar) {
+			
+				if (grammar.hasOwnProperty(token)) {
+					
+					if (token == before) {
+					
+						for (var newToken in insert) {
+						
+							if (insert.hasOwnProperty(newToken)) {
+								ret[newToken] = insert[newToken];
+							}
+						}
+					}
+					
+					ret[token] = grammar[token];
+				}
+			}
+			
+			return root[inside] = ret;
+		},
+		
+		// Traverse a language definition with Depth First Search
+		DFS: function(o, callback) {
+			for (var i in o) {
+				callback.call(o, i, o[i]);
+				
+				if (_.util.type(o) === 'Object') {
+					_.languages.DFS(o[i], callback);
+				}
+			}
+		}
+	},
+
+	highlightAll: function(async, callback) {
+		var elements = document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');
+
+		for (var i=0, element; element = elements[i++];) {
+			_.highlightElement(element, async === true, callback);
+		}
+	},
+		
+	highlightElement: function(element, async, callback) {
+		// Find language
+		var language, grammar, parent = element;
+		
+		while (parent && !lang.test(parent.className)) {
+			parent = parent.parentNode;
+		}
+		
+		if (parent) {
+			language = (parent.className.match(lang) || [,''])[1];
+			grammar = _.languages[language];
+		}
+
+		if (!grammar) {
+			return;
+		}
+		
+		// Set language on the element, if not present
+		element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+		
+		// Set language on the parent, for styling
+		parent = element.parentNode;
+		
+		if (/pre/i.test(parent.nodeName)) {
+			parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language; 
+		}
+
+		var code = element.textContent;
+		
+		if(!code) {
+			return;
+		}
+		
+		code = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+		
+		var env = {
+			element: element,
+			language: language,
+			grammar: grammar,
+			code: code
+		};
+		
+		_.hooks.run('before-highlight', env);
+		
+		if (async && self.Worker) {
+			var worker = new Worker(_.filename);	
+			
+			worker.onmessage = function(evt) {
+				env.highlightedCode = Token.stringify(JSON.parse(evt.data), language);
+
+				_.hooks.run('before-insert', env);
+
+				env.element.innerHTML = env.highlightedCode;
+				
+				callback && callback.call(env.element);
+				_.hooks.run('after-highlight', env);
+			};
+			
+			worker.postMessage(JSON.stringify({
+				language: env.language,
+				code: env.code
+			}));
+		}
+		else {
+			env.highlightedCode = _.highlight(env.code, env.grammar, env.language)
+
+			_.hooks.run('before-insert', env);
+
+			env.element.innerHTML = env.highlightedCode;
+			
+			callback && callback.call(element);
+			
+			_.hooks.run('after-highlight', env);
+		}
+	},
+	
+	highlight: function (text, grammar, language) {
+		return Token.stringify(_.tokenize(text, grammar), language);
+	},
+	
+	tokenize: function(text, grammar, language) {
+		var Token = _.Token;
+		
+		var strarr = [text];
+		
+		var rest = grammar.rest;
+		
+		if (rest) {
+			for (var token in rest) {
+				grammar[token] = rest[token];
+			}
+			
+			delete grammar.rest;
+		}
+								
+		tokenloop: for (var token in grammar) {
+			if(!grammar.hasOwnProperty(token) || !grammar[token]) {
+				continue;
+			}
+			
+			var pattern = grammar[token], 
+				inside = pattern.inside,
+				lookbehind = !!pattern.lookbehind,
+				lookbehindLength = 0;
+			
+			pattern = pattern.pattern || pattern;
+			
+			for (var i=0; i<strarr.length; i++) { // Don’t cache length as it changes during the loop
+				
+				var str = strarr[i];
+				
+				if (strarr.length > text.length) {
+					// Something went terribly wrong, ABORT, ABORT!
+					break tokenloop;
+				}
+				
+				if (str instanceof Token) {
+					continue;
+				}
+				
+				pattern.lastIndex = 0;
+				
+				var match = pattern.exec(str);
+				
+				if (match) {
+					if(lookbehind) {
+						lookbehindLength = match[1].length;
+					}
+
+					var from = match.index - 1 + lookbehindLength,
+					    match = match[0].slice(lookbehindLength),
+					    len = match.length,
+					    to = from + len,
+						before = str.slice(0, from + 1),
+						after = str.slice(to + 1); 
+
+					var args = [i, 1];
+					
+					if (before) {
+						args.push(before);
+					}
+					
+					var wrapped = new Token(token, inside? _.tokenize(match, inside) : match);
+					
+					args.push(wrapped);
+					
+					if (after) {
+						args.push(after);
+					}
+					
+					Array.prototype.splice.apply(strarr, args);
+				}
+			}
+		}
+
+		return strarr;
+	},
+	
+	hooks: {
+		all: {},
+		
+		add: function (name, callback) {
+			var hooks = _.hooks.all;
+			
+			hooks[name] = hooks[name] || [];
+			
+			hooks[name].push(callback);
+		},
+		
+		run: function (name, env) {
+			var callbacks = _.hooks.all[name];
+			
+			if (!callbacks || !callbacks.length) {
+				return;
+			}
+			
+			for (var i=0, callback; callback = callbacks[i++];) {
+				callback(env);
+			}
+		}
+	}
+};
+
+var Token = _.Token = function(type, content) {
+	this.type = type;
+	this.content = content;
+};
+
+Token.stringify = function(o, language, parent) {
+	if (typeof o == 'string') {
+		return o;
+	}
+
+	if (Object.prototype.toString.call(o) == '[object Array]') {
+		return o.map(function(element) {
+			return Token.stringify(element, language, o);
+		}).join('');
+	}
+	
+	var env = {
+		type: o.type,
+		content: Token.stringify(o.content, language, parent),
+		tag: 'span',
+		classes: ['token', o.type],
+		attributes: {},
+		language: language,
+		parent: parent
+	};
+	
+	if (env.type == 'comment') {
+		env.attributes['spellcheck'] = 'true';
+	}
+	
+	_.hooks.run('wrap', env);
+	
+	var attributes = '';
+	
+	for (var name in env.attributes) {
+		attributes += name + '="' + (env.attributes[name] || '') + '"';
+	}
+	
+	return '<' + env.tag + ' class="' + env.classes.join(' ') + '" ' + attributes + '>' + env.content + '</' + env.tag + '>';
+	
+};
+
+if (!self.document) {
+	// In worker
+	self.addEventListener('message', function(evt) {
+		var message = JSON.parse(evt.data),
+		    lang = message.language,
+		    code = message.code;
+		
+		self.postMessage(JSON.stringify(_.tokenize(code, _.languages[lang])));
+		self.close();
+	}, false);
+	
+	return;
+}
+
+// Get current script and highlight
+var script = document.getElementsByTagName('script');
+
+script = script[script.length - 1];
+
+if (script) {
+	_.filename = script.src;
+	
+	if (document.addEventListener && !script.hasAttribute('data-manual')) {
+		document.addEventListener('DOMContentLoaded', _.highlightAll);
+	}
+}
+
+})();
+
+/* **********************************************
+     Begin prism-markup.js
+********************************************** */
+
+Prism.languages.markup = {
+	'comment': /&lt;!--[\w\W]*?-->/g,
+	'prolog': /&lt;\?.+?\?>/,
+	'doctype': /&lt;!DOCTYPE.+?>/,
+	'cdata': /&lt;!\[CDATA\[[\w\W]*?]]>/i,
+	'tag': {
+		pattern: /&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?>/gi,
+		inside: {
+			'tag': {
+				pattern: /^&lt;\/?[\w:-]+/i,
+				inside: {
+					'punctuation': /^&lt;\/?/,
+					'namespace': /^[\w-]+?:/
+				}
+			},
+			'attr-value': {
+				pattern: /=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,
+				inside: {
+					'punctuation': /=|>|"/g
+				}
+			},
+			'punctuation': /\/?>/g,
+			'attr-name': {
+				pattern: /[\w:-]+/g,
+				inside: {
+					'namespace': /^[\w-]+?:/
+				}
+			}
+			
+		}
+	},
+	'entity': /&amp;#?[\da-z]{1,8};/gi
+};
+
+// Plugin to make entity title show the real entity, idea by Roman Komarov
+Prism.hooks.add('wrap', function(env) {
+
+	if (env.type === 'entity') {
+		env.attributes['title'] = env.content.replace(/&amp;/, '&');
+	}
+});
+
+/* **********************************************
+     Begin prism-css.js
+********************************************** */
+
+Prism.languages.css = {
+	'comment': /\/\*[\w\W]*?\*\//g,
+	'atrule': {
+		pattern: /@[\w-]+?.*?(;|(?=\s*{))/gi,
+		inside: {
+			'punctuation': /[;:]/g
+		}
+	},
+	'url': /url\((["']?).*?\1\)/gi,
+	'selector': /[^\{\}\s][^\{\};]*(?=\s*\{)/g,
+	'property': /(\b|\B)[\w-]+(?=\s*:)/ig,
+	'string': /("|')(\\?.)*?\1/g,
+	'important': /\B!important\b/gi,
+	'ignore': /&(lt|gt|amp);/gi,
+	'punctuation': /[\{\};:]/g
+};
+
+if (Prism.languages.markup) {
+	Prism.languages.insertBefore('markup', 'tag', {
+		'style': {
+			pattern: /(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,
+			inside: {
+				'tag': {
+					pattern: /(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,
+					inside: Prism.languages.markup.tag.inside
+				},
+				rest: Prism.languages.css
+			}
+		}
+	});
+}
+
+/* **********************************************
+     Begin prism-clike.js
+********************************************** */
+
+Prism.languages.clike = {
+	'comment': {
+		pattern: /(^|[^\\])(\/\*[\w\W]*?\*\/|(^|[^:])\/\/.*?(\r?\n|$))/g,
+		lookbehind: true
+	},
+	'string': /("|')(\\?.)*?\1/g,
+	'class-name': {
+		pattern: /((?:class|interface|extends|implements|trait|instanceof|new)\s+)[a-z0-9_\.\\]+/ig,
+		lookbehind: true,
+		inside: {
+			punctuation: /(\.|\\)/
+		}
+	},
+	'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,
+	'boolean': /\b(true|false)\b/g,
+	'function': {
+		pattern: /[a-z0-9_]+\(/ig,
+		inside: {
+			punctuation: /\(/
+		}
+	},
+	'number': /\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?)\b/g,
+	'operator': /[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\/|\~|\^|\%/g,
+	'ignore': /&(lt|gt|amp);/gi,
+	'punctuation': /[{}[\];(),.:]/g
+};
+
+/* **********************************************
+     Begin prism-javascript.js
+********************************************** */
+
+Prism.languages.javascript = Prism.languages.extend('clike', {
+	'keyword': /\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,
+	'number': /\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?|NaN|-?Infinity)\b/g
+});
+
+Prism.languages.insertBefore('javascript', 'keyword', {
+	'regex': {
+		pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,
+		lookbehind: true
+	}
+});
+
+if (Prism.languages.markup) {
+	Prism.languages.insertBefore('markup', 'tag', {
+		'script': {
+			pattern: /(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,
+			inside: {
+				'tag': {
+					pattern: /(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,
+					inside: Prism.languages.markup.tag.inside
+				},
+				rest: Prism.languages.javascript
+			}
+		}
+	});
+}
+
+/* **********************************************
+     Begin prism-file-highlight.js
+********************************************** */
+
+(function(){
+
+if (!self.Prism || !self.document || !document.querySelector) {
+	return;
+}
+
+var Extensions = {
+	'js': 'javascript',
+	'html': 'markup',
+	'svg': 'markup'
+};
+
+Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function(pre) {
+	var src = pre.getAttribute('data-src');
+	var extension = (src.match(/\.(\w+)$/) || [,''])[1];
+	var language = Extensions[extension] || extension;
+	
+	var code = document.createElement('code');
+	code.className = 'language-' + language;
+	
+	pre.textContent = '';
+	
+	code.textContent = 'Loading…';
+	
+	pre.appendChild(code);
+	
+	var xhr = new XMLHttpRequest();
+	
+	xhr.open('GET', src, true);
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			
+			if (xhr.status < 400 && xhr.responseText) {
+				code.textContent = xhr.responseText;
+			
+				Prism.highlightElement(code);
+			}
+			else if (xhr.status >= 400) {
+				code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+			}
+			else {
+				code.textContent = '✖ Error: File does not exist or is empty';
+			}
+		}
+	};
+	
+	xhr.send(null);
+});
+
+})();
+'use strict';
+
+/**
+ * Global `fabricator` object
+ * @namespace
+ */
+var fabricator = window.fabricator = {};
+
+
+/**
+ * Default options
+ * @type {Object}
+ */
+fabricator.options = {
+	toggles: {
+		details: true,
+		notes: true,
+		code: false
+	}
+};
+
+/**
+ * Feature detection
+ * @type {Object}
+ */
+fabricator.test = {};
+
+// test for localstorage
+fabricator.test.localStorage = (function () {
+	var test = '_f';
+	try {
+		localStorage.setItem(test, test);
+		localStorage.removeItem(test);
+		return true;
+	} catch(e) {
+		return false;
+	}
+}());
+
+// create storage object if it doesn't exist; store options
+if (fabricator.test.localStorage) {
+	localStorage.fabricator = localStorage.fabricator || JSON.stringify(fabricator.options);
+}
+
+
+/**
+ * Cache DOM
+ * @type {Object}
+ */
+fabricator.dom = {
+	primaryMenu: document.querySelector('.f-menu'),
+	menuItems: document.querySelectorAll('.f-menu li a'),
+	menuToggle: document.querySelector('.f-menu-toggle')
+};
+
+
+/**
+ * Build color chips
+ */
+fabricator.buildColorChips = function () {
+
+	var chips = document.querySelectorAll('.f-color-chip'),
+		color;
+
+	for (var i = chips.length - 1; i >= 0; i--) {
+		color = chips[i].querySelector('.f-color-chip__color').innerHTML;
+		chips[i].style.borderTopColor = color;
+		chips[i].style.borderBottomColor = color;
+	}
+
+	return this;
+
+};
+
+
+/**
+ * Add `f-active` class to active menu item
+ */
+fabricator.setActiveItem = function () {
+
+	/**
+	 * @return {Array} Sorted array of menu item 'ids'
+	 */
+	var parsedItems = function () {
+
+		var items = [],
+			id, href;
+
+		for (var i = fabricator.dom.menuItems.length - 1; i >= 0; i--) {
+
+			// remove active class from items
+			fabricator.dom.menuItems[i].classList.remove('f-active');
+
+			// get item href
+			href = fabricator.dom.menuItems[i].getAttribute('href');
+
+			// get id
+			if (href.indexOf('#') > -1) {
+				id = href.split('#').pop();
+			} else {
+				id = href.split('/').pop().replace(/\.[^/.]+$/, '');
+			}
+
+			items.push(id);
+
+		}
+
+		return items.reverse();
+
+	};
+
+
+	/**
+	 * Match the 'id' in the window location with the menu item, set menu item as active
+	 */
+	var setActive = function () {
+
+		var href = window.location.href,
+			items = parsedItems(),
+			id, index;
+
+		// get window 'id'
+		if (href.indexOf('#') > -1) {
+			id = window.location.hash.replace('#', '');
+		} else {
+			id = window.location.pathname.split('/').pop().replace(/\.[^/.]+$/, '');
+		}
+
+		// In case the first menu item isn't the index page.
+		if (id === '') {
+			id = 'index';
+		}
+
+		// find the window id in the items array
+		index = (items.indexOf(id) > -1) ? items.indexOf(id) : 0;
+
+		// set the matched item as active
+		fabricator.dom.menuItems[index].classList.add('f-active');
+
+	};
+
+	window.addEventListener('hashchange', setActive);
+
+	setActive();
+
+	return this;
+
+};
+
+
+/**
+ * Click handler to primary menu toggle
+ * @return {Object} fabricator
+ */
+fabricator.primaryMenuControls = function () {
+
+	// shortcut menu DOM
+	var toggle = fabricator.dom.menuToggle;
+
+	// toggle classes on certain elements
+	var toggleClasses = function () {
+		document.querySelector('html').classList.toggle('state--menu-active');
+	};
+
+	// toggle classes on click
+	toggle.addEventListener('click', function () {
+		toggleClasses();
+	});
+
+	// close menu when clicking on item (for collapsed menu view)
+	var closeMenu = function () {
+		toggleClasses();
+	};
+
+	for (var i = 0; i < fabricator.dom.menuItems.length; i++) {
+		fabricator.dom.menuItems[i].addEventListener('click', closeMenu);
+	}
+
+	return this;
+
+};
+
+
+/**
+ * Handler for preview and code toggles
+ * @return {Object} fabricator
+ */
+fabricator.allItemsToggles = function () {
+
+	var items = {
+		details: document.querySelectorAll('[data-f-toggle="details"]'),
+		notes: document.querySelectorAll('[data-f-toggle="notes"]'),
+		code: document.querySelectorAll('[data-f-toggle="code"]')
+	};
+
+	var toggleAllControls = document.querySelectorAll('.f-controls [data-f-toggle-control]');
+
+	var options = (fabricator.test.localStorage) ? JSON.parse(localStorage.fabricator) : fabricator.options;
+
+	// toggle all
+	var toggleAllItems = function (type, value) {
+
+		var button = document.querySelector('.f-controls [data-f-toggle-control=' + type + ']'),
+			_items = items[type];
+
+		for (var i = 0; i < _items.length; i++) {
+			if (value) {
+				_items[i].classList.remove('f-item-hidden');
+			} else {
+				_items[i].classList.add('f-item-hidden');
+			}
+		}
+
+		// toggle styles
+		if (value) {
+			button.classList.add('f-active');
+		} else {
+			button.classList.remove('f-active');
+		}
+
+		// update options
+		options.toggles[type] = value;
+
+		if (fabricator.test.localStorage) {
+			localStorage.setItem('fabricator', JSON.stringify(options));
+		}
+
+	};
+
+	for (var i = 0; i < toggleAllControls.length; i++) {
+
+		toggleAllControls[i].addEventListener('click', function (e) {
+
+			// extract info from target node
+			var type = e.currentTarget.getAttribute('data-f-toggle-control'),
+				value = e.currentTarget.className.indexOf('f-active') < 0;
+
+			// toggle the items
+			toggleAllItems(type, value);
+
+		});
+
+	}
+
+	// persist toggle options from page to page
+	for (var toggle in options.toggles) {
+		if (options.toggles.hasOwnProperty(toggle)) {
+			toggleAllItems(toggle, options.toggles[toggle]);
+		}
+	}
+
+	return this;
+
+};
+
+
+/**
+ * Handler for single item code toggling
+ */
+fabricator.singleItemToggle = function () {
+
+	var itemToggleSingle = document.querySelectorAll('.f-item-group [data-f-toggle-control]');
+
+	// toggle single
+	var toggleSingleItemCode = function (e) {
+		var group = this.parentNode.parentNode.parentNode,
+			type = e.currentTarget.getAttribute('data-f-toggle-control');
+
+		group.querySelector('[data-f-toggle=' + type + ']').classList.toggle('f-item-hidden');
+	};
+
+	for (var i = 0; i < itemToggleSingle.length; i++) {
+		itemToggleSingle[i].addEventListener('click', toggleSingleItemCode);
+	}
+
+	return this;
+
+};
+
+
+/**
+ * Automatically select code when code block is clicked
+ */
+fabricator.bindCodeAutoSelect = function () {
+
+	var codeBlocks = document.querySelectorAll('.f-item-code');
+
+	var select = function (block) {
+		var selection = window.getSelection();
+		var range = document.createRange();
+		range.selectNodeContents(block.querySelector('code'));
+		selection.removeAllRanges();
+		selection.addRange(range);
+	};
+
+	for (var i = codeBlocks.length - 1; i >= 0; i--) {
+		codeBlocks[i].addEventListener('click', select.bind(this, codeBlocks[i]));
+	}
+
+};
+
+
+/**
+ * Initialization
+ */
+(function () {
+
+	// invoke
+	fabricator
+		.primaryMenuControls()
+		.allItemsToggles()
+		.singleItemToggle()
+		.buildColorChips()
+		.setActiveItem()
+		.bindCodeAutoSelect();
+
+	// syntax highlighting
+	Prism.highlightAll();
+
+}());

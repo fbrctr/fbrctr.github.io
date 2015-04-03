@@ -1,0 +1,15 @@
+.button {
+	@include wide-kerning;
+	background-color: color(blue);
+	border: 0;
+	color: color(white);
+	padding: 1em 3em;
+	text-transform: uppercase;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1.3rem;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}

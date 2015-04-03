@@ -1,0 +1,14 @@
+.page-header {
+	text-align: center;
+	background-color: color(aqua);
+	padding: 1rem 0;
+
+	> a {
+		display: inline-block;
+		max-width: 5rem;
+
+		img {
+			width: 100%;
+		}
+	}
+}

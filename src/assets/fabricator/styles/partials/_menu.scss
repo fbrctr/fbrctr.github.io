@@ -10,7 +10,7 @@
 	height: 100%;
 	background-color: map-get($colors, menu-background);
 	font-size: 16px !important;
-	font-family: sans-serif !important;
+	font-family: sans-serif;
 
 	@media (min-width: 60em) {
 		right: auto;

@@ -1,0 +1,68 @@
+.row {
+	@include outer-container;
+	position: relative;
+	padding-right: 1em;
+	padding-left: 1em;
+
+	&--fluid {
+		max-width: 100%;
+	}
+
+	&--no-gutter {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+[class*=col-] {
+	position: relative;
+	float: left;
+}
+
+// standard grid
+@for $i from 1 through $grid-columns {
+	.col-#{$i} {
+		@include span-columns($grid-columns);
+
+		@include breakpoint($bp-m) {
+			@include span-columns($i);
+		}
+	}
+}
+
+
+// dynamic grid
+@mixin col-classes($size) {
+	@for $i from 1 through $grid-columns {
+		.col-#{$size}-#{$i} {
+			@include span-columns($i);
+		}
+	}
+}
+
+@include col-classes($size:s);
+
+@include breakpoint($bp-m) {
+	@include col-classes($size:m);
+}
+
+@include breakpoint($bp-l) {
+	@include col-classes($size:l);
+}
+
+@include breakpoint($bp-xl) {
+	@include col-classes($size:xl);
+}
+
+
+// for documentation site
+.f-grid-preview [class^="col-"] {
+	margin-bottom: ms(0);
+	color: color(black);
+	background-color: color(gray, 1);
+	padding: ms(1);
+
+	+ [class^="col-"] {
+		border-left: 0;
+	}
+}

@@ -1,0 +1,19 @@
+---
+notes: |
+  Symbols are SVG and the `<symbol>` method described here - [CSS-Tricks - SVG symbol a Good Choice for Icons](https://css-tricks.com/svg-symbol-good-choice-icons/)
+
+  This element is a hidden `<svg>` element that persists on every page.
+
+  Include a symbol using the following syntax:
+
+  ```markup
+  <svg>
+  	<use xlink:href="#symbol-{name}" />
+  </svg>
+  ```
+---
+<svg style="display: none">
+	<symbol id="symbol-bolt" viewBox="0 0 24 39">
+		<path d="M15.55 24.013L23.224 0 11.767 17.797l-3.31-3.853L0 38.454l11.932-18.378 3.62 3.937z"/>
+	</symbol>
+</svg>

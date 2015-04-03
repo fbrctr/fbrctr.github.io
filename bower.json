@@ -1,0 +1,21 @@
+{
+  "name": "fbrctr.github.io",
+  "version": "0.0.0",
+  "homepage": "https://github.com/fbrctr/fbrctr.github.io",
+  "authors": [
+    "Luke Askew <lukeaskew@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "neat": "~1.7.2",
+    "css-utils": "~0.1.4"
+  }
+}

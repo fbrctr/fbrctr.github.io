@@ -1,0 +1,31 @@
+.hero {
+	background-color: color(aqua);
+	text-align: center;
+	padding: 2rem 1rem 4rem;
+
+	> img {
+		max-width: 35rem;
+		display: inline-block;
+	}
+
+	&__byline {
+		@include wide-kerning;
+		text-transform: uppercase;
+		position: relative;
+		color: color(blue);
+		font-weight: bold;
+
+		@include breakpoint($bp-xs) {
+			top: -2rem;
+			font-size: 1.3rem;
+		}
+	}
+
+	.button {
+		margin-top: 1.3rem;
+
+		@include breakpoint($bp-xs) {
+			margin-top: 0rem;
+		}
+	}
+}

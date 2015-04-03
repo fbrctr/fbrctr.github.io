@@ -1,0 +1,33 @@
+/**
+ * Color variable map
+ */
+$colors: (
+	orange: (
+		0: rgb(231, 173, 0),
+		1: rgb(231, 129, 0),
+		2: rgb(229, 70, 0)
+	),
+	red: (
+		0: rgb(183, 41, 6)
+	),
+	blue: (
+		0: rgb(24, 24, 48)
+	),
+	grey: (
+		0: rgb(150, 150, 178)
+	),
+	aqua: (
+		0: rgb(126, 237, 226)
+	),
+	white: (
+		0: hsl(0, 0%, 100%)
+	),
+	black: (
+		0: hsl(0, 0%, 10%)
+	)
+);
+
+
+@function color($color, $tone: 0) {
+	@return map-get(map-get($colors, $color), $tone);
+}

@@ -6,7 +6,9 @@
   "main": "README.md",
   "scripts": {
     "gulp": "gulp",
+    "bower": "bower",
     "prestart": "npm install",
+    "postinstall": "bower install",
     "build": "npm install && gulp",
     "start": "gulp --dev"
   },

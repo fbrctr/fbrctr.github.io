@@ -1,0 +1,29 @@
+.header-bar {
+	background-color: color(blue);
+	text-align: center;
+	padding-top: 0.9rem;
+	padding-bottom: 0.75rem;
+
+	&__divider {
+		margin: 0 1rem;
+		display: inline-block;
+		vertical-align: middle;
+
+		svg {
+			width: 2rem;
+			height: 2rem;
+		}
+	}
+
+	a {
+		@include wide-kerning;
+		color: color(white);
+		text-decoration: none;
+		text-transform: uppercase;
+		vertical-align: middle;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
