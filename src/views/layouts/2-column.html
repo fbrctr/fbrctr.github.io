@@ -8,7 +8,7 @@
 	<title>{{title}}</title>
 
 	<!-- toolkit styles -->
-	<link rel="stylesheet" href="{{base_url}}assets/toolkit/styles/toolkit.css">
+	<link rel="stylesheet" href="{{baseurl}}/assets/toolkit/styles/toolkit.css">
 	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<!-- /toolkit styles -->
 
@@ -19,19 +19,28 @@
 
 	{{> page-header}}
 
-	<div class="row">
+	<div class="row pt-xl pb-xxl">
 		<div class="col-s-12 col-m-4 col-l-3">
-
+			<a href="{{baseurl}}/index.html" class="nav-link">&#8592; Home</a>
+			<ul class="link-list mt-xl">
+				<li class="list-heading">Getting Started</li>
+				<li>
+					<a href="{{baseurl}}/docs/index.html">Quick Start</a>
+				</li>
+				<li>
+					<a href="{{baseurl}}/getting-started/what-is-a-toolkit.html">What is a Toolkit?</a>
+				</li>
+			</ul>
 		</div>
 		<div class="col-s-12 col-m-8 col-l-9">
 			{% body %}
 		</div>
 	</div>
 
-	<!-- {{> footer}} -->
+	{{> footer}}
 
 	<!-- toolkit scripts -->
-	<script src="{{base_url}}assets/toolkit/scripts/toolkit.js"></script>
+	<script src="{{baseurl}}/assets/toolkit/scripts/toolkit.js"></script>
 	<!-- /toolkit scripts -->
 
 	{{> analytics}}

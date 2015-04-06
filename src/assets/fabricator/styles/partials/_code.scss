@@ -18,8 +18,7 @@ $code-colors: (
 
 // base
 code,
-code[class*='language-'],
-pre[class*='language-'] {
+pre {
 	color: map-get($code-colors, black);
 	text-align: left;
 	white-space: pre;
@@ -33,7 +32,7 @@ pre[class*='language-'] {
 }
 
 // code blocks
-pre[class*='language-'] {
+pre {
 	overflow: auto;
 	margin: 1em 0;
 	padding: 1.2em;
@@ -57,13 +56,13 @@ table code {
 }
 
 code,
-:not(pre) > code[class*='language-'],
-pre[class*='language-'] {
+:not(pre) > code,
+pre {
 	background: map-get($code-colors, light-gray);
 }
 
 // inline code
-:not(pre) > code[class*='language-'] {
+:not(pre) > code {
 	padding: 0.1em;
 	border-radius: 0.3em;
 }

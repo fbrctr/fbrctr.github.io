@@ -1,8 +1,42 @@
 ---
 title: Docs | Fabricator
 layout: 2-column
+section: Docs
 ---
 
-<h1>Docs</h1>
+{{#markdown}}
 
-<p>Work in progress...</p>
+# Quick Start
+
+## 0. Install node.js
+
+Fabricator is built on Node.js, a platform for building fast, scalable network applications. There are pre-built [installers for each platform](http://nodejs.org/download/). You can also install with [Homebrew](http://brew.sh/) via `brew install node`
+
+## 1. Download Fabricator Instance
+
+Each toolkit starts with a new, unique instance of Fabricator. You can grab the latest with this one-liner:
+
+```shell
+$ curl -L https://github.com/fbrctr/fabricator/archive/master.tar.gz | tar zx --strip 1
+```
+
+Alternatively, you can use the [Yeoman generator](https://github.com/fbrctr/generator-fabricator) to scaffold a new project for you:
+
+```shell
+$ npm install -g generator-fabricator
+$ yo fabricator
+```
+
+## 2. Start Building
+
+Once your instance is setup, you're ready to start building. Fire-up the development environment by running:
+
+```shell
+$ npm start
+```
+
+## 3. Next Steps...
+
+Learn about [toolkit-driven development](/getting-started/what-is-a-toolkit.html) or dig right into using materials, templates, and data.
+
+{{/markdown}}

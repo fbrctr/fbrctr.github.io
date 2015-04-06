@@ -1,5 +1,5 @@
 html {
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 1.2;
 }
 
@@ -10,6 +10,17 @@ body {
 
 a {
 	color: inherit;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&.nav-link {
+		&:hover {
+			color: color(red);
+		}
+	}
 }
 
 h1,
@@ -19,4 +30,17 @@ h4 {
 	@include wide-kerning;
 	text-transform: uppercase;
 	color: color(red);
+	margin-top: 1.75em;
+	margin-bottom: 1em;
+}
+
+p {
+	line-height: 1.875;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+
+	a {
+		color: color(red);
+		text-decoration: underline;
+	}
 }
