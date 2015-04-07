@@ -15,4 +15,9 @@
 
 .stamp {
 	height: 4rem;
+	max-width: 10rem;
+
+	use {
+		fill: color(blue);
+	}
 }

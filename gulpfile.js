@@ -122,7 +122,10 @@ gulp.task('favicon', function () {
 gulp.task('assemble', function(done) {
 	assemble({
 		helpers: {
-			markdown: require('helper-markdown')
+			markdown: require('helper-markdown'),
+			decode: function (val) {
+				return decodeURIComponent(val);
+			}
 		}
 	});
 	done();

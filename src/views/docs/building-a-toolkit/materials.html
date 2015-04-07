@@ -1,0 +1,83 @@
+---
+title: Materials - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Materials
+
+> Defining the "materials" that make up your toolkit
+
+"Material" is a generic term for the individual components/modules/whatever that make up your UI. By default, Fabricator defines a material taxonomy of component -> structure, but is flexible and allows you to define your own.
+
+## Defining your taxonomy
+
+A successful taxonomy takes into account a number of different factors like established brand terminology, personal preference, and the size and scale of the end applications. Here are some sample taxonomies that might work for you:
+
+```
+└── materials
+    ├── components
+    └── structures
+```
+
+```
+└── materials
+    ├── atoms
+    ├── molecules
+    └── organism
+```
+
+```
+└── materials
+    ├── typography
+    ├── elements
+    └── components
+```
+
+```
+└── materials
+    ├── content
+    ├── forms
+    ├── lists
+    └── navigation
+```
+
+Within the `src/materials` direcotry, you can define your taxononmy by organizing your materials into sub-directories.
+
+## Adding materials
+
+A material is a `.html` file that can contain YML front-matter and handlebars markup.
+
+To add a material, create a new `.html` file in the desired directory. The material should show up on the listing page automatically.
+
+Every material is accessible as a handlebars partial using the `{{{decode "%7B%7B> partial-name%7D%7D"}}}` syntax where `partial-name` is the name of the file.
+
+Sometimes it is useful to group materials. You can group materials by placing them in a subdirectory:
+
+```
+└── materials
+    └── components
+        └── lists
+            ├── ordered.html
+            └── unordered.html
+```
+
+Grouped materials are accessed as a partial using dot notation: `{{{decode "%7B%7B> lists.ordered%7D%7D"}}}`
+
+## Documenting a material
+
+You can directly associate documentation with a material by adding `notes` in the front-matter of the file:
+
+```
+---
+notes: |
+  These are notes written in `markdown`
+---
+<div class="component">My Component</div>
+```
+
+Notes will appear adjacent to a material on the listing page and can be toggled on/off.
+
+{{/markdown}}

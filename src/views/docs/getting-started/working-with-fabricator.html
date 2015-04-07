@@ -1,0 +1,124 @@
+---
+title: Working with Fabricator - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Working with Fabricator
+
+> A look into how Fabricator is setup and an explanation of some of it's features.
+
+## Running and Building
+
+Fabricator is built on [node.js](http://nodejs.org). You'll need Node installed before you can start building.
+
+Once you have a Fabricator instance setup, run the following command to start the development environment:
+
+```
+$ npm start
+```
+
+This installs dependecies, compiles the site, and watchs for changes to re-compile.
+
+Once you're ready to deploy your toolkit, run the following command to run an optimized build:
+
+```
+$ npm run build
+```
+
+## Directories
+
+All of your work is done inside of the `src` directory. Inside you'll find a few directories:
+
+```
+└── src
+    ├── assets
+    ├── materials
+    └── views
+```
+
+`assets` contains the static assets (stylesheets, javascript, images) for both Fabricator and your toolkit.
+
+`materials` contains the indivual pieces of UI that make up your toolkit. Each file within is turned into a Handlebars partial for easy prototyping.
+
+`views` contains the pages of the styleguide + documentation site that Fabricator outputs. Also where any prototype pages are stored.
+
+### Materials
+
+By default, Fabricator defines a simple UI taxonomy of "components" and "structures" - components are the smallest unit of UI, and structures are two or components combined. This is a simple, reasonable taxonomy will work in many cases, but you are free to define your own taxonomy. To do so, rename/create new directories in the `materials` directory as needed. For example, toolkit that follows [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) might look like:
+
+```
+└── materials
+    ├── atoms
+    ├── molecules
+    └── organism
+```
+
+Learn more about [materials](/building-a-toolkit/materials.html)
+
+### Views
+
+Views are the actual static `.html` pages Fabricator outputs. By default, the root contains the skeleton of a Fabricator documentation site, with a main landing page, a listing page for each material type, and a documentaion page. These pages are highly customizable. Change them to fit your needs.
+
+Learn more about the view [data model](/building-a-toolkit/data.html) and [customizing the side menu](/advanced/customizing-the-menu.html)
+
+## Assets
+
+Fabricator uses [Gulp.js](http://gulpjs.com) as a super-fast build system. Along with views and materials, all static asset processing is handled by Gulp.
+
+Tasks are defined in `gulpfile.js`. Customization of this file is highly encouraged. Hack on it to suite your needs.
+
+### toolkit
+
+By default, Fabricator defines almost no architecture - those decision are best made by you, the developer. Inside of `src/assets/toolkit` you'll find a single `.scss` and `.js` file. Both are entry points for Sass and Browserify, respsitivyl. It is recommended that you compile your toolkit to a single `.js` and `.css` file. The Gulp tasks for both stylesheets and scripts is setup to give you all the power of Sass and Browserify to help achieve this.
+
+### f.js and f.css
+
+`f.js` and `f.css` - or before compilation, `fabricator.js` and `fabricator.scss` - are the two files that provide basic functionality and styling for the Fabricator site. They are intentionally minimal as to not conflict with anything in your toolkit.
+
+You shouldn't need to modify these files, but if you find the need to, don't sweat - they are included in the compilation tasks just like your toolkit files. Changes are automatically reflected.
+
+All Fabricator CSS classes and data-attributes are name-spaced with `f-`.
+
+## Controls
+
+**Toggling**
+
+You can toggle visibility on elements such as **notes**, **code snippets**, and **labels**.
+
+The controls in the menu allow you to toggle each type globally:
+
+![Toggle all](http://fbrctr.github.io/assets/toolkit/images/toggle-all.png)
+
+You can toggle an individual item's code snippet by pressing the code toggle for that item:
+
+![Toggle single](http://fbrctr.github.io/assets/toolkit/images/toggle-single.png)
+
+
+**Adding toggles to elements**
+
+You can make an element toggle-able by adding a `data-toggle` attribute to that element.
+
+e.g.
+
+```html
+<div data-toggle="labels">Some item label</div>
+<div data-toggle="code">Some item code</div>
+```
+
+## .dotfiles
+
+Fabricator comes with handful of useful dotfiles to help with code managment.
+
+`.editorconfig` - editor configuration rule via [EditorConfig](http://editorconfig.org/)
+
+`.gitattributes` and `.gitignore` - source control configuration
+
+`.jshintrc` - JavaScript static analysis via [JSHint](http://jshint.com/)
+
+Customize these files to fit your needs/opinions.
+
+
+{{/markdown}}
