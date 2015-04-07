@@ -19,7 +19,7 @@
 	<meta name="twitter:description" content="Fabricator is a tool for building modular website design systems.">
 	<meta name="twitter:image:src" content="http://fbrctr.github.io/assets/toolkit/images/social.png">
 
-	<title>Working with Fabricator - Fabricator</title>
+	<title>Third-party Dependencies - Fabricator</title>
 
 	<!-- toolkit styles -->
 	<link rel="stylesheet" href="../assets/toolkit/styles/toolkit.css">
@@ -96,72 +96,90 @@
 		<div class="col-s-12 col-m-8 col-l-9">
 			
 
-<h1>Working with Fabricator</h1>
+<h1>Third-party Dependencies</h1>
 <blockquote>
-<p>A look into how Fabricator is setup and an explanation of some of it's features.</p>
+<p>Including third-party dependencies in your toolkit</p>
 </blockquote>
-<h2>Running and Building</h2>
-<p>Fabricator is built on <a href="http://nodejs.org">node.js</a>. You'll need Node installed before you can start building.</p>
-<p>Once you have a Fabricator instance setup, run the following command to start the development environment:</p>
-<pre><code>$ <span class="hljs-built_in">npm</span> start
+<p>Many times you'll want to include a third-party library like <a href="http://jquery.com">jQuery</a> in your toolkit. It's fairly easy to do so, but requires some modification to the <code>gulpfile.js</code>.</p>
+<h2>Including vendor scripts</h2>
+<ol>
+<li>Install the <a href="https://www.npmjs.com/package/streamqueue">streamqueue</a> package: <code>$ npm install streamqueue --save-dev</code></li>
+<li>Create a <code>config.src.vendor</code> array and include vendor file paths.</li>
+<li>Break the <code>scripts:toolkit</code> task into two streams - <code>toolkit()</code> and <code>vendor()</code> - then merge streams using <code>streamqueue()</code>.</li>
+</ol>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> browserify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'browserify'</span>);
+<span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-concat'</span>);
+<span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> gulpif = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-if'</span>);
+<span class="hljs-keyword">var</span> gutil = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
+<span class="hljs-keyword">var</span> source = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl-source-stream'</span>);
+<span class="hljs-keyword">var</span> streamqueue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'streamqueue'</span>);
+<span class="hljs-keyword">var</span> streamify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-streamify'</span>);
+<span class="hljs-keyword">var</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify'</span>);
+
+<span class="hljs-keyword">var</span> config = {
+    dev: gutil.env.dev,
+    src: {
+        scripts: {
+            fabricator: [
+                <span class="hljs-string">'src/fabricator/scripts/prism.js'</span>,
+                <span class="hljs-string">'src/fabricator/scripts/fabricator.js'</span>
+            ],
+            vendor: [
+                <span class="hljs-string">'src/toolkit/assets/vendor/jquery/dist/jquery.js'</span>
+            ],
+            toolkit: <span class="hljs-string">'./src/toolkit/assets/scripts/toolkit.js'</span>
+        }
+    },
+    dest: <span class="hljs-string">'dist'</span>
+};
+
+gulp.task(<span class="hljs-string">'scripts:toolkit'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+
+    <span class="hljs-keyword">var</span> toolkit = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> browserify(config.src.scripts.toolkit).bundle()
+            .on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(error)</span> </span>{
+                gutil.log(gutil.colors.red(error));
+                <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'end'</span>);
+            })
+            .pipe(source(<span class="hljs-string">'toolkit.js'</span>));
+    };
+
+    <span class="hljs-keyword">var</span> vendor = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> gulp.src(config.src.scripts.vendor)
+            .pipe(concat(<span class="hljs-string">'vendor.js'</span>));
+    };
+
+    <span class="hljs-keyword">return</span> streamqueue({ objectMode: <span class="hljs-literal">true</span> }, vendor(), toolkit())
+        .pipe(streamify(concat(<span class="hljs-string">'toolkit.js'</span>)))
+        .pipe(gulpif(!config.dev, streamify(uglify())))
+        .pipe(gulp.dest(config.dest + <span class="hljs-string">'/toolkit/scripts'</span>));
+
+});
+
 </code></pre>
-<p>This installs dependecies, compiles the site, and watchs for changes to re-compile.</p>
-<p>Once you're ready to deploy your toolkit, run the following command to run an optimized build:</p>
-<pre><code>$ npm <span class="hljs-command">run</span> build
+<h2>Using Bower for dependency management</h2>
+<p><a href="http://bower.io">Bower</a> is a great tool for managing third party client side dependencies. Here's how to leverage Bower on a Fabricator instance:</p>
+<ol>
+<li>Install bower <code>$ npm install bower --save-dev</code></li>
+<li>Add a <code>.bowerrc</code> config file to your project root (see below).</li>
+<li>Update <code>package.json</code> <code>scripts</code> object to hook into Bower install task.</li>
+</ol>
+<p><strong>.bowerrc</strong></p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">directory</span>": <span class="hljs-value"><span class="hljs-string">"bower_components"</span>
+</span>}
 </code></pre>
-<h2>Directories</h2>
-<p>All of your work is done inside of the <code>src</code> directory. Inside you'll find a few directories:</p>
-<pre><code>└── src
-    ├── assets
-    ├── <span class="hljs-typedef"><span class="hljs-keyword">data</span></span>
-    ├── docs
-    ├── materials
-    └── views
+<p><strong>package.json</strong></p>
+<pre><code class="lang-json">"scripts": {
+  "gulp": "gulp",
+  "bower": "bower",
+  "prestart": "npm install",
+  "build": "npm install &amp;&amp; gulp",
+  "postinstall": "bower install",
+  "start": "gulp --dev"
+},
 </code></pre>
-<p><code>assets</code> - static assets (stylesheets, javascript, images) for both Fabricator and your toolkit.</p>
-<p><code>data</code> - yml or json files that can be fed into materials and views</p>
-<p><code>docs</code> - markdown files with toolkit-wide documenation (e.g. usage guidelines, branding, tone)</p>
-<p><code>materials</code> - indivual pieces of UI that make up your toolkit. Each file within is turned into a Handlebars partial for easy prototyping.</p>
-<p><code>views</code> - pages of the styleguide + documentation site that Fabricator outputs. Also where any prototype pages are stored.</p>
-<h3>Materials</h3>
-<p>By default, Fabricator defines a simple UI taxonomy of &quot;components&quot; and &quot;structures&quot; - components are the smallest unit of UI, and structures are two or components combined. This is a simple, reasonable taxonomy will work in many cases, but you are free to define your own taxonomy. To do so, rename/create new directories in the <code>materials</code> directory as needed. For example, toolkit that follows <a href="http://bradfrost.com/blog/post/atomic-web-design/">Atomic Design</a> might look like:</p>
-<pre><code>└── materials
-    ├── atoms
-    ├── molecules
-    └── organism
-</code></pre>
-<p>Learn more about <a href="/building-a-toolkit/materials.html">materials</a></p>
-<h3>Views</h3>
-<p>Views are the actual static <code>.html</code> pages Fabricator outputs. By default, the root contains the skeleton of a Fabricator documentation site, with a main landing page, a listing page for each material type, and a documentaion page. These pages are highly customizable. Change them to fit your needs.</p>
-<p>Learn more about the view <a href="/building-a-toolkit/data.html">data model</a> and <a href="/advanced/customizing-the-menu.html">customizing the side menu</a></p>
-<h2>Assets</h2>
-<p>Fabricator uses <a href="http://gulpjs.com">Gulp.js</a> as a super-fast build system. Along with views and materials, all static asset processing is handled by Gulp.</p>
-<p>Tasks are defined in <code>gulpfile.js</code>. Customization of this file is highly encouraged. Hack on it to suite your needs.</p>
-<h3>toolkit</h3>
-<p>By default, Fabricator defines almost no architecture - those decision are best made by you, the developer. Inside of <code>src/assets/toolkit</code> you'll find a single <code>.scss</code> and <code>.js</code> file. Both are entry points for Sass and Browserify, respsitivyl. It is recommended that you compile your toolkit to a single <code>.js</code> and <code>.css</code> file. The Gulp tasks for both stylesheets and scripts is setup to give you all the power of Sass and Browserify to help achieve this.</p>
-<h3>f.js and f.css</h3>
-<p><code>f.js</code> and <code>f.css</code> - or before compilation, <code>fabricator.js</code> and <code>fabricator.scss</code> - are the two files that provide basic functionality and styling for the Fabricator site. They are intentionally minimal as to not conflict with anything in your toolkit.</p>
-<p>You shouldn't need to modify these files, but if you find the need to, don't sweat - they are included in the compilation tasks just like your toolkit files. Changes are automatically reflected.</p>
-<p>All Fabricator CSS classes and data-attributes are name-spaced with <code>f-</code>.</p>
-<h2>Controls</h2>
-<p><strong>Toggling</strong></p>
-<p>You can toggle visibility on elements such as <strong>notes</strong>, <strong>code snippets</strong>, and <strong>labels</strong>.</p>
-<p>The controls in the menu allow you to toggle each type globally:</p>
-<p><img src="http://fbrctr.github.io/assets/toolkit/images/toggle-all.png" alt="Toggle all"></p>
-<p>You can toggle an individual item's code snippet by pressing the code toggle for that item:</p>
-<p><img src="http://fbrctr.github.io/assets/toolkit/images/toggle-single.png" alt="Toggle single"></p>
-<p><strong>Adding toggles to elements</strong></p>
-<p>You can make an element toggle-able by adding a <code>data-toggle</code> attribute to that element.</p>
-<p>e.g.</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-toggle</span>=<span class="hljs-value">"labels"</span>&gt;</span>Some item label<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-toggle</span>=<span class="hljs-value">"code"</span>&gt;</span>Some item code<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-</code></pre>
-<h2>.dotfiles</h2>
-<p>Fabricator comes with handful of useful dotfiles to help with code managment.</p>
-<p><code>.editorconfig</code> - editor configuration rule via <a href="http://editorconfig.org/">EditorConfig</a></p>
-<p><code>.gitattributes</code> and <code>.gitignore</code> - source control configuration</p>
-<p><code>.jshintrc</code> - JavaScript static analysis via <a href="http://jshint.com/">JSHint</a></p>
-<p>Customize these files to fit your needs/opinions.</p>
 
 		</div>
 	</div>

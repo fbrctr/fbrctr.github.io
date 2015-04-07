@@ -1,0 +1,17 @@
+---
+title: Stylesheets and JavaScript - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Stylesheets and JavaScript
+
+> How to work with CSS and JS within Fabricator
+
+Fabricator comes with very little opinions about how you should architect your Stylesheets and JavaScript. Each use case is different, so its up to you to define what works best.
+
+Out of the box, you'll find a single `.scss` and `.js` file. These are the entry points for Sass compilation and Browserify respectivly. It is reccommended that you leverage the module importing features of each preprocessor to compile your toolkit down to a single `.css` and `.js` file. Practically speaking, you should be able to drop these two files into any application and have full access to your entire toolkit.
+
+{{/markdown}}

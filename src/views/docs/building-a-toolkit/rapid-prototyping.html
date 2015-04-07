@@ -1,0 +1,89 @@
+---
+title: Rapid Prototyping - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Rapid Prototyping
+
+> How to use Fabricator to quickly build new pages
+
+Fabricator's [assembly engine](https://github.com/fbrctr/fabricator-assemble) is a powerful templating engine built on top of [Handlebars.js](http://handlebarsjs.com). It helps you compose new materials and prototypical pages with very little friction.
+
+## Layouts
+
+Layouts are wrappers for pages. You can define as many layouts as you want by creating `.html` files in your layouts folder.
+
+Example layout:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <title>{{{decode "%7B%7Btitle%7D%7D"}}}</title>
+</head>
+<body>
+
+    {{{decode "%7B%25%20body%20%25%7D"}}}
+
+</body>
+</html>
+```
+
+Page content is inserted in the `{{{decode "%7B%25%20body%20%25%7D"}}}` placeholder.
+
+Context can be passed from a page to the layout via front-matter.
+
+The layout that a page uses is also defined in front-matter:
+
+```html
+---
+layout: custom-layout
+title: My Custom Layout
+---
+```
+
+This would use `src/views/layouts/custom-layout.html`.
+
+When no `layout` property is defined, the page uses the `default` layout.
+
+## Views
+
+Views are unique pages templated using Handlebars. These are both Fabricator pages and user-created pages.
+
+Example view:
+
+```html
+---
+title: Document Name
+name: World
+---
+
+<h1>{{{decode "%7B%7Bhome.greeting%7D%7D%2C%20%7B%7Bname%7D%7D"}}}!</h1>
+
+{{{decode "%7B%7B%3E%20button%7D%7D"}}}
+
+```
+
+This outputs a page that uses the default layout (since no layout was defined).
+
+The front-matter block at the top provides context to both the layout and the page itself.
+
+Context is also piped in from [data files](/building-a-toolkit/data.html). In this example, `{{{decode "%7B%7Bhome.greeting%7D%7D"}}}` refers to the `greeting` property in `home.json`.
+
+Fabricator pages are typically stored at the root level of the `views` directory and user-created views (e.g. "templates", "pages", "interfaces") should be stored in subdirectories:
+
+```
+└── views
+    ├── templates
+    │	├── about.html
+    │   └── home.html
+    ├── components.html
+    ├── docs.html
+    ├── index.html
+    └── structures.html
+```
+
+{{/markdown}}

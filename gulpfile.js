@@ -125,6 +125,9 @@ gulp.task('assemble', function(done) {
 			markdown: require('helper-markdown'),
 			decode: function (val) {
 				return decodeURIComponent(val);
+			},
+			raw: function (options) {
+				return options.fn();
 			}
 		}
 	});

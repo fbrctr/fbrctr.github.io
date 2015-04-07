@@ -1,0 +1,55 @@
+---
+title: Helpers - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Helpers
+
+> How to add your own Handlebars helpers
+
+Add your own helpers to the Fabricator assembly engine by defining them in the `assemble` task in `gulpfile.js`:
+
+```
+// assemble
+gulp.task('assemble', function(done) {
+	assemble({
+		helpers: {
+			markdown: require('helper-markdown')
+		}
+	});
+	done();
+});
+```
+
+This adds the [helper-markdown](https://www.npmjs.com/package/helper-markdown) helper, which can be used like:
+
+```
+{{{{raw}}}}{{#markdown}}
+	# Markdown!
+{{/markdown}}{{{{/raw}}}}
+```
+
+Learn more about [Handlebars helpers](http://handlebarsjs.com/block_helpers.html).
+
+## Built-in helpers
+
+There are some useful helpers already built into Fabricator.
+
+### iterate
+
+```
+{{{{raw}}}}{{#iterate 20}}
+	<li>List Item {{@index}}</li>
+{{/iterate}}{{{{/raw}}}}
+```
+
+### material
+
+```
+{{{{raw}}}}{{material name context}}{{{{/raw}}}}
+```
+
+{{/markdown}}

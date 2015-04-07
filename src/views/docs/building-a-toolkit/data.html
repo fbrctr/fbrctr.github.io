@@ -1,0 +1,164 @@
+---
+title: Data - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Data
+
+> How to feed data into your toolkit materials and prototypes
+
+Sometimes it is helpful to decouple page data from materials and layouts.
+
+## src/data
+
+Data can be store in JSON or YML files in the `src/data` directory.
+
+Data within these files is accessed using dot notation. For example, given `home.yml`:
+
+```yml
+links:
+  About Us:
+    - About Us
+    - Careers
+    - Media Center
+    - Legal
+```
+
+Data could be used in a view as:
+
+```html
+{{{{raw}}}}{{#each home.links}}
+	{{#each this}}
+		<a href="#">{{this}}</a>
+	{{/each}}
+{{/each}}{{{{/raw}}}}
+```
+
+And would output:
+
+```html
+<a href="#">About Us</a>
+<a href="#">Careers</a>
+<a href="#">Media Center</a>
+<a href="#">Legal</a>
+```
+
+## Material Front-matter
+
+Data can also be stored as front-matter in a view or material.
+
+Example material `src/materials/components/welcome.html`:
+
+```
+---
+greeting: Hello
+---
+<div class="welcome">{{{{raw}}}}{{greeting}}{{{{/raw}}}}, World!</div>
+```
+
+Output:
+
+```
+<div class="welcome">Hello, World!</div>
+```
+
+## Context
+
+Each view is templated with a unique context (data model) assembled from material data, front-matter, and `src/data`. Fabricator scrapes the files in your toolkit and builds theses data models on the fly. They only exist within the `fabricator-assemble` taske; views are templated using these data models, but the data is never written to disk.
+
+Here's an example scheme:
+
+```json
+{
+    // page front-matter
+    "title": "Home",
+    // built-in props
+    "baseurl": "..",
+    // src/data
+    "home": {
+        "greeting": "Hello",
+        "action": "Click"
+    },
+    "user": {
+        "user": {
+            "name": "Luke"
+        }
+    },
+    // material data
+    "materials": {
+        "components": {
+            "name": "Components",
+            "items": {
+                "alerts": {
+                    "name": "Alerts",
+                    "items": {
+                        "alerts.primary": {
+                            "name": "Primary",
+                            "notes": ""
+                        }
+                    }
+                },
+                "button": {
+                    "name": "Button",
+                    "notes": "<p>foo <code>bar</code></p>\n"
+                },
+                "toggles": {
+                    "name": "Toggles",
+                    "items": {
+                        "toggles.primary": {
+                            "name": "Primary",
+                            "notes": ""
+                        }
+                    }
+                }
+            }
+        },
+        "structures": {
+            "name": "Structures",
+            "items": {
+                "form": {
+                    "name": "Form",
+                    "notes": ""
+                }
+            }
+        }
+    },
+    // user-defined views
+    "views": {
+        "pages": {
+            "name": "Pages",
+            "items": {
+                "home": {
+                    "name": "Home"
+                }
+            }
+        }
+    },
+    // documentation
+    "docs": {
+        "javascript": {
+            "name": "Javascript",
+            "content": "<h2>This is a markdown document.</h2>\n<p><code>var foo = 'bar';</code></p>\n"
+        }
+    }
+}
+```
+
+You can iterate over the properties in this data model when [customizing](/advanced/customization.html) your Fabricator pages.
+
+## Reserved words
+
+There are a handful of context properties predefines. You should avoid over-riding these properties.
+
+### {{{{raw}}}}{{baseurl}}{{{{/raw}}}}
+
+Used when building links in nested views:
+
+```
+<link rel="stylesheet" href="{{{{raw}}}}{{baseurl}}{{{{/raw}}}}/assets/toolkit/toolkit.css">
+```
+
+{{/markdown}}

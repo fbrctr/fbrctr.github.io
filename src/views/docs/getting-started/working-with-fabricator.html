@@ -35,15 +35,21 @@ All of your work is done inside of the `src` directory. Inside you'll find a few
 ```
 └── src
     ├── assets
+    ├── data
+    ├── docs
     ├── materials
     └── views
 ```
 
-`assets` contains the static assets (stylesheets, javascript, images) for both Fabricator and your toolkit.
+`assets` - static assets (stylesheets, javascript, images) for both Fabricator and your toolkit.
 
-`materials` contains the indivual pieces of UI that make up your toolkit. Each file within is turned into a Handlebars partial for easy prototyping.
+`data` - yml or json files that can be fed into materials and views
 
-`views` contains the pages of the styleguide + documentation site that Fabricator outputs. Also where any prototype pages are stored.
+`docs` - markdown files with toolkit-wide documenation (e.g. usage guidelines, branding, tone)
+
+`materials` - indivual pieces of UI that make up your toolkit. Each file within is turned into a Handlebars partial for easy prototyping.
+
+`views` - pages of the styleguide + documentation site that Fabricator outputs. Also where any prototype pages are stored.
 
 ### Materials
 

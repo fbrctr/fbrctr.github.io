@@ -1,0 +1,104 @@
+---
+title: Third-party Dependencies - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Third-party Dependencies
+
+> Including third-party dependencies in your toolkit
+
+Many times you'll want to include a third-party library like [jQuery](http://jquery.com) in your toolkit. It's fairly easy to do so, but requires some modification to the `gulpfile.js`.
+
+## Including vendor scripts
+
+1. Install the [streamqueue](https://www.npmjs.com/package/streamqueue) package: `$ npm install streamqueue --save-dev`
+2. Create a `config.src.vendor` array and include vendor file paths.
+3. Break the `scripts:toolkit` task into two streams - `toolkit()` and `vendor()` - then merge streams using `streamqueue()`.
+
+```javascript
+var browserify = require('browserify');
+var concat = require('gulp-concat');
+var gulp = require('gulp');
+var gulpif = require('gulp-if');
+var gutil = require('gulp-util');
+var source = require('vinyl-source-stream');
+var streamqueue = require('streamqueue');
+var streamify = require('gulp-streamify');
+var uglify = require('gulp-uglify');
+
+var config = {
+	dev: gutil.env.dev,
+	src: {
+		scripts: {
+			fabricator: [
+				'src/fabricator/scripts/prism.js',
+				'src/fabricator/scripts/fabricator.js'
+			],
+			vendor: [
+				'src/toolkit/assets/vendor/jquery/dist/jquery.js'
+			],
+			toolkit: './src/toolkit/assets/scripts/toolkit.js'
+		}
+	},
+	dest: 'dist'
+};
+
+gulp.task('scripts:toolkit', function () {
+
+	var toolkit = function () {
+		return browserify(config.src.scripts.toolkit).bundle()
+			.on('error', function (error) {
+				gutil.log(gutil.colors.red(error));
+				this.emit('end');
+			})
+			.pipe(source('toolkit.js'));
+	};
+
+	var vendor = function () {
+		return gulp.src(config.src.scripts.vendor)
+			.pipe(concat('vendor.js'));
+	};
+
+	return streamqueue({ objectMode: true }, vendor(), toolkit())
+		.pipe(streamify(concat('toolkit.js')))
+		.pipe(gulpif(!config.dev, streamify(uglify())))
+		.pipe(gulp.dest(config.dest + '/toolkit/scripts'));
+
+});
+
+```
+
+## Using Bower for dependency management
+
+[Bower](http://bower.io) is a great tool for managing third party client side dependencies. Here's how to leverage Bower on a Fabricator instance:
+
+1. Install bower `$ npm install bower --save-dev`
+2. Add a `.bowerrc` config file to your project root (see below).
+3. Update `package.json` `scripts` object to hook into Bower install task.
+
+**.bowerrc**
+```json
+{
+  "directory": "bower_components"
+}
+```
+
+**package.json**
+
+```json
+"scripts": {
+  "gulp": "gulp",
+  "bower": "bower",
+  "prestart": "npm install",
+  "build": "npm install && gulp",
+  "postinstall": "bower install",
+  "start": "gulp --dev"
+},
+```
+
+
+
+{{/markdown}}

@@ -1,0 +1,59 @@
+---
+title: Preprocessors - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Preprocessors
+
+> How to use Ruby Sass and other Preprocessors
+
+Fabricator uses the `libsass` compiler because it is much faster than the Ruby compiler. However, you may want to use edge features that only exist in the Ruby compiler. Switching out the compilers is easy.
+
+0. Install the Sass gem:
+
+```
+$ gem install sass
+```
+
+1. Update dependencies ([gulp-ruby-sass](https://github.com/sindresorhus/gulp-ruby-sass))
+
+```
+$ npm install --save-dev gulp-ruby-sass && npm uninstall --save-dev gulp-sass
+```
+
+2. Update the `styles:toolkit` and `styles:fabricator` tasks to use `gulp-ruby-sass`:
+
+```
+var sass = require('gulp-ruby-sass');
+
+...
+
+// styles
+gulp.task('styles:fabricator', function () {
+	return sass(config.src.styles.fabricator)
+		.on('error', function (err) {
+			console.error('Error!', err.message);
+		})
+		.pipe(prefix('last 1 version'))
+		.pipe(gulpif(!config.dev, csso()))
+		.pipe(rename('f.css'))
+		.pipe(gulp.dest(config.dest + '/assets/fabricator/styles'))
+		.pipe(gulpif(config.dev, reload({stream:true})));
+});
+
+gulp.task('styles:toolkit', function () {
+	return sass(config.src.styles.fabricator)
+		.on('error', function (err) {
+			console.error('Error!', err.message);
+		})
+		.pipe(prefix('last 1 version'))
+		.pipe(gulpif(!config.dev, csso()))
+		.pipe(gulp.dest(config.dest + '/assets/toolkit/styles'))
+		.pipe(gulpif(config.dev, reload({stream:true})));
+});
+```
+
+{{/markdown}}
