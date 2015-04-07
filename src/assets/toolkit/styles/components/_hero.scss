@@ -14,6 +14,7 @@
 		position: relative;
 		color: color(blue);
 		font-weight: bold;
+		margin: 0;
 
 		@include breakpoint($bp-xs) {
 			top: -2rem;
