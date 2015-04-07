@@ -5,6 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<meta name="description" content="Fabricator is a tool for building modular website design systems.">
+	
 	<meta property="og:url" content="http://fbrctr.github.io/" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Fabricator - Build your UI toolkit" />
@@ -102,37 +104,10 @@
 						<li>
 							<a href="components.html#text-input">Text Input</a>
 						</li>
-						<li>
-							<a href="components.html#textarea">Textarea</a>
-						</li>
-					</ul>
-				</li>
-		
-				<li>
-					<a href="getting-started.html" class="f-menu__heading">Getting Started</a>
-					<ul>
-						<li>
-							<a href="getting-started/what-is-a-toolkit.html">What Is A Toolkit</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="docs.html" class="f-menu__heading">Docs</a>
-					<ul>
-						<li>
-							<a href="docs/index.html">Index</a>
-						</li>
-					</ul>
-				</li>
-		
-				<li>
-					<a href="docs.html" class="f-menu__heading">Docs</a>
-					<ul>
 					</ul>
 				</li>
 		
 			</ul>
-		
 		
 		</div>
 		<!-- /fabricator menu -->
@@ -198,21 +173,14 @@
 	<div class="f-item-heading-group" data-f-toggle="labels">
 		<h2 class="f-item-heading">Button</h2>
 		<div class="f-item-controls">
-			<span class="f-control f-icon" data-f-toggle-control="notes" title="Toggle Notes">
-				<svg>
-					<use xlink:href="#f-icon-notes" />
-				</svg>
-			</span>
+			
 			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
 				<svg>
 					<use xlink:href="#f-icon-code" />
 				</svg>
 			</span>
 		</div>
-	</div><div class="f-item-notes" data-f-toggle="notes">
-	<p>These are notes associated with this <code>button</code> component.</p>
-
-</div>
+	</div>
 <div class="f-item-preview">
 	<button class="button">Submit</button>
 </div>
@@ -323,19 +291,19 @@
 	</div>
 <div class="f-item-preview">
 	<div class="hero">
-    <img src="/assets/toolkit/images/logo.svg" alt="">
-    <div class="hero__byline">
-        Build your UI toolkit
-    </div>
+    <img src="/assets/toolkit/images/logo.svg" alt="Fabricator">
+    <h1 class="hero__byline">
+		Build your UI toolkit
+	</h1>
     <a href="/docs" class="button">Start Building</a>
 </div>
 </div>
 <div class="f-item-code f-item-hidden" data-f-toggle="code">
 	<pre><code class="language-markup">&lt;div class=&quot;hero&quot;&gt;
-    &lt;img src=&quot;/assets/toolkit/images/logo.svg&quot; alt=&quot;&quot;&gt;
-    &lt;div class=&quot;hero__byline&quot;&gt;
-        Build your UI toolkit
-    &lt;/div&gt;
+    &lt;img src=&quot;/assets/toolkit/images/logo.svg&quot; alt=&quot;Fabricator&quot;&gt;
+    &lt;h1 class=&quot;hero__byline&quot;&gt;
+		Build your UI toolkit
+	&lt;/h1&gt;
     &lt;a href=&quot;/docs&quot; class=&quot;button&quot;&gt;Start Building&lt;/a&gt;
 &lt;/div&gt;</code></pre>
 </div>
@@ -662,36 +630,20 @@
 		</div>
 	</div>
 <div class="f-item-preview">
-	<label for="textInput">Text input</label>
-<input type="text" id="textInput">
+	<div class="form-group">
+    <label>
+        Text input
+        <input type="text" id="textInput" class="form-control">
+    </label>
+</div>
 </div>
 <div class="f-item-code f-item-hidden" data-f-toggle="code">
-	<pre><code class="language-markup">&lt;label for=&quot;textInput&quot;&gt;Text input&lt;/label&gt;
-&lt;input type=&quot;text&quot; id=&quot;textInput&quot;&gt;</code></pre>
-</div>
-
-
-</div>
-
-
-<div class="f-item-group" id="textarea">
-
-	<div class="f-item-heading-group" data-f-toggle="labels">
-		<h2 class="f-item-heading">Textarea</h2>
-		<div class="f-item-controls">
-			
-			<span class="f-control f-icon" data-f-toggle-control="code" title="Toggle Code">
-				<svg>
-					<use xlink:href="#f-icon-code" />
-				</svg>
-			</span>
-		</div>
-	</div>
-<div class="f-item-preview">
-	<textarea name="" id="" cols="30" rows="10"></textarea>
-</div>
-<div class="f-item-code f-item-hidden" data-f-toggle="code">
-	<pre><code class="language-markup">&lt;textarea name=&quot;&quot; id=&quot;&quot; cols=&quot;30&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;</code></pre>
+	<pre><code class="language-markup">&lt;div class=&quot;form-group&quot;&gt;
+    &lt;label&gt;
+        Text input
+        &lt;input type=&quot;text&quot; id=&quot;textInput&quot; class=&quot;form-control&quot;&gt;
+    &lt;/label&gt;
+&lt;/div&gt;</code></pre>
 </div>
 
 

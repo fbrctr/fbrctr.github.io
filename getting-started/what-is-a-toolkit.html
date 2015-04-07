@@ -5,6 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<meta name="description" content="Fabricator is a tool for building modular website design systems.">
+	
 	<meta property="og:url" content="http://fbrctr.github.io/" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Fabricator - Build your UI toolkit" />
@@ -17,7 +19,7 @@
 	<meta name="twitter:description" content="Fabricator is a tool for building modular website design systems.">
 	<meta name="twitter:image:src" content="http://fbrctr.github.io/assets/toolkit/images/social.png">
 
-	<title>What&#x27;s a &quot;toolkit&quot;? | Docs | Fabricator</title>
+	<title>What&#x27;s a &quot;toolkit&quot;? - Fabricator</title>
 
 	<!-- toolkit styles -->
 	<link rel="stylesheet" href="../assets/toolkit/styles/toolkit.css">
@@ -44,18 +46,50 @@
 		<a href="/">
 			<img src="../assets/toolkit/images/head.svg" alt="Fabricator">
 		</a>
-		<div class="section-title"></div>
+		<div class="section-title">Documentation</div>
 	</div>
-	<div class="row pt-xl pb-xxl">
-		<div class="col-s-12 col-m-4 col-l-3">
-			<a href="../index.html" class="nav-link">&#8592; Home</a>
-			<ul class="link-list mt-xl">
+	<div class="row pt pb-xxl">
+		<div class="col-s-12 col-m-4 col-l-3 pt-xl">
+			<ul class="link-list">
 				<li class="list-heading">Getting Started</li>
 				<li>
 					<a href="../docs/index.html">Quick Start</a>
 				</li>
 				<li>
 					<a href="../getting-started/what-is-a-toolkit.html">What is a Toolkit?</a>
+				</li>
+				<li>
+					<a href="../getting-started/working-with-fabricator.html">Working with Fabricator</a>
+				</li>
+			</ul>
+			<ul class="link-list mt-xl">
+				<li class="list-heading">Building a Toolkit</li>
+				<li>
+					<a href="../building-a-toolkit/materials.html">Materials</a>
+				</li>
+				<li>
+					<a href="../building-a-toolkit/rapid-prototyping.html">Rapid Prototyping</a>
+				</li>
+				<li>
+					<a href="../building-a-toolkit/data.html">Data</a>
+				</li>
+				<li>
+					<a href="../building-a-toolkit/rapid-prototyping.html">Stylesheets and JavaScript</a>
+				</li>
+			</ul>
+			<ul class="link-list mt-xl">
+				<li class="list-heading">Advanced</li>
+				<li>
+					<a href="../advanced/third-party.html">Third-party dependencies</a>
+				</li>
+				<li>
+					<a href="../advanced/helpers.html">Helpers</a>
+				</li>
+				<li>
+					<a href="../advanced/preprocessors.html">Ruby Sass and other preprocessors</a>
+				</li>
+				<li>
+					<a href="../advanced/themes-customization.html">Themes and customization</a>
 				</li>
 			</ul>
 		</div>
@@ -66,11 +100,27 @@
 <blockquote>
 <p>An introduction to toolkit-driven development</p>
 </blockquote>
+<h2>Fabricating Websites</h2>
+<p>Modern day websites are large, complex systems of inter-operable parts. Some of the primary goals while building these systems is to build something that organized and thoughtfully deisgned with enough fore-sight to scale easily and to be usable by other developers. It is helpful to <a href="http://us5.campaign-archive1.com/?u=7e093c5cf4&amp;id=ead8a72012&amp;e=ecb25a3f93">take ques from other industries</a> that have faced this problem of scale already.</p>
+<p>A UI &quot;toolkit&quot; is a web equivalent of the auto industry's sub-assemblies and modules - it is a collection of independent pieces that can be assembled to form larger pieces and eventually discrete pages. A toolkit is not a website, rather it is the pieces that make up a website. These pieces can be used in any type of end-application, whether it is .NET, Ruby on Rails, Node.js, or just plain HTML.</p>
+<p>Fabricator is a tool for building toolkits. It provides a working environment setup for optimization and efficiency of building.</p>
+<h2>Toolkit-driven Development</h2>
+<p>Approaching a website build as a system of materials can be a powerful shift in thinking. When a site's composition is broken into indivual pieces that must work idvidually and in concert with an unknown number of other materials a developer must design an architecture that is flexible and scalable.</p>
+<p>Toolkits should be a single <code>.js</code> and <code>.css</code> file that contains a site's entire design system and can included and reliably used on any page.</p>
+<p>When done well, a mature toolkit can be used to build a large number of unique pages and layouts. Once a baseline of materials has been built, designers can compose new pages by selecting existing materials, then design to fill the gaps, rather than designing entire pages each time. The time it takes to layout new pages dramatically decreases as the toolkit matures.</p>
 <h2>Style guide vs toolkit</h2>
 <p>Website style guides have evolved over the years, starting as an outreach of the tradition (print) branding style guides, eventually maturing into great examples of how a brand should be look and feel on the web. <a href="http://www.starbucks.com/static/reference/styleguide/">Starbucks</a>, <a href="http://www.yelp.com/styleguide">Yelp</a>, <a href="http://sfdc-styleguide.herokuapp.com/">Salesforce</a>, <a href="http://style.codeforamerica.org">Code For America</a>, and <a href="http://www.google.com/design/spec/material-design/">Google's Material Design</a> have some of the best web style guides around.</p>
 <p>A toolkit is more focused on <em>code</em> - specifically the modularity of website components. Toolkits break down websites into small, repeatable components, then use those components to build an infinite number of layouts. <a href="http://getbootstrap.com/">Twitter Bootstrap</a>, <a href="http://topcoat.io/topcoat/">Topcoat</a>, and <a href="http://foundation.zurb.com/">Zurb's Foundation</a> are popular toolkits.</p>
 <p>Both are great and can be extremely useful. Fabricator gives you a way to combine both concepts into one deliverable.</p>
 <p>When you work with Fabricator, you develop a brand's look and feel on the web, while also producing a code toolkit that you'll use when building their digital properties.</p>
+<p>Next, <a href="/getting-started/working-with-fabricator.html">learn how to use Fabricator</a>.</p>
+<h2>Helpful Resources</h2>
+<ul>
+<li><a href="http://us5.campaign-archive1.com/?u=7e093c5cf4&amp;id=ead8a72012&amp;e=ecb25a3f93">Architecting a Pattern Library</a></li>
+<li><a href="http://daverupert.com/2013/04/responsive-deliverables/">Responsive Deliverables</a></li>
+<li><a href="https://css-tricks.com/design-systems-building-future/">Design Systems: Building for the Future</a></li>
+<li><a href="http://styleguides.io/">styleguides.io</a></li>
+</ul>
 
 		</div>
 	</div>
