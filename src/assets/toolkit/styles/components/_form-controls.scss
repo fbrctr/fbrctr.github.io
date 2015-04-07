@@ -1,0 +1,24 @@
+.form-group {
+	padding: 1rem 0;
+
+	label {
+		color: color(grey);
+		display: block;
+		font-size: 0.875rem;
+	}
+}
+
+.form-control {
+	padding: 0.75rem 0;
+	display: block;
+	margin-top: 0.5rem;
+	width: 100%;
+	border: 0;
+	box-shadow: 0 2px 0 0 color(grey, 1);
+	color: color(blue);
+
+	&:focus {
+		box-shadow: 0 3px 0 0 color(orange);
+		outline: none;
+	}
+}
