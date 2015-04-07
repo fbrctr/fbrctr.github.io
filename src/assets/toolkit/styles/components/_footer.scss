@@ -1,10 +1,18 @@
 .footer {
-	background-color: color(orange, 2);
-	color: color(white);
-	padding: 1rem;
+	background-color: color(aqua);
+	// color: color(white);
+	padding: 2rem 1rem;
 	text-align: center;
 
 	a {
-		color: color(white);
+		color: color(blue);
 	}
+
+	p {
+		margin: 1rem 0;
+	}
+}
+
+.stamp {
+	height: 4rem;
 }
