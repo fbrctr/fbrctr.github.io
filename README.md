@@ -6,6 +6,12 @@ This is the [Fabricator](https://github.com/fbrctr/fabricator) instance used to 
 
 ## Development
 
+Checkout the `fabricator` branch:
+
+```
+$ git checkout fabricator
+```
+
 Start local dev server:
 
 ```
