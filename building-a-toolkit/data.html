@@ -49,7 +49,7 @@
 		<div class="section-title">Documentation</div>
 	</div>
 	<div class="row pt pb-xxl">
-		<div class="col-s-12 col-m-4 col-l-3 pt-xl">
+		<div class="col-s-12 col-m-4 col-l- pt-xl ta-r">
 			<ul class="link-list">
 				<li class="list-heading">Getting Started</li>
 				<li>
@@ -93,7 +93,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="col-s-12 col-m-8 col-l-9">
+		<div class="col-s-12 col-m-8 col-l-">
 			
 
 <h1>Data</h1>
@@ -136,7 +136,7 @@
 <pre><code>&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"welcome"</span>&gt;Hello, World!&lt;/<span class="hljs-keyword">div</span>&gt;
 </code></pre>
 <h2>Context</h2>
-<p>Each view is templated with a unique context (data model) assembled from material data, front-matter, and <code>src/data</code>. Fabricator scrapes the files in your toolkit and builds theses data models on the fly. They only exist within the <code>fabricator-assemble</code> taske; views are templated using these data models, but the data is never written to disk.</p>
+<p>Each view is templated with a unique context (data model) assembled from material data, front-matter, and <code>src/data</code>. Fabricator scrapes the files in your toolkit and builds theses data models on the fly. They only exist within the <code>fabricator-assemble</code> task; views are templated using these data models, but the data is never written to disk.</p>
 <p>Here's an example scheme:</p>
 <pre><code class="lang-json">{
     // page front-matter
@@ -214,7 +214,7 @@
 </code></pre>
 <p>You can iterate over the properties in this data model when <a href="/advanced/customization.html">customizing</a> your Fabricator pages.</p>
 <h2>Reserved words</h2>
-<p>There are a handful of context properties predefines. You should avoid over-riding these properties.</p>
+<p>There are a handful of predefined context properties. You should avoid over-riding these properties.</p>
 <h3>{{baseurl}}</h3>
 <p>Used when building links in nested views:</p>
 <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">"stylesheet"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"</span></span></span><span class="hljs-expression">{{<span class="hljs-variable">baseurl</span>}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">/assets/toolkit/toolkit.css"</span>&gt;</span>

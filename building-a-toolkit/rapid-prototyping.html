@@ -49,7 +49,7 @@
 		<div class="section-title">Documentation</div>
 	</div>
 	<div class="row pt pb-xxl">
-		<div class="col-s-12 col-m-4 col-l-3 pt-xl">
+		<div class="col-s-12 col-m-4 col-l- pt-xl ta-r">
 			<ul class="link-list">
 				<li class="list-heading">Getting Started</li>
 				<li>
@@ -93,16 +93,16 @@
 				</li>
 			</ul>
 		</div>
-		<div class="col-s-12 col-m-8 col-l-9">
+		<div class="col-s-12 col-m-8 col-l-">
 			
 
 <h1>Rapid Prototyping</h1>
 <blockquote>
-<p>How to use Fabricator to quickly build new pages</p>
+<p>How to use Fabricator to quickly build new views</p>
 </blockquote>
 <p>Fabricator's <a href="https://github.com/fbrctr/fabricator-assemble">assembly engine</a> is a powerful templating engine built on top of <a href="http://handlebarsjs.com">Handlebars.js</a>. It helps you compose new materials and prototypical pages with very little friction.</p>
 <h2>Layouts</h2>
-<p>Layouts are wrappers for pages. You can define as many layouts as you want by creating <code>.html</code> files in your layouts folder.</p>
+<p>Layouts are wrappers for pages. You can define as many layouts as you want by creating <code>.html</code> files in your layouts directory.</p>
 <p>Example layout:</p>
 <pre><code class="lang-html"><span class="hljs-doctype">&lt;!doctype html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
@@ -116,16 +116,16 @@
 <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre>
-<p>Page content is inserted in the <code>{% body %}</code> placeholder.</p>
-<p>Context can be passed from a page to the layout via front-matter.</p>
-<p>The layout that a page uses is also defined in front-matter:</p>
+<p>View content is inserted in the <code>{% body %}</code> placeholder.</p>
+<p>Context can be passed from a view to the layout via front-matter.</p>
+<p>The layout that a view uses is also defined in front-matter:</p>
 <pre><code class="lang-html">---
 layout: custom-layout
 title: My Custom Layout
 ---
 </code></pre>
 <p>This would use <code>src/views/layouts/custom-layout.html</code>.</p>
-<p>When no <code>layout</code> property is defined, the page uses the <code>default</code> layout.</p>
+<p>When no <code>layout</code> property is defined, the view uses the <code>default</code> layout.</p>
 <h2>Views</h2>
 <p>Views are unique pages templated using Handlebars. These are both Fabricator pages and user-created pages.</p>
 <p>Example view:</p>
@@ -140,7 +140,7 @@ name: World
 
 </code></pre>
 <p>This outputs a page that uses the default layout (since no layout was defined).</p>
-<p>The front-matter block at the top provides context to both the layout and the page itself.</p>
+<p>The front-matter block at the top provides context to both the layout and the view itself.</p>
 <p>Context is also piped in from <a href="/building-a-toolkit/data.html">data files</a>. In this example, <code>{{home.greeting}}</code> refers to the <code>greeting</code> property in <code>home.json</code>.</p>
 <p>Fabricator pages are typically stored at the root level of the <code>views</code> directory and user-created views (e.g. &quot;templates&quot;, &quot;pages&quot;, &quot;interfaces&quot;) should be stored in subdirectories:</p>
 <pre><code>└── views

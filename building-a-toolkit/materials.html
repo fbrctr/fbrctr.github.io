@@ -49,7 +49,7 @@
 		<div class="section-title">Documentation</div>
 	</div>
 	<div class="row pt pb-xxl">
-		<div class="col-s-12 col-m-4 col-l-3 pt-xl">
+		<div class="col-s-12 col-m-4 col-l- pt-xl ta-r">
 			<ul class="link-list">
 				<li class="list-heading">Getting Started</li>
 				<li>
@@ -93,16 +93,16 @@
 				</li>
 			</ul>
 		</div>
-		<div class="col-s-12 col-m-8 col-l-9">
+		<div class="col-s-12 col-m-8 col-l-">
 			
 
 <h1>Materials</h1>
 <blockquote>
 <p>Defining the &quot;materials&quot; that make up your toolkit</p>
 </blockquote>
-<p>&quot;Material&quot; is a generic term for the individual components/modules/whatever that make up your UI. By default, Fabricator defines a material taxonomy of component -&gt; structure, but is flexible and allows you to define your own.</p>
+<p>&quot;Material&quot; is a generic term for the individual components/modules/chunks that make up an interface. By default, Fabricator defines a material taxonomy of &quot;component&quot; and  &quot;structure&quot;, but is flexible and allows you to define your own taxonomy.</p>
 <h2>Defining your taxonomy</h2>
-<p>A successful taxonomy takes into account a number of different factors like established brand terminology, personal preference, and the size and scale of the end applications. Here are some sample taxonomies that might work for you:</p>
+<p>A successful taxonomy takes into account a number of different factors such as established brand terminology, personal preference, the size and scale of the end applications, etc. Here are some sample taxonomies that might work for you:</p>
 <pre><code>└── materials
     ├── components
     └── structures
@@ -123,12 +123,12 @@
     ├── lists
     └── navigation
 </code></pre>
-<p>Within the <code>src/materials</code> direcotry, you can define your taxononmy by organizing your materials into sub-directories.</p>
+<p>Within the <code>src/materials</code> directory, you can define your taxonomy by organizing your materials into sub-directories.</p>
 <h2>Adding materials</h2>
-<p>A material is a <code>.html</code> file that can contain YML front-matter and handlebars markup.</p>
+<p>A material is a <code>.html</code> file that can contain <a href="http://nodeca.github.io/js-yaml/">YAML</a> front-matter and handlebars markup.</p>
 <p>To add a material, create a new <code>.html</code> file in the desired directory. The material should show up on the listing page automatically.</p>
 <p>Every material is accessible as a handlebars partial using the <code>{{&gt; partial-name}}</code> syntax where <code>partial-name</code> is the name of the file.</p>
-<p>Sometimes it is useful to group materials. You can group materials by placing them in a subdirectory:</p>
+<p>Sometimes it is useful to group materials, like instances where you want to show alternate versions. You can group materials by placing them in a subdirectory:</p>
 <pre><code>└── materials
     └── components
         └── lists
