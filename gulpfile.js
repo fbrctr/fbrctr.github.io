@@ -45,7 +45,7 @@ var config = {
 
 // clean
 gulp.task('clean', function (cb) {
-	del([config.dest], cb);
+	del(['**'], { ignore: 'demo/**', cwd: config.dest }, cb);
 });
 
 
