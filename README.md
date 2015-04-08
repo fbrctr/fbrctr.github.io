@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://fbrctr.github.io/assets/toolkit/images/logo.svg" width="500">
+  <img src="http://fbrctr.github.io/assets/toolkit/images/masthead.png" width="243">
 </p>
 
 This is the [Fabricator](https://github.com/fbrctr/fabricator) instance used to build [http://fbrctr.github.io](http://fbrctr.github.io).
