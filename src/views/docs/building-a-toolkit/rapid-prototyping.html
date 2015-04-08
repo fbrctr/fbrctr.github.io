@@ -8,13 +8,13 @@ section: Documentation
 
 # Rapid Prototyping
 
-> How to use Fabricator to quickly build new pages
+> How to use Fabricator to quickly build new views
 
 Fabricator's [assembly engine](https://github.com/fbrctr/fabricator-assemble) is a powerful templating engine built on top of [Handlebars.js](http://handlebarsjs.com). It helps you compose new materials and prototypical pages with very little friction.
 
 ## Layouts
 
-Layouts are wrappers for pages. You can define as many layouts as you want by creating `.html` files in your layouts folder.
+Layouts are wrappers for pages. You can define as many layouts as you want by creating `.html` files in your layouts directory.
 
 Example layout:
 
@@ -32,11 +32,11 @@ Example layout:
 </html>
 ```
 
-Page content is inserted in the `{{{decode "%7B%25%20body%20%25%7D"}}}` placeholder.
+View content is inserted in the `{{{decode "%7B%25%20body%20%25%7D"}}}` placeholder.
 
-Context can be passed from a page to the layout via front-matter.
+Context can be passed from a view to the layout via front-matter.
 
-The layout that a page uses is also defined in front-matter:
+The layout that a view uses is also defined in front-matter:
 
 ```html
 ---
@@ -47,7 +47,7 @@ title: My Custom Layout
 
 This would use `src/views/layouts/custom-layout.html`.
 
-When no `layout` property is defined, the page uses the `default` layout.
+When no `layout` property is defined, the view uses the `default` layout.
 
 ## Views
 
@@ -69,7 +69,7 @@ name: World
 
 This outputs a page that uses the default layout (since no layout was defined).
 
-The front-matter block at the top provides context to both the layout and the page itself.
+The front-matter block at the top provides context to both the layout and the view itself.
 
 Context is also piped in from [data files](/building-a-toolkit/data.html). In this example, `{{{decode "%7B%7Bhome.greeting%7D%7D"}}}` refers to the `greeting` property in `home.json`.
 

@@ -10,11 +10,11 @@ section: Documentation
 
 > Defining the "materials" that make up your toolkit
 
-"Material" is a generic term for the individual components/modules/whatever that make up your UI. By default, Fabricator defines a material taxonomy of component -> structure, but is flexible and allows you to define your own.
+"Material" is a generic term for the individual components/modules/chunks that make up an interface. By default, Fabricator defines a material taxonomy of "component" and  "structure", but is flexible and allows you to define your own taxonomy.
 
 ## Defining your taxonomy
 
-A successful taxonomy takes into account a number of different factors like established brand terminology, personal preference, and the size and scale of the end applications. Here are some sample taxonomies that might work for you:
+A successful taxonomy takes into account a number of different factors such as established brand terminology, personal preference, the size and scale of the end applications, etc. Here are some sample taxonomies that might work for you:
 
 ```
 └── materials
@@ -44,17 +44,17 @@ A successful taxonomy takes into account a number of different factors like esta
     └── navigation
 ```
 
-Within the `src/materials` direcotry, you can define your taxononmy by organizing your materials into sub-directories.
+Within the `src/materials` directory, you can define your taxonomy by organizing your materials into sub-directories.
 
 ## Adding materials
 
-A material is a `.html` file that can contain YML front-matter and handlebars markup.
+A material is a `.html` file that can contain [YAML](http://nodeca.github.io/js-yaml/) front-matter and handlebars markup.
 
 To add a material, create a new `.html` file in the desired directory. The material should show up on the listing page automatically.
 
 Every material is accessible as a handlebars partial using the `{{{decode "%7B%7B> partial-name%7D%7D"}}}` syntax where `partial-name` is the name of the file.
 
-Sometimes it is useful to group materials. You can group materials by placing them in a subdirectory:
+Sometimes it is useful to group materials, like instances where you want to show alternate versions. You can group materials by placing them in a subdirectory:
 
 ```
 └── materials

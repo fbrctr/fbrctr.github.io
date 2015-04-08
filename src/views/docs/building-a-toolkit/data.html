@@ -31,9 +31,9 @@ Data could be used in a view as:
 
 ```html
 {{{{raw}}}}{{#each home.links}}
-	{{#each this}}
-		<a href="#">{{this}}</a>
-	{{/each}}
+    {{#each this}}
+        <a href="#">{{this}}</a>
+    {{/each}}
 {{/each}}{{{{/raw}}}}
 ```
 
@@ -67,7 +67,7 @@ Output:
 
 ## Context
 
-Each view is templated with a unique context (data model) assembled from material data, front-matter, and `src/data`. Fabricator scrapes the files in your toolkit and builds theses data models on the fly. They only exist within the `fabricator-assemble` taske; views are templated using these data models, but the data is never written to disk.
+Each view is templated with a unique context (data model) assembled from material data, front-matter, and `src/data`. Fabricator scrapes the files in your toolkit and builds theses data models on the fly. They only exist within the `fabricator-assemble` task; views are templated using these data models, but the data is never written to disk.
 
 Here's an example scheme:
 
@@ -151,7 +151,7 @@ You can iterate over the properties in this data model when [customizing](/advan
 
 ## Reserved words
 
-There are a handful of context properties predefines. You should avoid over-riding these properties.
+There are a handful of predefined context properties. You should avoid over-riding these properties.
 
 ### {{{{raw}}}}{{baseurl}}{{{{/raw}}}}
 

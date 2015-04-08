@@ -12,29 +12,29 @@ section: Documentation
 
 ## Fabricating Websites
 
-Modern day websites are large, complex systems of inter-operable parts. Some of the primary goals while building these systems is to build something that organized and thoughtfully deisgned with enough fore-sight to scale easily and to be usable by other developers. It is helpful to [take ques from other industries](http://us5.campaign-archive1.com/?u=7e093c5cf4&id=ead8a72012&e=ecb25a3f93) that have faced this problem of scale already.
+Modern day web interfaces are large, complex systems of interoperable parts. If not planned thoughtfully, UI code can become overly complex and difficult to scale. It can be helpful [take some queues from other industries](http://us5.campaign-archive1.com/?u=7e093c5cf4&id=ead8a72012&e=ecb25a3f93) that have solved this problem of scale already.
 
-A UI "toolkit" is a web equivalent of the auto industry's sub-assemblies and modules - it is a collection of independent pieces that can be assembled to form larger pieces and eventually discrete pages. A toolkit is not a website, rather it is the pieces that make up a website. These pieces can be used in any type of end-application, whether it is .NET, Ruby on Rails, Node.js, or just plain HTML.
+A UI "toolkit" addresses the issue of complexity by breaking down an interface into smaller chunks. It is the digital equivalent of the auto industry's sub-assemblies and modules. It is a collection of independent pieces that are assembled to form larger pieces. A toolkit is not a website, rather it is the pieces that make up a website. These pieces can be used in any type of end-application, whether it is .NET, Ruby on Rails, Node.js, or just plain HTML.
 
-Fabricator is a tool for building toolkits. It provides a working environment setup for optimization and efficiency of building.
+Fabricator is a tool for building toolkits. It provides an efficient, optimized working environment to help you build your toolkit.
 
 ## Toolkit-driven Development
 
-Approaching a website build as a system of materials can be a powerful shift in thinking. When a site's composition is broken into indivual pieces that must work idvidually and in concert with an unknown number of other materials a developer must design an architecture that is flexible and scalable.
+Thinking of a website as a system of materials can be a powerful shift in thinking. Each piece must work both independently and in concert with an unknown combination of other pieces. The UI must be backend-agnostic so it can work in as many places as possible.
 
-Toolkits should be a single `.js` and `.css` file that contains a site's entire design system and can included and reliably used on any page.
+To achieve this, developers must design their code to be modular and scalable. Further, toolkits should be a single `.js` and `.css` file that contains a site's entire design system. A developer should be able to drop these two files on any page an have access to the entire design system.
 
-When done well, a mature toolkit can be used to build a large number of unique pages and layouts. Once a baseline of materials has been built, designers can compose new pages by selecting existing materials, then design to fill the gaps, rather than designing entire pages each time. The time it takes to layout new pages dramatically decreases as the toolkit matures.
+When done well, a mature toolkit can be used to build a large number of unique pages and layouts. Once a baseline of materials has been built, designers can compose new pages by selecting existing materials, then design to fill the gaps. The need to produce a layout artifact for each new page is eliminated. The time it takes to layout new pages dramatically decreases as the toolkit matures.
 
 ## Style guide vs toolkit
 
-Website style guides have evolved over the years, starting as an outreach of the tradition (print) branding style guides, eventually maturing into great examples of how a brand should be look and feel on the web. [Starbucks](http://www.starbucks.com/static/reference/styleguide/), [Yelp](http://www.yelp.com/styleguide), [Salesforce](http://sfdc-styleguide.herokuapp.com/), [Code For America](http://style.codeforamerica.org), and [Google's Material Design](http://www.google.com/design/spec/material-design/) have some of the best web style guides around.
+Website style guides have evolved over the years, first starting as an outreach of the tradition (print) branding style guides, and eventually maturing into interactive examples of how a brand should be look and feel on the web. See [Starbucks](http://www.starbucks.com/static/reference/styleguide/), [Yelp](http://www.yelp.com/styleguide), [Salesforce](http://sfdc-styleguide.herokuapp.com/), [Code For America](http://style.codeforamerica.org), and [Google's Material Design](http://www.google.com/design/spec/material-design/).
 
-A toolkit is more focused on *code* - specifically the modularity of website components. Toolkits break down websites into small, repeatable components, then use those components to build an infinite number of layouts. [Twitter Bootstrap](http://getbootstrap.com/), [Topcoat](http://topcoat.io/topcoat/), and [Zurb's Foundation](http://foundation.zurb.com/) are popular toolkits.
+A toolkit is more focused on code - specifically the modularity of website interfaces. Toolkits break down websites into small, repeatable chunks, then use those chunks to build an infinite number of layouts. [Twitter Bootstrap](http://getbootstrap.com/), [Topcoat](http://topcoat.io/topcoat/), and [Zurb's Foundation](http://foundation.zurb.com/) are popular toolkits.
 
 Both are great and can be extremely useful. Fabricator gives you a way to combine both concepts into one deliverable.
 
-When you work with Fabricator, you develop a brand's look and feel on the web, while also producing a code toolkit that you'll use when building their digital properties.
+When you work with Fabricator, you develop a brand's look and feel on the web while also producing a code toolkit.
 
 Next, [learn how to use Fabricator](/getting-started/working-with-fabricator.html).
 

@@ -8,7 +8,7 @@ section: Documentation
 
 # Working with Fabricator
 
-> A look into how Fabricator is setup and an explanation of some of it's features.
+> A look at how Fabricator is setup and an explanation of some of it's features.
 
 ## Running and Building
 
@@ -20,7 +20,7 @@ Once you have a Fabricator instance setup, run the following command to start th
 $ npm start
 ```
 
-This installs dependecies, compiles the site, and watchs for changes to re-compile.
+This installs dependencies, compiles the site, and watches for changes to re-compile.
 
 Once you're ready to deploy your toolkit, run the following command to run an optimized build:
 
@@ -30,7 +30,7 @@ $ npm run build
 
 ## Directories
 
-All of your work is done inside of the `src` directory. Inside you'll find a few directories:
+All work is done in`src` directory. Inside you'll find a the following directories:
 
 ```
 └── src
@@ -45,15 +45,15 @@ All of your work is done inside of the `src` directory. Inside you'll find a few
 
 `data` - yml or json files that can be fed into materials and views
 
-`docs` - markdown files with toolkit-wide documenation (e.g. usage guidelines, branding, tone)
+`docs` - markdown files with toolkit-wide documentation (e.g. usage guidelines, branding, tone)
 
-`materials` - indivual pieces of UI that make up your toolkit. Each file within is turned into a Handlebars partial for easy prototyping.
+`materials` - individual pieces of UI that make up your toolkit. Each file within is registered as a Handlebars partial for rapid prototyping.
 
-`views` - pages of the styleguide + documentation site that Fabricator outputs. Also where any prototype pages are stored.
+`views` - pages of the style guide + documentation site that Fabricator generates. Also where any prototyping pages are placed.
 
 ### Materials
 
-By default, Fabricator defines a simple UI taxonomy of "components" and "structures" - components are the smallest unit of UI, and structures are two or components combined. This is a simple, reasonable taxonomy will work in many cases, but you are free to define your own taxonomy. To do so, rename/create new directories in the `materials` directory as needed. For example, toolkit that follows [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) might look like:
+By default, Fabricator defines a simple UI taxonomy of "components" and "structures" - components are the smallest unit of UI, and structures are two or components combined. This is a simple, reasonable taxonomy will work in many cases, however, you are free to define your own taxonomy. To do so, rename/create new directories in the `materials` directory as needed. For example, toolkit that follows [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) might look like:
 
 ```
 └── materials
@@ -66,27 +66,25 @@ Learn more about [materials](/building-a-toolkit/materials.html)
 
 ### Views
 
-Views are the actual static `.html` pages Fabricator outputs. By default, the root contains the skeleton of a Fabricator documentation site, with a main landing page, a listing page for each material type, and a documentaion page. These pages are highly customizable. Change them to fit your needs.
+Views are the actual static `.html` pages Fabricator generates. By default, the root contains the skeleton of a Fabricator style guide + documentation site. It has a main landing page, a listing page for each material type, and a page for documentation. These pages are highly customizable. Change them to fit your needs.
 
-Learn more about the view [data model](/building-a-toolkit/data.html) and [customizing the side menu](/advanced/customizing-the-menu.html)
+Learn more about the view [data model](/building-a-toolkit/data.html) and [customization](/advanced/customization.html)
 
 ## Assets
 
-Fabricator uses [Gulp.js](http://gulpjs.com) as a super-fast build system. Along with views and materials, all static asset processing is handled by Gulp.
+Fabricator uses [Gulp.js](http://gulpjs.com) as a super-fast build system.  Gulp handles all static asset processing and view/material assembly.
 
-Tasks are defined in `gulpfile.js`. Customization of this file is highly encouraged. Hack on it to suite your needs.
+Tasks are defined in `gulpfile.js`. **Customization of this file is encouraged**. Hack on it to fit your needs.
 
 ### toolkit
 
-By default, Fabricator defines almost no architecture - those decision are best made by you, the developer. Inside of `src/assets/toolkit` you'll find a single `.scss` and `.js` file. Both are entry points for Sass and Browserify, respsitivyl. It is recommended that you compile your toolkit to a single `.js` and `.css` file. The Gulp tasks for both stylesheets and scripts is setup to give you all the power of Sass and Browserify to help achieve this.
+By default, Fabricator defines almost no architecture. Those decision are best made by you, the developer. Inside of `src/assets/toolkit` you'll find a single `.scss` and `.js` file. Both are entry points for Sass and Browserify, respectively. It is recommended that you compile your toolkit to a single `.js` and `.css` file to increase portability. The Gulp tasks for both stylesheets and scripts is setup to give you all the power of Sass and Browserify to help achieve this.
 
 ### f.js and f.css
 
-`f.js` and `f.css` - or before compilation, `fabricator.js` and `fabricator.scss` - are the two files that provide basic functionality and styling for the Fabricator site. They are intentionally minimal as to not conflict with anything in your toolkit.
+`f.js` and `f.css` - or before compilation, `fabricator.js` and `fabricator.scss` - are the two files that provide basic functionality and styling for the Fabricator site. They are intentionally minimal as to not conflict with anything in your toolkit. All Fabricator CSS classes and data-attributes are name-spaced with `f-`.
 
-You shouldn't need to modify these files, but if you find the need to, don't sweat - they are included in the compilation tasks just like your toolkit files. Changes are automatically reflected.
-
-All Fabricator CSS classes and data-attributes are name-spaced with `f-`.
+You shouldn't need to modify these files, but if you find the need to, don't sweat - they are included in the compilation tasks just like your toolkit files. Changes are automatically recompiled.
 
 ## Controls
 
@@ -105,7 +103,7 @@ You can toggle an individual item's code snippet by pressing the code toggle for
 
 **Adding toggles to elements**
 
-You can make an element toggle-able by adding a `data-toggle` attribute to that element.
+You can make an element toggleable by adding a `data-toggle` attribute to that element.
 
 e.g.
 
@@ -116,7 +114,7 @@ e.g.
 
 ## .dotfiles
 
-Fabricator comes with handful of useful dotfiles to help with code managment.
+Fabricator comes with a handful of useful dotfiles to help with code management.
 
 `.editorconfig` - editor configuration rule via [EditorConfig](http://editorconfig.org/)
 
