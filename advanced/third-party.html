@@ -109,16 +109,16 @@
 <li>Run <code>$ bower init</code> to initialize Bower for your project.</li>
 <li>Add a <code>.bowerrc</code> config file to your project root.</li>
 </ol>
-<pre><code class="lang-json">// .bowerrc
-{
-  "directory": "bower_components"
-}
+<p><strong>.bowerrc</strong></p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">directory</span>": <span class="hljs-value"><span class="hljs-string">"bower_components"</span>
+</span>}
 </code></pre>
 <ol start="4">
 <li>Update <code>package.json</code> <code>scripts</code> object to hook into Bower install task.</li>
 </ol>
-<pre><code class="lang-json">// package.json
-"scripts": {
+<p><strong>package.json</strong></p>
+<pre><code class="lang-json">"scripts": {
   "gulp": "gulp",
   "bower": "bower",
   "prestart": "npm install",
