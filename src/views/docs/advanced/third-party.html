@@ -16,35 +16,49 @@ Many times you'll want to include a third-party library like [jQuery](http://jqu
 
 [Bower](http://bower.io) is a great tool for managing third party client side dependencies. Here's how to leverage Bower on a Fabricator instance:
 
-1. Install bower `$ npm install bower --save-dev`
-2. Add a `.bowerrc` config file to your project root (see below).
-3. Update `package.json` `scripts` object to hook into Bower install task.
+0. Install Bower globally for access to the CLI `$ npm install -g bower`
+1. Install Bower local to project `$ npm install bower --save-dev`
+2. Run `$ bower init` to initialize Bower for your project.
+3. Add a `.bowerrc` config file to your project root.
 
-**.bowerrc**
 ```json
+// .bowerrc
 {
   "directory": "bower_components"
 }
 ```
 
-**package.json**
+4. Update `package.json` `scripts` object to hook into Bower install task.
 
 ```json
+// package.json
 "scripts": {
   "gulp": "gulp",
   "bower": "bower",
   "prestart": "npm install",
   "build": "npm install && gulp",
+  "start": "gulp --dev",
   "postinstall": "bower install",
-  "start": "gulp --dev"
+  "test": "npm run build"
 },
+```
+
+5. Add `bower_components` to `.gitignore`.
+
+6. Install dependencies with Bower.
+
+```bash
+$ bower install --save-dev jquery
 ```
 
 ## Including vendor scripts
 
-1. Install the [streamqueue](https://www.npmjs.com/package/streamqueue) package: `$ npm install streamqueue --save-dev`
+1. Install the [streamqueue](https://www.npmjs.com/package/streamqueue) package:
+```
+$ npm install --save-dev streamqueue
+```
 2. Create a `config.src.vendor` array and include vendor file paths.
-3. Break the `scripts:toolkit` task into two streams - `toolkit()` and `vendor()` - then merge streams using `streamqueue()`.
+3. Update the `scripts:toolkit` task to include vendor files. Break the `scripts:toolkit` task into two streams - `toolkit()` and `vendor()` - then merge streams using `streamqueue()`.
 
 ```javascript
 var browserify = require('browserify');
@@ -66,7 +80,7 @@ var config = {
 				'src/fabricator/scripts/fabricator.js'
 			],
 			vendor: [
-				'src/toolkit/assets/vendor/jquery/dist/jquery.js'
+				'bower_components/jquery/dist/jquery.js'
 			],
 			toolkit: './src/toolkit/assets/scripts/toolkit.js'
 		}
@@ -93,7 +107,7 @@ gulp.task('scripts:toolkit', function () {
 	return streamqueue({ objectMode: true }, vendor(), toolkit())
 		.pipe(streamify(concat('toolkit.js')))
 		.pipe(gulpif(!config.dev, streamify(uglify())))
-		.pipe(gulp.dest(config.dest + '/toolkit/scripts'));
+		.pipe(gulp.dest(config.dest + '/assets/toolkit/scripts'));
 
 });
 
