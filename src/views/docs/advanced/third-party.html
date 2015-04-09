@@ -21,8 +21,9 @@ Many times you'll want to include a third-party library like [jQuery](http://jqu
 2. Run `$ bower init` to initialize Bower for your project.
 3. Add a `.bowerrc` config file to your project root.
 
+**.bowerrc**
+
 ```json
-// .bowerrc
 {
   "directory": "bower_components"
 }
@@ -30,8 +31,9 @@ Many times you'll want to include a third-party library like [jQuery](http://jqu
 
 4. Update `package.json` `scripts` object to hook into Bower install task.
 
+**package.json**
+
 ```json
-// package.json
 "scripts": {
   "gulp": "gulp",
   "bower": "bower",
