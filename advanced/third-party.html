@@ -110,87 +110,91 @@
 <li>Add a <code>.bowerrc</code> config file to your project root.</li>
 </ol>
 <p><strong>.bowerrc</strong></p>
-<pre><code class="lang-json">{
-  "<span class="hljs-attribute">directory</span>": <span class="hljs-value"><span class="hljs-string">"bower_components"</span>
-</span>}
+<pre><code class="language-javascript">{
+  &quot;directory&quot;: &quot;bower_components&quot;
+}
 </code></pre>
 <ol start="4">
 <li>Update <code>package.json</code> <code>scripts</code> object to hook into Bower install task.</li>
 </ol>
 <p><strong>package.json</strong></p>
-<pre><code class="lang-json">"scripts": {
-  "gulp": "gulp",
-  "bower": "bower",
-  "prestart": "npm install",
-  "build": "npm install &amp;&amp; gulp",
-  "start": "gulp --dev",
-  "postinstall": "bower install",
-  "test": "npm run build"
+<pre><code class="language-javascript">&quot;scripts&quot;: {
+  &quot;gulp&quot;: &quot;gulp&quot;,
+  &quot;bower&quot;: &quot;bower&quot;,
+  &quot;prestart&quot;: &quot;npm install&quot;,
+  &quot;build&quot;: &quot;npm install &amp;&amp; gulp&quot;,
+  &quot;start&quot;: &quot;gulp --dev&quot;,
+  &quot;postinstall&quot;: &quot;bower install&quot;,
+  &quot;test&quot;: &quot;npm run build&quot;
 },
 </code></pre>
 <ol start="5">
-<li><p>Add <code>bower_components</code> to <code>.gitignore</code>.</p></li>
-<li><p>Install dependencies with Bower.</p></li>
+<li>
+<p>Add <code>bower_components</code> to <code>.gitignore</code>.</p>
+</li>
+<li>
+<p>Install dependencies with Bower.</p>
+</li>
 </ol>
-<pre><code class="lang-bash">$ bower install --save-dev jquery
+<pre><code class="language-bash">$ bower install --save-dev jquery
 </code></pre>
 <h2>Including vendor scripts</h2>
 <ol>
 <li>Install the <a href="https://www.npmjs.com/package/streamqueue">streamqueue</a> package:</li>
 </ol>
-<pre><code>$ npm install --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span> streamqueue
+<pre><code class="language-bash">$ npm install --save-dev streamqueue
 </code></pre>
 <ol start="2">
 <li>Create a <code>config.src.vendor</code> array and include vendor file paths.</li>
 <li>Update the <code>scripts:toolkit</code> task to include vendor files. Break the <code>scripts:toolkit</code> task into two streams - <code>toolkit()</code> and <code>vendor()</code> - then merge streams using <code>streamqueue()</code>.</li>
 </ol>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> browserify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'browserify'</span>);
-<span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-concat'</span>);
-<span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
-<span class="hljs-keyword">var</span> gulpif = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-if'</span>);
-<span class="hljs-keyword">var</span> gutil = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
-<span class="hljs-keyword">var</span> source = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl-source-stream'</span>);
-<span class="hljs-keyword">var</span> streamqueue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'streamqueue'</span>);
-<span class="hljs-keyword">var</span> streamify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-streamify'</span>);
-<span class="hljs-keyword">var</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify'</span>);
+<pre><code class="language-javascript">var browserify = require('browserify');
+var concat = require('gulp-concat');
+var gulp = require('gulp');
+var gulpif = require('gulp-if');
+var gutil = require('gulp-util');
+var source = require('vinyl-source-stream');
+var streamqueue = require('streamqueue');
+var streamify = require('gulp-streamify');
+var uglify = require('gulp-uglify');
 
-<span class="hljs-keyword">var</span> config = {
+var config = {
     dev: gutil.env.dev,
     src: {
         scripts: {
             fabricator: [
-                <span class="hljs-string">'src/fabricator/scripts/prism.js'</span>,
-                <span class="hljs-string">'src/fabricator/scripts/fabricator.js'</span>
+                'src/fabricator/scripts/prism.js',
+                'src/fabricator/scripts/fabricator.js'
             ],
             vendor: [
-                <span class="hljs-string">'bower_components/jquery/dist/jquery.js'</span>
+                'bower_components/jquery/dist/jquery.js'
             ],
-            toolkit: <span class="hljs-string">'./src/toolkit/assets/scripts/toolkit.js'</span>
+            toolkit: './src/toolkit/assets/scripts/toolkit.js'
         }
     },
-    dest: <span class="hljs-string">'dist'</span>
+    dest: 'dist'
 };
 
-gulp.task(<span class="hljs-string">'scripts:toolkit'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+gulp.task('scripts:toolkit', function () {
 
-    <span class="hljs-keyword">var</span> toolkit = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> browserify(config.src.scripts.toolkit).bundle()
-            .on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(error)</span> </span>{
+    var toolkit = function () {
+        return browserify(config.src.scripts.toolkit).bundle()
+            .on('error', function (error) {
                 gutil.log(gutil.colors.red(error));
-                <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'end'</span>);
+                this.emit('end');
             })
-            .pipe(source(<span class="hljs-string">'toolkit.js'</span>));
+            .pipe(source('toolkit.js'));
     };
 
-    <span class="hljs-keyword">var</span> vendor = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> gulp.src(config.src.scripts.vendor)
-            .pipe(concat(<span class="hljs-string">'vendor.js'</span>));
+    var vendor = function () {
+        return gulp.src(config.src.scripts.vendor)
+            .pipe(concat('vendor.js'));
     };
 
-    <span class="hljs-keyword">return</span> streamqueue({ objectMode: <span class="hljs-literal">true</span> }, vendor(), toolkit())
-        .pipe(streamify(concat(<span class="hljs-string">'toolkit.js'</span>)))
+    return streamqueue({ objectMode: true }, vendor(), toolkit())
+        .pipe(streamify(concat('toolkit.js')))
         .pipe(gulpif(!config.dev, streamify(uglify())))
-        .pipe(gulp.dest(config.dest + <span class="hljs-string">'/assets/toolkit/scripts'</span>));
+        .pipe(gulp.dest(config.dest + '/assets/toolkit/scripts'));
 
 });
 

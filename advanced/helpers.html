@@ -101,32 +101,32 @@
 <p>How to add your own Handlebars helpers</p>
 </blockquote>
 <p>Add your own helpers to the Fabricator assembly engine by defining them in the <code>assemble</code> task in <code>gulpfile.js</code>:</p>
-<pre><code><span class="hljs-comment">// assemble</span>
-<span class="hljs-tag">gulp</span><span class="hljs-class">.task</span>(<span class="hljs-string">'assemble'</span>, <span class="hljs-function">function</span>(done) {
-    <span class="hljs-tag">assemble</span>({
-        <span class="hljs-tag">helpers</span>: {
-            <span class="hljs-attribute">markdown</span>: <span class="hljs-function">require</span>(<span class="hljs-string">'helper-markdown'</span>)
+<pre><code class="language-javascript">// assemble
+gulp.task('assemble', function(done) {
+    assemble({
+        helpers: {
+            markdown: require('helper-markdown')
         }
     });
-    <span class="hljs-tag">done</span>();
+    done();
 });
 </code></pre>
 <p>This adds the <a href="https://www.npmjs.com/package/helper-markdown">helper-markdown</a> helper, which can be used like:</p>
-<pre><code><span class="xml"></span><span class="hljs-expression">{{<span class="hljs-begin-block">#markdown</span>}}</span><span class="xml">
+<pre><code>{{#markdown}}
     # Markdown!
-</span><span class="hljs-expression">{{<span class="hljs-end-block">/markdown</span>}}</span><span class="xml">
-</span></code></pre>
+{{/markdown}}
+</code></pre>
 <p>Learn more about <a href="http://handlebarsjs.com/block_helpers.html">Handlebars helpers</a>.</p>
 <h2>Built-in helpers</h2>
 <p>There are some useful helpers already built into Fabricator.</p>
 <h3>iterate</h3>
-<pre><code><span class="xml"></span><span class="hljs-expression">{{<span class="hljs-begin-block">#iterate </span>20}}</span><span class="xml">
-    <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>List Item </span><span class="hljs-expression">{{@<span class="hljs-variable">index</span>}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
-</span><span class="hljs-expression">{{<span class="hljs-end-block">/iterate</span>}}</span><span class="xml">
-</span></code></pre>
+<pre><code>{{#iterate 20}}
+    &lt;li&gt;List Item {{@index}}&lt;/li&gt;
+{{/iterate}}
+</code></pre>
 <h3>material</h3>
-<pre><code><span class="xml"></span><span class="hljs-expression">{{<span class="hljs-variable">material</span> <span class="hljs-variable">name</span> <span class="hljs-variable">context</span>}}</span><span class="xml">
-</span></code></pre>
+<pre><code>{{material name context}}
+</code></pre>
 
 		</div>
 	</div>

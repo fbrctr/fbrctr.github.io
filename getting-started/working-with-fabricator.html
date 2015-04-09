@@ -103,17 +103,17 @@
 <h2>Running and Building</h2>
 <p>Fabricator is built on <a href="http://nodejs.org">node.js</a>. You'll need Node installed before you can start building.</p>
 <p>Once you have a Fabricator instance setup, run the following command to start the development environment:</p>
-<pre><code>$ <span class="hljs-built_in">npm</span> start
+<pre><code>$ npm start
 </code></pre>
 <p>This installs dependencies, compiles the site, and watches for changes to re-compile.</p>
 <p>Once you're ready to deploy your toolkit, run the following command to run an optimized build:</p>
-<pre><code>$ npm <span class="hljs-command">run</span> build
+<pre><code>$ npm run build
 </code></pre>
 <h2>Directories</h2>
 <p>All work is done in<code>src</code> directory. Inside you'll find a the following directories:</p>
 <pre><code>└── src
     ├── assets
-    ├── <span class="hljs-typedef"><span class="hljs-keyword">data</span></span>
+    ├── data
     ├── docs
     ├── materials
     └── views
@@ -152,8 +152,8 @@
 <p><strong>Adding toggles to elements</strong></p>
 <p>You can make an element toggleable by adding a <code>data-toggle</code> attribute to that element.</p>
 <p>e.g.</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-toggle</span>=<span class="hljs-value">"labels"</span>&gt;</span>Some item label<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-toggle</span>=<span class="hljs-value">"code"</span>&gt;</span>Some item code<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<pre><code class="language-markup">&lt;div data-toggle=&quot;labels&quot;&gt;Some item label&lt;/div&gt;
+&lt;div data-toggle=&quot;code&quot;&gt;Some item code&lt;/div&gt;
 </code></pre>
 <h2>.dotfiles</h2>
 <p>Fabricator comes with a handful of useful dotfiles to help with code management.</p>

@@ -104,42 +104,42 @@
 <ol>
 <li>Install the Sass gem:</li>
 </ol>
-<pre><code>$ gem <span class="hljs-keyword">install</span> sass
+<pre><code>$ gem install sass
 </code></pre>
 <ol>
 <li>Update dependencies (<a href="https://github.com/sindresorhus/gulp-ruby-sass">gulp-ruby-sass</a>)</li>
 </ol>
-<pre><code>$ npm install --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span> gulp-ruby-sass &amp;&amp; npm uninstall --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span> gulp-sass
+<pre><code>$ npm install --save-dev gulp-ruby-sass &amp;&amp; npm uninstall --save-dev gulp-sass
 </code></pre>
 <ol start="2">
 <li>Update the <code>styles:toolkit</code> and <code>styles:fabricator</code> tasks to use <code>gulp-ruby-sass</code>:</li>
 </ol>
-<pre><code><span class="hljs-keyword">var</span> sass = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-ruby-sass'</span>);
+<pre><code class="language-javascript">var sass = require('gulp-ruby-sass');
 
 ...
 
-<span class="hljs-comment">// styles</span>
-gulp.task(<span class="hljs-string">'styles:fabricator'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> sass(config.src.styles.fabricator)
-        .on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err)</span> </span>{
-            <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'Error!'</span>, err.message);
+// styles
+gulp.task('styles:fabricator', function () {
+    return sass(config.src.styles.fabricator)
+        .on('error', function (err) {
+            console.error('Error!', err.message);
         })
-        .pipe(prefix(<span class="hljs-string">'last 1 version'</span>))
+        .pipe(prefix('last 1 version'))
         .pipe(gulpif(!config.dev, csso()))
-        .pipe(rename(<span class="hljs-string">'f.css'</span>))
-        .pipe(gulp.dest(config.dest + <span class="hljs-string">'/assets/fabricator/styles'</span>))
-        .pipe(gulpif(config.dev, reload({stream:<span class="hljs-literal">true</span>})));
+        .pipe(rename('f.css'))
+        .pipe(gulp.dest(config.dest + '/assets/fabricator/styles'))
+        .pipe(gulpif(config.dev, reload({stream:true})));
 });
 
-gulp.task(<span class="hljs-string">'styles:toolkit'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> sass(config.src.styles.fabricator)
-        .on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err)</span> </span>{
-            <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'Error!'</span>, err.message);
+gulp.task('styles:toolkit', function () {
+    return sass(config.src.styles.fabricator)
+        .on('error', function (err) {
+            console.error('Error!', err.message);
         })
-        .pipe(prefix(<span class="hljs-string">'last 1 version'</span>))
+        .pipe(prefix('last 1 version'))
         .pipe(gulpif(!config.dev, csso()))
-        .pipe(gulp.dest(config.dest + <span class="hljs-string">'/assets/toolkit/styles'</span>))
-        .pipe(gulpif(config.dev, reload({stream:<span class="hljs-literal">true</span>})));
+        .pipe(gulp.dest(config.dest + '/assets/toolkit/styles'))
+        .pipe(gulpif(config.dev, reload({stream:true})));
 });
 </code></pre>
 

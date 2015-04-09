@@ -104,22 +104,22 @@
 <h2>Layouts</h2>
 <p>Layouts are wrappers for pages. You can define as many layouts as you want by creating <code>.html</code> files in your layouts directory.</p>
 <p>Example layout:</p>
-<pre><code class="lang-html"><span class="hljs-doctype">&lt;!doctype html&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+<pre><code class="language-markup">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;title&gt;{{title}}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
     {% body %}
 
-<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <p>View content is inserted in the <code>{% body %}</code> placeholder.</p>
 <p>Context can be passed from a view to the layout via front-matter.</p>
 <p>The layout that a view uses is also defined in front-matter:</p>
-<pre><code class="lang-html">---
+<pre><code class="language-yml">---
 layout: custom-layout
 title: My Custom Layout
 ---
@@ -129,12 +129,12 @@ title: My Custom Layout
 <h2>Views</h2>
 <p>Views are unique pages templated using Handlebars. These are both Fabricator pages and user-created pages.</p>
 <p>Example view:</p>
-<pre><code class="lang-html">---
+<pre><code class="language-markup">---
 title: Document Name
 name: World
 ---
 
-<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{home.greeting}}, {{name}}!<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+&lt;h1&gt;{{home.greeting}}, {{name}}!&lt;/h1&gt;
 
 {{&gt; button}}
 
@@ -145,12 +145,12 @@ name: World
 <p>Fabricator pages are typically stored at the root level of the <code>views</code> directory and user-created views (e.g. &quot;templates&quot;, &quot;pages&quot;, &quot;interfaces&quot;) should be stored in subdirectories:</p>
 <pre><code>└── views
     ├── templates
-    │   ├── about<span class="hljs-class">.html</span>
-    │   └── home<span class="hljs-class">.html</span>
-    ├── components<span class="hljs-class">.html</span>
-    ├── docs<span class="hljs-class">.html</span>
-    ├── index<span class="hljs-class">.html</span>
-    └── structures<span class="hljs-class">.html</span>
+    │   ├── about.html
+    │   └── home.html
+    ├── components.html
+    ├── docs.html
+    ├── index.html
+    └── structures.html
 </code></pre>
 
 		</div>
