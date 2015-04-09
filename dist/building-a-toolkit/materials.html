@@ -118,7 +118,7 @@
     └── components
 </code></pre>
 <pre><code>└── materials
-    ├── <span class="hljs-literal">content</span>
+    ├── content
     ├── forms
     ├── lists
     └── navigation
@@ -132,17 +132,17 @@
 <pre><code>└── materials
     └── components
         └── lists
-            ├── ordered<span class="hljs-class">.html</span>
-            └── unordered<span class="hljs-class">.html</span>
+            ├── ordered.html
+            └── unordered.html
 </code></pre>
 <p>Grouped materials are accessed as a partial using dot notation: <code>{{&gt; lists.ordered}}</code></p>
 <h2>Documenting a material</h2>
 <p>You can directly associate documentation with a material by adding <code>notes</code> in the front-matter of the file:</p>
-<pre><code><span class="hljs-bullet">---
-</span>notes: |
-<span class="hljs-header">  These are notes written in `markdown`
----</span>
-&lt;div class="component"&gt;My Component&lt;/div&gt;
+<pre><code class="language-markup">---
+notes: |
+  These are notes written in `markdown`
+---
+&lt;div class=&quot;component&quot;&gt;My Component&lt;/div&gt;
 </code></pre>
 <p>Notes will appear adjacent to a material on the listing page and can be toggled on/off.</p>
 

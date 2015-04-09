@@ -29,7 +29,7 @@ links:
 
 Data could be used in a view as:
 
-```html
+```markup
 {{{{raw}}}}{{#each home.links}}
     {{#each this}}
         <a href="#">{{this}}</a>
@@ -39,7 +39,7 @@ Data could be used in a view as:
 
 And would output:
 
-```html
+```markup
 <a href="#">About Us</a>
 <a href="#">Careers</a>
 <a href="#">Media Center</a>
@@ -52,7 +52,7 @@ Data can also be stored as front-matter in a view or material.
 
 Example material `src/materials/components/welcome.html`:
 
-```
+```markup
 ---
 greeting: Hello
 ---
@@ -61,7 +61,7 @@ greeting: Hello
 
 Output:
 
-```
+```markup
 <div class="welcome">Hello, World!</div>
 ```
 
@@ -71,7 +71,7 @@ Each view is templated with a unique context (data model) assembled from materia
 
 Here's an example scheme:
 
-```json
+```javascript
 {
     // page front-matter
     "title": "Home",
@@ -157,7 +157,7 @@ There are a handful of predefined context properties. You should avoid over-ridi
 
 Used when building links in nested views:
 
-```
+```markup
 <link rel="stylesheet" href="{{{{raw}}}}{{baseurl}}{{{{/raw}}}}/assets/toolkit/toolkit.css">
 ```
 

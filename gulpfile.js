@@ -17,6 +17,7 @@ var reload = browserSync.reload;
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
 var source = require('vinyl-source-stream');
+var streamqueue = require('streamqueue');
 var streamify = require('gulp-streamify');
 var uglify = require('gulp-uglify');
 
@@ -29,6 +30,9 @@ var config = {
 			fabricator: [
 				'src/assets/fabricator/scripts/prism.js',
 				'src/assets/fabricator/scripts/fabricator.js'
+			],
+			vendor: [
+				'src/assets/fabricator/scripts/prism.js'
 			],
 			toolkit: './src/assets/toolkit/scripts/toolkit.js'
 		},
@@ -84,16 +88,29 @@ gulp.task('scripts:fabricator', function () {
 		.pipe(gulp.dest(config.dest + '/assets/fabricator/scripts'));
 });
 
-gulp.task('scripts:toolkit', function () {
-	return browserify(config.src.scripts.toolkit)
-		.bundle()
-		.on('error', function (error) {
-			gutil.log(gutil.colors.red(error));
-			this.emit('end');
-		})
-		.pipe(source('toolkit.js'))
+gulp.task('scripts:toolkit', function() {
+
+	var toolkit = function() {
+		return browserify(config.src.scripts.toolkit).bundle()
+			.on('error', function(error) {
+				gutil.log(gutil.colors.red(error));
+				this.emit('end');
+			})
+			.pipe(source('toolkit.js'));
+	};
+
+	var vendor = function() {
+		return gulp.src(config.src.scripts.vendor)
+			.pipe(concat('vendor.js'));
+	};
+
+	return streamqueue({
+			objectMode: true
+		}, vendor(), toolkit())
+		.pipe(streamify(concat('toolkit.js')))
 		.pipe(gulpif(!config.dev, streamify(uglify())))
 		.pipe(gulp.dest(config.dest + '/assets/toolkit/scripts'));
+
 });
 
 gulp.task('scripts', ['scripts:fabricator', 'scripts:toolkit']);
@@ -116,7 +133,14 @@ gulp.task('favicon', function () {
 gulp.task('assemble', function(done) {
 	assemble({
 		helpers: {
-			markdown: require('helper-markdown'),
+			markdown: function (str, opts) {
+				if (typeof str === 'object') {
+					opts = str;
+					str = null;
+				}
+				str = str || opts.fn(this);
+				return require('markdown-it')().render(str);
+			},
 			decode: function (val) {
 				return decodeURIComponent(val);
 			},

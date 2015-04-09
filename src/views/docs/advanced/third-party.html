@@ -23,7 +23,7 @@ Many times you'll want to include a third-party library like [jQuery](http://jqu
 
 **.bowerrc**
 
-```json
+```javascript
 {
   "directory": "bower_components"
 }
@@ -33,7 +33,7 @@ Many times you'll want to include a third-party library like [jQuery](http://jqu
 
 **package.json**
 
-```json
+```javascript
 "scripts": {
   "gulp": "gulp",
   "bower": "bower",
@@ -56,9 +56,11 @@ $ bower install --save-dev jquery
 ## Including vendor scripts
 
 1. Install the [streamqueue](https://www.npmjs.com/package/streamqueue) package:
-```
+
+```bash
 $ npm install --save-dev streamqueue
 ```
+
 2. Create a `config.src.vendor` array and include vendor file paths.
 3. Update the `scripts:toolkit` task to include vendor files. Break the `scripts:toolkit` task into two streams - `toolkit()` and `vendor()` - then merge streams using `streamqueue()`.
 

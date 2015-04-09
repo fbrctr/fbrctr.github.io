@@ -18,7 +18,7 @@ Layouts are wrappers for pages. You can define as many layouts as you want by cr
 
 Example layout:
 
-```html
+```markup
 <!doctype html>
 <html lang="en">
 <head>
@@ -38,7 +38,7 @@ Context can be passed from a view to the layout via front-matter.
 
 The layout that a view uses is also defined in front-matter:
 
-```html
+```yml
 ---
 layout: custom-layout
 title: My Custom Layout
@@ -55,7 +55,7 @@ Views are unique pages templated using Handlebars. These are both Fabricator pag
 
 Example view:
 
-```html
+```markup
 ---
 title: Document Name
 name: World
