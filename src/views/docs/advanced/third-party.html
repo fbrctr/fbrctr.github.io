@@ -12,6 +12,34 @@ section: Documentation
 
 Many times you'll want to include a third-party library like [jQuery](http://jquery.com) in your toolkit. It's fairly easy to do so, but requires some modification to the `gulpfile.js`.
 
+## Using Bower for dependency management
+
+[Bower](http://bower.io) is a great tool for managing third party client side dependencies. Here's how to leverage Bower on a Fabricator instance:
+
+1. Install bower `$ npm install bower --save-dev`
+2. Add a `.bowerrc` config file to your project root (see below).
+3. Update `package.json` `scripts` object to hook into Bower install task.
+
+**.bowerrc**
+```json
+{
+  "directory": "bower_components"
+}
+```
+
+**package.json**
+
+```json
+"scripts": {
+  "gulp": "gulp",
+  "bower": "bower",
+  "prestart": "npm install",
+  "build": "npm install && gulp",
+  "postinstall": "bower install",
+  "start": "gulp --dev"
+},
+```
+
 ## Including vendor scripts
 
 1. Install the [streamqueue](https://www.npmjs.com/package/streamqueue) package: `$ npm install streamqueue --save-dev`
@@ -70,35 +98,5 @@ gulp.task('scripts:toolkit', function () {
 });
 
 ```
-
-## Using Bower for dependency management
-
-[Bower](http://bower.io) is a great tool for managing third party client side dependencies. Here's how to leverage Bower on a Fabricator instance:
-
-1. Install bower `$ npm install bower --save-dev`
-2. Add a `.bowerrc` config file to your project root (see below).
-3. Update `package.json` `scripts` object to hook into Bower install task.
-
-**.bowerrc**
-```json
-{
-  "directory": "bower_components"
-}
-```
-
-**package.json**
-
-```json
-"scripts": {
-  "gulp": "gulp",
-  "bower": "bower",
-  "prestart": "npm install",
-  "build": "npm install && gulp",
-  "postinstall": "bower install",
-  "start": "gulp --dev"
-},
-```
-
-
 
 {{/markdown}}
