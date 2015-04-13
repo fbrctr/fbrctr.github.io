@@ -107,7 +107,7 @@
 <li>Install Bower globally for access to the CLI <code>$ npm install -g bower</code></li>
 <li>Install Bower local to project <code>$ npm install bower --save-dev</code></li>
 <li>Run <code>$ bower init</code> to initialize Bower for your project.</li>
-<li>Add a <code>.bowerrc</code> config file to your project root.</li>
+<li>Add a <code>.bowerrc</code> config file to your project root. The <code>&quot;directory&quot;</code> property defines where dependencies are installed.</li>
 </ol>
 <p><strong>.bowerrc</strong></p>
 <pre><code class="language-javascript">{
@@ -139,66 +139,47 @@
 <pre><code class="language-bash">$ bower install --save-dev jquery
 </code></pre>
 <h2>Including vendor scripts</h2>
-<ol>
-<li>Install the <a href="https://www.npmjs.com/package/streamqueue">streamqueue</a> package:</li>
-</ol>
-<pre><code class="language-bash">$ npm install --save-dev streamqueue
-</code></pre>
-<ol start="2">
-<li>Create a <code>config.src.vendor</code> array and include vendor file paths.</li>
-<li>Update the <code>scripts:toolkit</code> task to include vendor files. Break the <code>scripts:toolkit</code> task into two streams - <code>toolkit()</code> and <code>vendor()</code> - then merge streams using <code>streamqueue()</code>.</li>
-</ol>
-<pre><code class="language-javascript">var browserify = require('browserify');
-var concat = require('gulp-concat');
-var gulp = require('gulp');
-var gulpif = require('gulp-if');
-var gutil = require('gulp-util');
-var source = require('vinyl-source-stream');
-var streamqueue = require('streamqueue');
-var streamify = require('gulp-streamify');
-var uglify = require('gulp-uglify');
+<p>Fabricator gives you a couple of options for building vendor files.</p>
+<h3>Option 1: Include vendor files directly in toolkit.js</h3>
+<p><em>This is the more portable option - it will produce a single <code>.js</code> file.</em></p>
+<p>Since Fabricator uses <a href="http://webpack.github.io/">webpack</a> for bundling, you have the option to include non-CommonJS scripts by using the <code>script!</code> <a href="https://github.com/webpack/script-loader">loader shim</a>.</p>
+<pre><code class="language-javascript">// vendor files
+require('script!../../../../bower_components/path/to/file1');
+require('script!../../../../bower_components/path/to/file2');
 
-var config = {
-    dev: gutil.env.dev,
+// rest of the toolkit.js
+...
+</code></pre>
+<p>This will load the target files as if it were a normal concatenation.</p>
+<p>If a file is written as CommonJS, you can treat it as a module:</p>
+<pre><code class="language-javascript">// with bower
+var $ = require('../../../../bower_components/jquery/dist/jquery');
+
+// or with npm
+var $ = require('jquery');
+</code></pre>
+<h3>Option 2: Produce a separate vendor.js file</h3>
+<p><em>Use this option if you want to keep separate <code>toolkit.js</code> and <code>vendor.js</code> files.</em></p>
+<p>Create a <code>vendor</code> property to the <code>config</code> object in <code>gulpfile.js</code> Add target files as an array:</p>
+<pre><code class="language-javascript">var config = {
+    ...
     src: {
         scripts: {
             fabricator: [
-                'src/fabricator/scripts/prism.js',
-                'src/fabricator/scripts/fabricator.js'
+                ...
             ],
             vendor: [
-                'bower_components/jquery/dist/jquery.js'
+                'bower_components/jquery/dist/jquery',
+                'bower_components/some-jquery-plugin/plugin'
             ],
-            toolkit: './src/toolkit/assets/scripts/toolkit.js'
-        }
+            toolkit: './src/assets/toolkit/scripts/toolkit.js'
+        },
+        ...
     },
-    dest: 'dist'
+    ...
 };
-
-gulp.task('scripts:toolkit', function () {
-
-    var toolkit = function () {
-        return browserify(config.src.scripts.toolkit).bundle()
-            .on('error', function (error) {
-                gutil.log(gutil.colors.red(error));
-                this.emit('end');
-            })
-            .pipe(source('toolkit.js'));
-    };
-
-    var vendor = function () {
-        return gulp.src(config.src.scripts.vendor)
-            .pipe(concat('vendor.js'));
-    };
-
-    return streamqueue({ objectMode: true }, vendor(), toolkit())
-        .pipe(streamify(concat('toolkit.js')))
-        .pipe(gulpif(!config.dev, streamify(uglify())))
-        .pipe(gulp.dest(config.dest + '/assets/toolkit/scripts'));
-
-});
-
 </code></pre>
+<p>The <code>webpack.config.js</code> file is already setup to read a <code>config.src.vendor</code> array if it exists and will output a <code>vendor.js</code> file.</p>
 
 		</div>
 	</div>
