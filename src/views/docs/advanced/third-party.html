@@ -10,16 +10,69 @@ section: Documentation
 
 > Including third-party dependencies in your toolkit
 
-Many times you'll want to include a third-party library like [jQuery](http://jquery.com) in your toolkit. It's fairly easy to do so, but requires some modification to the `gulpfile.js`.
+Fabricator makes it easy to include a third-party library like [jQuery](http://jquery.com)
+in your toolkit.
 
-## Using Bower for dependency management
+## Using Webpack to bundle dependencies
 
-[Bower](http://bower.io) is a great tool for managing third party client side dependencies. Here's how to leverage Bower on a Fabricator instance:
+Fabricator uses [Webpack](webpack.github.io) to bundle modules using the
+[CommonJS](http://webpack.github.io/docs/commonjs.html) module syntax:
 
-0. Install Bower globally for access to the CLI `$ npm install -g bower`
-1. Install Bower local to project `$ npm install bower --save-dev`
-2. Run `$ bower init` to initialize Bower for your project.
-3. Add a `.bowerrc` config file to your project root. The `"directory"` property defines where dependencies are installed.
+```javascript
+/* src/assets/toolkit/scripts/my-module.js */
+module.exports = {
+  foo: function() {
+    return 'bar';
+  }
+};
+````
+
+```javascript
+/* src/assets/toolkit/scripts/toolkit.js */
+var myModule = require('./my-module');
+myModule.foo(); // 'bar'
+```
+
+In the above example, webpack will find all the dependencies and
+output a single file that contains both `my-module.js` and `toolkit.js`.
+
+## Dependency Management
+
+It's recommended that you leverage either [NPM](https://www.npmjs.com/) or [Bower](http://bower.io/search/) to manage dependencies.
+
+### Option 1: NPM
+
+[NPM](http://npmjs.com) is the recommended way to add third-party dependencies.
+
+```bash
+$ npm install --save-dev jquery
+```
+
+#### Including NPM dependencies
+
+By default, if a `require()` call is not prefixed with a path, webpack will
+recursively search the `node_modules` directories for the specified module.
+
+```javascript
+// "./" tells webpack to search the current
+// directory for "my-module"
+var myModule = require('./my-module');
+
+// no path was specified, so recursively search
+// "node_modules" directories for "jquery"
+var $ = require('jquery');
+$('#my-button').hide();
+```
+
+### Option 2: Bower
+
+[Bower](http://bower.io) is a great tool for managing third party client side
+dependencies. Here's how to leverage Bower on a Fabricator instance:
+
+1. Install Bower globally for access to the CLI `$ npm install -g bower`
+2. Install Bower local to project `$ npm install bower --save-dev`
+3. Run `$ bower init` to initialize Bower for your project.
+4. Add a `.bowerrc` config file to your project root.
 
 **.bowerrc**
 
@@ -29,7 +82,7 @@ Many times you'll want to include a third-party library like [jQuery](http://jqu
 }
 ```
 
-4. Update `package.json` `scripts` object to hook into Bower install task.
+5. Update `package.json` `scripts` object to hook into Bower install task.
 
 **package.json**
 
@@ -45,71 +98,72 @@ Many times you'll want to include a third-party library like [jQuery](http://jqu
 },
 ```
 
-5. Add `bower_components` to `.gitignore`.
+6. Add `bower_components` to `.gitignore`.
 
-6. Install dependencies with Bower.
+7. Install dependencies with Bower.
 
 ```bash
 $ bower install --save-dev jquery
 ```
 
-## Including vendor scripts
 
-Fabricator gives you a couple of options for building vendor files.
+#### Including Bower dependencies
 
-### Option 1: Include vendor files directly in toolkit.js
+1. Tell webpack to search "bower_components"
 
-*This is the more portable option - it will produce a single `.js` file.*
-
-Since Fabricator uses [webpack](http://webpack.github.io/) for bundling, you have the option to include non-CommonJS scripts by using the `script!` [loader shim](https://github.com/webpack/script-loader).
+**webpack.config.js**
 
 ```javascript
-// vendor files
-require('script!../../../../bower_components/path/to/file1');
-require('script!../../../../bower_components/path/to/file2');
-
-// rest of the toolkit.js
-...
-```
-
-This will load the target files as if it were a normal concatenation.
-
-If a file is written as CommonJS, you can treat it as a module:
-
-```javascript
-// with bower
-var $ = require('../../../../bower_components/jquery/dist/jquery');
-
-// or with npm
-var $ = require('jquery');
-```
-
-### Option 2: Produce a separate vendor.js file
-
-*Use this option if you want to keep separate `toolkit.js` and `vendor.js` files.*
-
-Create a `vendor` property to the `config` object in `gulpfile.js` Add target files as an array:
-
-```javascript
+// add the "resolve" property to the config
 var config = {
-	...
-	src: {
-		scripts: {
-			fabricator: [
-				...
-			],
-			vendor: [
-				'bower_components/jquery/dist/jquery',
-				'bower_components/some-jquery-plugin/plugin'
-			],
-			toolkit: './src/assets/toolkit/scripts/toolkit.js'
-		},
-		...
-	},
-	...
+  /* other config properties */
+  resolve: {
+    modulesDirectories: ['node_modules', 'bower_components']
+  }
 };
 ```
 
-The `webpack.config.js` file is already setup to read a `config.src.vendor` array if it exists and will output a `vendor.js` file.
+2. Require the module
+
+Unlike including NPM dependencies, Bower has no rules for how a module
+is structured. As a result, you will often have to specify a more specific path:
+
+```javascript
+var myLibrary = require('myLibrary/dist/library');
+```
+
+## Handling modules that do not use CommonJS
+
+Many Bower modules are just plain JavaScript files that don't use the CommonJS
+module syntax â€” an example might be a jQuery plugin.
+
+Fabricator includes both the [Imports Loader](https://github.com/webpack/imports-loader)
+and the [Script Loader](https://github.com/webpack/script-loader) to handle these cases.
+
+### Imports Loader
+
+```javascript
+// installed via NPM
+var $ = require('jquery');
+
+// installed via Bower
+require('imports?$=jquery!somePlugin/dist/plugin');
+
+$('#my-button').somePlugin();
+```
+
+### Script Loader
+
+> This loader evaluates code in the global context, just like you would add
+the code into a script tag. In this mode every normal library should work.
+require, module, etc. are undefined.
+
+> Note: The file is added as string to the bundle. It is not minimized by webpack,
+so use a minimized version. There is also no dev tool support for
+libraries added by this loader.
+
+```javascript
+require('script!anotherLib/lib/another-lib');
+```
 
 {{/markdown}}
