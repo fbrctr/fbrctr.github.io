@@ -100,9 +100,45 @@
 <blockquote>
 <p>Including third-party dependencies in your toolkit</p>
 </blockquote>
-<p>Many times you'll want to include a third-party library like <a href="http://jquery.com">jQuery</a> in your toolkit. It's fairly easy to do so, but requires some modification to the <code>gulpfile.js</code>.</p>
-<h2>Using Bower for dependency management</h2>
-<p><a href="http://bower.io">Bower</a> is a great tool for managing third party client side dependencies. Here's how to leverage Bower on a Fabricator instance:</p>
+<p>Fabricator makes it easy to include a third-party library like <a href="http://jquery.com">jQuery</a>
+in your toolkit.</p>
+<h2>Using Webpack to bundle dependencies</h2>
+<p>Fabricator uses <a href="webpack.github.io">Webpack</a> to bundle modules using the
+<a href="http://webpack.github.io/docs/commonjs.html">CommonJS</a> module syntax:</p>
+<pre><code class="language-javascript">/* src/assets/toolkit/scripts/my-module.js */
+module.exports = {
+  foo: function() {
+    return 'bar';
+  }
+};
+</code></pre>
+<pre><code class="language-javascript">/* src/assets/toolkit/scripts/toolkit.js */
+var myModule = require('./my-module');
+myModule.foo(); // 'bar'
+</code></pre>
+<p>In the above example, webpack will find all the dependencies and
+output a single file that contains both <code>my-module.js</code> and <code>toolkit.js</code>.</p>
+<h2>Dependency Management</h2>
+<p>It's recommended that you leverage either <a href="https://www.npmjs.com/">NPM</a> or <a href="http://bower.io/search/">Bower</a> to manage dependencies.</p>
+<h3>Option 1: NPM</h3>
+<p><a href="http://npmjs.com">NPM</a> is the recommended way to add third-party dependencies.</p>
+<pre><code class="language-bash">$ npm install --save-dev jquery
+</code></pre>
+<h4>Including NPM dependencies</h4>
+<p>By default, if a <code>require()</code> call is not prefixed with a path, webpack will
+recursively search the <code>node_modules</code> directories for the specified module.</p>
+<pre><code class="language-javascript">// &quot;./&quot; tells webpack to search the current
+// directory for &quot;my-module&quot;
+var myModule = require('./my-module');
+
+// no path was specified, so recursively search
+// &quot;node_modules&quot; directories for &quot;jquery&quot;
+var $ = require('jquery');
+$('#my-button').hide();
+</code></pre>
+<h3>Option 2: Bower</h3>
+<p><a href="http://bower.io">Bower</a> is a great tool for managing third party client side
+dependencies. Here's how to leverage Bower on a Fabricator instance:</p>
 <ol>
 <li>Install Bower globally for access to the CLI <code>$ npm install -g bower</code></li>
 <li>Install Bower local to project <code>$ npm install bower --save-dev</code></li>
@@ -114,7 +150,7 @@
   &quot;directory&quot;: &quot;bower_components&quot;
 }
 </code></pre>
-<ol start="4">
+<ol start="5">
 <li>Update <code>package.json</code> <code>scripts</code> object to hook into Bower install task.</li>
 </ol>
 <p><strong>package.json</strong></p>
@@ -128,7 +164,7 @@
   &quot;test&quot;: &quot;npm run build&quot;
 },
 </code></pre>
-<ol start="5">
+<ol start="6">
 <li>
 <p>Add <code>bower_components</code> to <code>.gitignore</code>.</p>
 </li>
@@ -138,66 +174,52 @@
 </ol>
 <pre><code class="language-bash">$ bower install --save-dev jquery
 </code></pre>
-<h2>Including vendor scripts</h2>
+<h4>Including Bower dependencies</h4>
 <ol>
-<li>Install the <a href="https://www.npmjs.com/package/streamqueue">streamqueue</a> package:</li>
+<li>Tell webpack to search &quot;bower_components&quot;</li>
 </ol>
-<pre><code class="language-bash">$ npm install --save-dev streamqueue
+<p><strong>webpack.config.js</strong></p>
+<pre><code class="language-javascript">// add the &quot;resolve&quot; property to the config
+var config = {
+  /* other config properties */
+  resolve: {
+    modulesDirectories: ['node_modules', 'bower_components']
+  }
+};
 </code></pre>
 <ol start="2">
-<li>Create a <code>config.src.vendor</code> array and include vendor file paths.</li>
-<li>Update the <code>scripts:toolkit</code> task to include vendor files. Break the <code>scripts:toolkit</code> task into two streams - <code>toolkit()</code> and <code>vendor()</code> - then merge streams using <code>streamqueue()</code>.</li>
+<li>Require the module</li>
 </ol>
-<pre><code class="language-javascript">var browserify = require('browserify');
-var concat = require('gulp-concat');
-var gulp = require('gulp');
-var gulpif = require('gulp-if');
-var gutil = require('gulp-util');
-var source = require('vinyl-source-stream');
-var streamqueue = require('streamqueue');
-var streamify = require('gulp-streamify');
-var uglify = require('gulp-uglify');
+<p>Unlike including NPM dependencies, Bower has no rules for how a module
+is structured. As a result, you will often have to specify a more specific path:</p>
+<pre><code class="language-javascript">var myLibrary = require('myLibrary/dist/library');
+</code></pre>
+<h2>Handling modules that do not use CommonJS</h2>
+<p>Many Bower modules are just plain JavaScript files that don't use the CommonJS
+module syntax â€” an example might be a jQuery plugin.</p>
+<p>Fabricator includes both the <a href="https://github.com/webpack/imports-loader">Imports Loader</a>
+and the <a href="https://github.com/webpack/script-loader">Script Loader</a> to handle these cases.</p>
+<h3>Imports Loader</h3>
+<pre><code class="language-javascript">// installed via NPM
+var $ = require('jquery');
 
-var config = {
-    dev: gutil.env.dev,
-    src: {
-        scripts: {
-            fabricator: [
-                'src/fabricator/scripts/prism.js',
-                'src/fabricator/scripts/fabricator.js'
-            ],
-            vendor: [
-                'bower_components/jquery/dist/jquery.js'
-            ],
-            toolkit: './src/toolkit/assets/scripts/toolkit.js'
-        }
-    },
-    dest: 'dist'
-};
+// installed via Bower
+require('imports?$=jquery!somePlugin/dist/plugin');
 
-gulp.task('scripts:toolkit', function () {
-
-    var toolkit = function () {
-        return browserify(config.src.scripts.toolkit).bundle()
-            .on('error', function (error) {
-                gutil.log(gutil.colors.red(error));
-                this.emit('end');
-            })
-            .pipe(source('toolkit.js'));
-    };
-
-    var vendor = function () {
-        return gulp.src(config.src.scripts.vendor)
-            .pipe(concat('vendor.js'));
-    };
-
-    return streamqueue({ objectMode: true }, vendor(), toolkit())
-        .pipe(streamify(concat('toolkit.js')))
-        .pipe(gulpif(!config.dev, streamify(uglify())))
-        .pipe(gulp.dest(config.dest + '/assets/toolkit/scripts'));
-
-});
-
+$('#my-button').somePlugin();
+</code></pre>
+<h3>Script Loader</h3>
+<blockquote>
+<p>This loader evaluates code in the global context, just like you would add
+the code into a script tag. In this mode every normal library should work.
+require, module, etc. are undefined.</p>
+</blockquote>
+<blockquote>
+<p>Note: The file is added as string to the bundle. It is not minimized by webpack,
+so use a minimized version. There is also no dev tool support for
+libraries added by this loader.</p>
+</blockquote>
+<pre><code class="language-javascript">require('script!anotherLib/lib/another-lib');
 </code></pre>
 
 		</div>
