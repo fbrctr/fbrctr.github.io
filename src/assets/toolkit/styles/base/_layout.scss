@@ -1,3 +1,11 @@
 img {
 	max-width: 100%;
 }
+
+.side-menu {
+	text-align: center;
+
+	@include breakpoint($bp-m) {
+		text-align: right;
+	}
+}
