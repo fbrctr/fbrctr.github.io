@@ -33,7 +33,7 @@ var sass = require('gulp-ruby-sass');
 
 // styles
 gulp.task('styles:fabricator', function () {
-	return sass(config.src.styles.fabricator)
+	return sass(config.src.styles.fabricator, { container: 'gulp-ruby-sass-fabricator' })
 		.on('error', function (err) {
 			console.error('Error!', err.message);
 		})
@@ -45,7 +45,7 @@ gulp.task('styles:fabricator', function () {
 });
 
 gulp.task('styles:toolkit', function () {
-	return sass(config.src.styles.fabricator)
+	return sass(config.src.styles.toolkit, { container: 'gulp-ruby-sass-toolkit' })
 		.on('error', function (err) {
 			console.error('Error!', err.message);
 		})
