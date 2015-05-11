@@ -141,7 +141,8 @@ gulp.task('assemble', function(done) {
 				str = str || opts.fn(this);
 				return require('markdown-it')()
 					.use(require('markdown-it-headinganchor'), {
-						linkify: true
+						linkify: true,
+						anchorClass: ''
 					})
 					.render(str);
 			},

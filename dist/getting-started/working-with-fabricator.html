@@ -99,11 +99,11 @@
 		<div class="col-s-12 col-m-8 col-l-">
 			
 
-<h1 id="WorkingwithFabricator"><a name="WorkingwithFabricator" class="markdown-it-headinganchor" href="#WorkingwithFabricator">Working with Fabricator</a></h1>
+<h1 id="working-with-fabricator"><a name="working-with-fabricator" class="" href="#working-with-fabricator">Working with Fabricator</a></h1>
 <blockquote>
 <p>A look at how Fabricator is setup and an explanation of some of it's features.</p>
 </blockquote>
-<h2 id="RunningandBuilding"><a name="RunningandBuilding" class="markdown-it-headinganchor" href="#RunningandBuilding">Running and Building</a></h2>
+<h2 id="running-and-building"><a name="running-and-building" class="" href="#running-and-building">Running and Building</a></h2>
 <p>Fabricator is built on <a href="http://nodejs.org">node.js</a>. You'll need Node installed before you can start building.</p>
 <p>Once you have a Fabricator instance setup, run the following command to start the development environment:</p>
 <pre><code>$ npm start
@@ -112,7 +112,7 @@
 <p>Once you're ready to deploy your toolkit, run the following command to run an optimized build:</p>
 <pre><code>$ npm run build
 </code></pre>
-<h2 id="Directories"><a name="Directories" class="markdown-it-headinganchor" href="#Directories">Directories</a></h2>
+<h2 id="directories"><a name="directories" class="" href="#directories">Directories</a></h2>
 <p>All work is done in<code>src</code> directory. Inside you'll find a the following directories:</p>
 <pre><code>└── src
     ├── assets
@@ -126,7 +126,7 @@
 <p><code>docs</code> - markdown files with toolkit-wide documentation (e.g. usage guidelines, branding, tone)</p>
 <p><code>materials</code> - individual pieces of UI that make up your toolkit. Each file within is registered as a Handlebars partial for rapid prototyping.</p>
 <p><code>views</code> - pages of the style guide + documentation site that Fabricator generates. Also where any prototyping pages are placed.</p>
-<h3 id="Materials"><a name="Materials" class="markdown-it-headinganchor" href="#Materials">Materials</a></h3>
+<h3 id="materials"><a name="materials" class="" href="#materials">Materials</a></h3>
 <p>By default, Fabricator defines a simple UI taxonomy of &quot;components&quot; and &quot;structures&quot; - components are the smallest unit of UI, and structures are two or components combined. This is a simple, reasonable taxonomy will work in many cases, however, you are free to define your own taxonomy. To do so, rename/create new directories in the <code>materials</code> directory as needed. For example, toolkit that follows <a href="http://bradfrost.com/blog/post/atomic-web-design/">Atomic Design</a> might look like:</p>
 <pre><code>└── materials
     ├── atoms
@@ -134,18 +134,18 @@
     └── organism
 </code></pre>
 <p>Learn more about <a href="/building-a-toolkit/materials.html">materials</a></p>
-<h3 id="Views"><a name="Views" class="markdown-it-headinganchor" href="#Views">Views</a></h3>
+<h3 id="views"><a name="views" class="" href="#views">Views</a></h3>
 <p>Views are the actual static <code>.html</code> pages Fabricator generates. By default, the root contains the skeleton of a Fabricator style guide + documentation site. It has a main landing page, a listing page for each material type, and a page for documentation. These pages are highly customizable. Change them to fit your needs.</p>
 <p>Learn more about the view <a href="/building-a-toolkit/data.html">data model</a> and <a href="/advanced/customization.html">customization</a></p>
-<h2 id="Assets"><a name="Assets" class="markdown-it-headinganchor" href="#Assets">Assets</a></h2>
+<h2 id="assets"><a name="assets" class="" href="#assets">Assets</a></h2>
 <p>Fabricator uses <a href="http://gulpjs.com">Gulp.js</a> as a super-fast build system.  Gulp handles all static asset processing and view/material assembly.</p>
 <p>Tasks are defined in <code>gulpfile.js</code>. <strong>Customization of this file is encouraged</strong>. Hack on it to fit your needs.</p>
-<h3 id="toolkit"><a name="toolkit" class="markdown-it-headinganchor" href="#toolkit">toolkit</a></h3>
+<h3 id="toolkit"><a name="toolkit" class="" href="#toolkit">toolkit</a></h3>
 <p>By default, Fabricator defines almost no architecture. Those decision are best made by you, the developer. Inside of <code>src/assets/toolkit</code> you'll find a single <code>.scss</code> and <code>.js</code> file. Both are entry points for Sass and Browserify, respectively. It is recommended that you compile your toolkit to a single <code>.js</code> and <code>.css</code> file to increase portability. The Gulp tasks for both stylesheets and scripts is setup to give you all the power of Sass and Browserify to help achieve this.</p>
-<h3 id="f.jsandf.css"><a name="f.jsandf.css" class="markdown-it-headinganchor" href="#f.jsandf.css">f.js and f.css</a></h3>
+<h3 id="fjs-and-fcss"><a name="fjs-and-fcss" class="" href="#fjs-and-fcss">f.js and f.css</a></h3>
 <p><code>f.js</code> and <code>f.css</code> - or before compilation, <code>fabricator.js</code> and <code>fabricator.scss</code> - are the two files that provide basic functionality and styling for the Fabricator site. They are intentionally minimal as to not conflict with anything in your toolkit. All Fabricator CSS classes and data-attributes are name-spaced with <code>f-</code>.</p>
 <p>You shouldn't need to modify these files, but if you find the need to, don't sweat - they are included in the compilation tasks just like your toolkit files. Changes are automatically recompiled.</p>
-<h2 id="Controls"><a name="Controls" class="markdown-it-headinganchor" href="#Controls">Controls</a></h2>
+<h2 id="controls"><a name="controls" class="" href="#controls">Controls</a></h2>
 <p><strong>Toggling</strong></p>
 <p>You can toggle visibility on elements such as <strong>notes</strong>, <strong>code snippets</strong>, and <strong>labels</strong>.</p>
 <p>The controls in the menu allow you to toggle each type globally:</p>
@@ -158,7 +158,7 @@
 <pre><code class="language-markup">&lt;div data-toggle=&quot;labels&quot;&gt;Some item label&lt;/div&gt;
 &lt;div data-toggle=&quot;code&quot;&gt;Some item code&lt;/div&gt;
 </code></pre>
-<h2 id=".dotfiles"><a name=".dotfiles" class="markdown-it-headinganchor" href="#.dotfiles">.dotfiles</a></h2>
+<h2 id="dotfiles"><a name="dotfiles" class="" href="#dotfiles">.dotfiles</a></h2>
 <p>Fabricator comes with a handful of useful dotfiles to help with code management.</p>
 <p><code>.editorconfig</code> - editor configuration rule via <a href="http://editorconfig.org/">EditorConfig</a></p>
 <p><code>.gitattributes</code> and <code>.gitignore</code> - source control configuration</p>
