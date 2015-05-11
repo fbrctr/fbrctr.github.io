@@ -139,7 +139,11 @@ gulp.task('assemble', function(done) {
 					str = null;
 				}
 				str = str || opts.fn(this);
-				return require('markdown-it')().render(str);
+				return require('markdown-it')()
+					.use(require('markdown-it-headinganchor'), {
+						linkify: true
+					})
+					.render(str);
 			},
 			decode: function (val) {
 				return decodeURIComponent(val);

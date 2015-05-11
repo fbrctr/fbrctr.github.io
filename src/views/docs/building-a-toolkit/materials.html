@@ -80,4 +80,36 @@ notes: |
 
 Notes will appear adjacent to a material on the listing page and can be toggled on/off.
 
+## Ordering materials
+
+Sometimes you want to have control over the order in which materials are listed. By default, materials are sorted alphabetically, but you can manually sort materials by prefixing their filename with a number.
+
+For example:
+
+```
+01-foo.html
+02-bar.html
+```
+
+will list as:
+
+```
+Foo
+Bar
+```
+
+Number prefixes are ignored in partial keywords, so in the example above, the materials are still accessed as:
+
+```
+{{{{raw}}}}{{> foo}}
+{{> bar}}{{{{/raw}}}}
+```
+
+Ordering works with any quantity of dot-delimited number prefixes. You can pretty granular:
+
+```
+01.00-foo.html
+01.01-bar.html
+```
+
 {{/markdown}}
