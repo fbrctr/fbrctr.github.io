@@ -99,12 +99,12 @@
 		<div class="col-s-12 col-m-8 col-l-">
 			
 
-<h1 id="Materials"><a name="Materials" class="markdown-it-headinganchor" href="#Materials">Materials</a></h1>
+<h1 id="materials"><a name="materials" class="" href="#materials">Materials</a></h1>
 <blockquote>
 <p>Defining the &quot;materials&quot; that make up your toolkit</p>
 </blockquote>
 <p>&quot;Material&quot; is a generic term for the individual components/modules/chunks that make up an interface. By default, Fabricator defines a material taxonomy of &quot;component&quot; and  &quot;structure&quot;, but is flexible and allows you to define your own taxonomy.</p>
-<h2 id="Definingyourtaxonomy"><a name="Definingyourtaxonomy" class="markdown-it-headinganchor" href="#Definingyourtaxonomy">Defining your taxonomy</a></h2>
+<h2 id="defining-your-taxonomy"><a name="defining-your-taxonomy" class="" href="#defining-your-taxonomy">Defining your taxonomy</a></h2>
 <p>A successful taxonomy takes into account a number of different factors such as established brand terminology, personal preference, the size and scale of the end applications, etc. Here are some sample taxonomies that might work for you:</p>
 <pre><code>└── materials
     ├── components
@@ -127,7 +127,7 @@
     └── navigation
 </code></pre>
 <p>Within the <code>src/materials</code> directory, you can define your taxonomy by organizing your materials into sub-directories.</p>
-<h2 id="Addingmaterials"><a name="Addingmaterials" class="markdown-it-headinganchor" href="#Addingmaterials">Adding materials</a></h2>
+<h2 id="adding-materials"><a name="adding-materials" class="" href="#adding-materials">Adding materials</a></h2>
 <p>A material is a <code>.html</code> file that can contain <a href="http://nodeca.github.io/js-yaml/">YAML</a> front-matter and handlebars markup.</p>
 <p>To add a material, create a new <code>.html</code> file in the desired directory. The material should show up on the listing page automatically.</p>
 <p>Every material is accessible as a handlebars partial using the <code>{{&gt; partial-name}}</code> syntax where <code>partial-name</code> is the name of the file.</p>
@@ -139,7 +139,7 @@
             └── unordered.html
 </code></pre>
 <p>Grouped materials are accessed as a partial using dot notation: <code>{{&gt; lists.ordered}}</code></p>
-<h2 id="Documentingamaterial"><a name="Documentingamaterial" class="markdown-it-headinganchor" href="#Documentingamaterial">Documenting a material</a></h2>
+<h2 id="documenting-a-material"><a name="documenting-a-material" class="" href="#documenting-a-material">Documenting a material</a></h2>
 <p>You can directly associate documentation with a material by adding <code>notes</code> in the front-matter of the file:</p>
 <pre><code class="language-markup">---
 notes: |
@@ -148,7 +148,7 @@ notes: |
 &lt;div class=&quot;component&quot;&gt;My Component&lt;/div&gt;
 </code></pre>
 <p>Notes will appear adjacent to a material on the listing page and can be toggled on/off.</p>
-<h2 id="Orderingmaterials"><a name="Orderingmaterials" class="markdown-it-headinganchor" href="#Orderingmaterials">Ordering materials</a></h2>
+<h2 id="ordering-materials"><a name="ordering-materials" class="" href="#ordering-materials">Ordering materials</a></h2>
 <p>Sometimes you want to have control over the order in which materials are listed. By default, materials are sorted alphabetically, but you can manually sort materials by prefixing their filename with a number.</p>
 <p>For example:</p>
 <pre><code>01-foo.html
