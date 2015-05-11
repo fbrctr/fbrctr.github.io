@@ -19,7 +19,7 @@
 	<meta name="twitter:description" content="Fabricator is a tool for building modular website design systems.">
 	<meta name="twitter:image:src" content="http://fbrctr.github.io/assets/toolkit/images/social.png">
 
-	<title>What&#x27;s a &quot;toolkit&quot;? - Fabricator</title>
+	<title>Error Handling - Fabricator</title>
 
 	<!-- toolkit styles -->
 	<link rel="stylesheet" href="../assets/toolkit/styles/toolkit.css">
@@ -99,31 +99,26 @@
 		<div class="col-s-12 col-m-8 col-l-">
 			
 
-<h1>What is a &quot;toolkit&quot;?</h1>
-<blockquote>
-<p>An introduction to toolkit-driven development</p>
-</blockquote>
-<h2>Fabricating Websites</h2>
-<p>Modern day web interfaces are large, complex systems of interoperable parts. If not planned thoughtfully, UI code can become overly complex and difficult to scale. It can be helpful <a href="http://us5.campaign-archive1.com/?u=7e093c5cf4&amp;id=ead8a72012&amp;e=ecb25a3f93">take some queues from other industries</a> that have solved this problem of scale already.</p>
-<p>A UI &quot;toolkit&quot; addresses the issue of complexity by breaking down an interface into smaller chunks. It is the digital equivalent of the auto industry's sub-assemblies and modules. It is a collection of independent pieces that are assembled to form larger pieces. A toolkit is not a website, rather it is the pieces that make up a website. These pieces can be used in any type of end-application, whether it is .NET, Ruby on Rails, Node.js, or just plain HTML.</p>
-<p>Fabricator is a tool for building toolkits. It provides an efficient, optimized working environment to help you build your toolkit.</p>
-<h2>Toolkit-driven Development</h2>
-<p>Thinking of a website as a system of materials can be a powerful shift in thinking. Each piece must work both independently and in concert with an unknown combination of other pieces. The UI must be backend-agnostic so it can work in as many places as possible.</p>
-<p>To achieve this, developers must design their code to be modular and scalable. Further, toolkits should be a single <code>.js</code> and <code>.css</code> file that contains a site's entire design system. A developer should be able to drop these two files on any page an have access to the entire design system.</p>
-<p>When done well, a mature toolkit can be used to build a large number of unique pages and layouts. Once a baseline of materials has been built, designers can compose new pages by selecting existing materials, then design to fill the gaps. The need to produce a layout artifact for each new page is eliminated. The time it takes to layout new pages dramatically decreases as the toolkit matures.</p>
-<h2>Style guide vs toolkit</h2>
-<p>Website style guides have evolved over the years, first starting as an outreach of the tradition (print) branding style guides, and eventually maturing into interactive examples of how a brand should be look and feel on the web. See <a href="http://www.starbucks.com/static/reference/styleguide/">Starbucks</a>, <a href="http://www.yelp.com/styleguide">Yelp</a>, <a href="http://sfdc-styleguide.herokuapp.com/">Salesforce</a>, <a href="http://style.codeforamerica.org">Code For America</a>, and <a href="http://www.google.com/design/spec/material-design/">Google's Material Design</a>.</p>
-<p>A toolkit is more focused on code - specifically the modularity of website interfaces. Toolkits break down websites into small, repeatable chunks, then use those chunks to build an infinite number of layouts. <a href="http://getbootstrap.com/">Twitter Bootstrap</a>, <a href="http://topcoat.io/topcoat/">Topcoat</a>, and <a href="http://foundation.zurb.com/">Zurb's Foundation</a> are popular toolkits.</p>
-<p>Both are great and can be extremely useful. Fabricator gives you a way to combine both concepts into one deliverable.</p>
-<p>When you work with Fabricator, you develop a brand's look and feel on the web while also producing a code toolkit.</p>
-<p>Next, <a href="/getting-started/working-with-fabricator.html">learn how to use Fabricator</a>.</p>
-<h2>Helpful Resources</h2>
-<ul>
-<li><a href="http://us5.campaign-archive1.com/?u=7e093c5cf4&amp;id=ead8a72012&amp;e=ecb25a3f93">Architecting a Pattern Library</a></li>
-<li><a href="http://daverupert.com/2013/04/responsive-deliverables/">Responsive Deliverables</a></li>
-<li><a href="https://css-tricks.com/design-systems-building-future/">Design Systems: Building for the Future</a></li>
-<li><a href="http://styleguides.io/">styleguides.io</a></li>
-</ul>
+<h1>Error Handling</h1>
+<p>There are a couple of options for capturing errors encountered during the assembly of Fabricator view and partials.</p>
+<h2>options.logErrors</h2>
+<p>Type: <code>Boolean</code></p>
+<p>Whether or not to log errors to console. If set to false, the app will exit on error.</p>
+<p>By default, this value is set to <code>true</code> in dev mode and <code>false</code> in build mode. Generally, you should tolerate errors in development, but not when building for release.</p>
+<pre><code class="language-javascript">assemble({
+    logErrors: true
+});
+</code></pre>
+<h2>options.onError</h2>
+<p>Type: <code>Function</code></p>
+<p>Error handler function. Receives an error object param. Helpful if you want to customize your error handling.</p>
+<pre><code class="language-javascript">assemble({
+    onError: function (err) {
+        notify(err.message);
+    }
+});
+
+</code></pre>
 
 		</div>
 	</div>

@@ -1,0 +1,40 @@
+---
+title: Error Handling - Fabricator
+layout: 2-column
+section: Documentation
+---
+
+{{#markdown}}
+
+# Error Handling
+
+There are a couple of options for capturing errors encountered during the assembly of Fabricator view and partials.
+
+## options.logErrors
+
+Type: `Boolean`
+
+Whether or not to log errors to console. If set to false, the app will exit on error.
+
+By default, this value is set to `true` in dev mode and `false` in build mode. Generally, you should tolerate errors in development, but not when building for release.
+
+```javascript
+assemble({
+	logErrors: true
+});
+```
+
+## options.onError
+
+Type: `Function`
+
+Error handler function. Receives an error object param. Helpful if you want to customize your error handling.
+
+```javascript
+assemble({
+	onError: function (err) {
+		notify(err.message);
+	}
+});
+
+{{/markdown}}
