@@ -99,13 +99,13 @@
 		<div class="col-s-12 col-m-8 col-l-">
 			
 
-<h1 id="Third-partyDependencies"><a name="Third-partyDependencies" class="" href="#"></a>Third-party Dependencies</h1>
+<h1 id="third-party-dependencies"><a name="third-party-dependencies" class="" href="#third-party-dependencies">Third-party Dependencies</a></h1>
 <blockquote>
 <p>Including third-party dependencies in your toolkit</p>
 </blockquote>
 <p>Fabricator makes it easy to include a third-party library like <a href="http://jquery.com">jQuery</a>
 in your toolkit.</p>
-<h2 id="UsingWebpacktobundledependencies"><a name="UsingWebpacktobundledependencies" class="" href="#"></a>Using Webpack to bundle dependencies</h2>
+<h2 id="using-webpack-to-bundle-dependencies"><a name="using-webpack-to-bundle-dependencies" class="" href="#using-webpack-to-bundle-dependencies">Using Webpack to bundle dependencies</a></h2>
 <p>Fabricator uses <a href="http://webpack.github.io">Webpack</a> to bundle modules using the
 <a href="http://webpack.github.io/docs/commonjs.html">CommonJS</a> module syntax:</p>
 <pre><code class="language-javascript">/* src/assets/toolkit/scripts/my-module.js */
@@ -121,13 +121,13 @@ myModule.foo(); // 'bar'
 </code></pre>
 <p>In the above example, webpack will find all the dependencies and
 output a single file that contains both <code>my-module.js</code> and <code>toolkit.js</code>.</p>
-<h2 id="DependencyManagement"><a name="DependencyManagement" class="" href="#"></a>Dependency Management</h2>
+<h2 id="dependency-management"><a name="dependency-management" class="" href="#dependency-management">Dependency Management</a></h2>
 <p>It's recommended that you leverage either <a href="https://www.npmjs.com/">NPM</a> or <a href="http://bower.io/search/">Bower</a> to manage dependencies.</p>
-<h3 id="Option1%3ANPM"><a name="Option1%3ANPM" class="" href="#"></a>Option 1: NPM</h3>
+<h3 id="option-1-npm"><a name="option-1-npm" class="" href="#option-1-npm">Option 1: NPM</a></h3>
 <p><a href="http://npmjs.com">NPM</a> is the recommended way to add third-party dependencies.</p>
 <pre><code class="language-bash">$ npm install --save-dev jquery
 </code></pre>
-<h4 id="IncludingNPMdependencies"><a name="IncludingNPMdependencies" class="" href="#"></a>Including NPM dependencies</h4>
+<h4 id="including-npm-dependencies"><a name="including-npm-dependencies" class="" href="#including-npm-dependencies">Including NPM dependencies</a></h4>
 <p>By default, if a <code>require()</code> call is not prefixed with a path, webpack will
 recursively search the <code>node_modules</code> directories for the specified module.</p>
 <pre><code class="language-javascript">// &quot;./&quot; tells webpack to search the current
@@ -139,7 +139,7 @@ var myModule = require('./my-module');
 var $ = require('jquery');
 $('#my-button').hide();
 </code></pre>
-<h3 id="Option2%3ABower"><a name="Option2%3ABower" class="" href="#"></a>Option 2: Bower</h3>
+<h3 id="option-2-bower"><a name="option-2-bower" class="" href="#option-2-bower">Option 2: Bower</a></h3>
 <p><a href="http://bower.io">Bower</a> is a great tool for managing third party client side
 dependencies. Here's how to leverage Bower on a Fabricator instance:</p>
 <ol>
@@ -177,7 +177,7 @@ dependencies. Here's how to leverage Bower on a Fabricator instance:</p>
 </ol>
 <pre><code class="language-bash">$ bower install --save-dev jquery
 </code></pre>
-<h4 id="IncludingBowerdependencies"><a name="IncludingBowerdependencies" class="" href="#"></a>Including Bower dependencies</h4>
+<h4 id="including-bower-dependencies"><a name="including-bower-dependencies" class="" href="#including-bower-dependencies">Including Bower dependencies</a></h4>
 <ol>
 <li>Tell webpack to search &quot;bower_components&quot;</li>
 </ol>
@@ -197,12 +197,12 @@ var config = {
 is structured. As a result, you will often have to specify a more specific path:</p>
 <pre><code class="language-javascript">var myLibrary = require('myLibrary/dist/library');
 </code></pre>
-<h2 id="HandlingmodulesthatdonotuseCommonJS"><a name="HandlingmodulesthatdonotuseCommonJS" class="" href="#"></a>Handling modules that do not use CommonJS</h2>
+<h2 id="handling-modules-that-do-not-use-commonjs"><a name="handling-modules-that-do-not-use-commonjs" class="" href="#handling-modules-that-do-not-use-commonjs">Handling modules that do not use CommonJS</a></h2>
 <p>Many Bower modules are just plain JavaScript files that don't use the CommonJS
 module syntax; an example might be a jQuery plugin.</p>
 <p>Fabricator includes both the <a href="https://github.com/webpack/imports-loader">Imports Loader</a>
 and the <a href="https://github.com/webpack/script-loader">Script Loader</a> to handle these cases.</p>
-<h3 id="ImportsLoader"><a name="ImportsLoader" class="" href="#"></a>Imports Loader</h3>
+<h3 id="imports-loader"><a name="imports-loader" class="" href="#imports-loader">Imports Loader</a></h3>
 <pre><code class="language-javascript">// installed via NPM
 var $ = require('jquery');
 
@@ -211,7 +211,7 @@ require('imports?$=jquery!somePlugin/dist/plugin');
 
 $('#my-button').somePlugin();
 </code></pre>
-<h3 id="ScriptLoader"><a name="ScriptLoader" class="" href="#"></a>Script Loader</h3>
+<h3 id="script-loader"><a name="script-loader" class="" href="#script-loader">Script Loader</a></h3>
 <blockquote>
 <p>This loader evaluates code in the global context, just like you would add
 the code into a script tag. In this mode every normal library should work.
