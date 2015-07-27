@@ -142,7 +142,10 @@ gulp.task('assemble', function(done) {
 				return require('markdown-it')()
 					.use(require('markdown-it-headinganchor'), {
 						linkify: true,
-						anchorClass: ''
+						anchorClass: '',
+						slugify: function(str) {
+							return require('string')(str).slugify().s;
+						}
 					})
 					.render(str);
 			},

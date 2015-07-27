@@ -99,12 +99,12 @@
 		<div class="col-s-12 col-m-8 col-l-">
 			
 
-<h1 id="Data"><a name="Data" class="" href="#"></a>Data</h1>
+<h1 id="data"><a name="data" class="" href="#data">Data</a></h1>
 <blockquote>
 <p>How to feed data into your toolkit materials and prototypes</p>
 </blockquote>
 <p>Sometimes it is helpful to decouple page data from materials and layouts.</p>
-<h2 id="src%2Fdata"><a name="src%2Fdata" class="" href="#"></a>src/data</h2>
+<h2 id="srcdata"><a name="srcdata" class="" href="#srcdata">src/data</a></h2>
 <p>Data can be store in JSON or YML files in the <code>src/data</code> directory.</p>
 <p>Data within these files is accessed using dot notation. For example, given <code>home.yml</code>:</p>
 <pre><code class="language-yml">links:
@@ -127,7 +127,7 @@
 &lt;a href=&quot;#&quot;&gt;Media Center&lt;/a&gt;
 &lt;a href=&quot;#&quot;&gt;Legal&lt;/a&gt;
 </code></pre>
-<h2 id="MaterialFront-matter"><a name="MaterialFront-matter" class="" href="#"></a>Material Front-matter</h2>
+<h2 id="material-front-matter"><a name="material-front-matter" class="" href="#material-front-matter">Material Front-matter</a></h2>
 <p>Data can also be stored as front-matter in a view or material.</p>
 <p>Example material <code>src/materials/components/welcome.html</code>:</p>
 <pre><code class="language-markup">---
@@ -138,7 +138,7 @@ greeting: Hello
 <p>Output:</p>
 <pre><code class="language-markup">&lt;div class=&quot;welcome&quot;&gt;Hello, World!&lt;/div&gt;
 </code></pre>
-<h2 id="Context"><a name="Context" class="" href="#"></a>Context</h2>
+<h2 id="context"><a name="context" class="" href="#context">Context</a></h2>
 <p>Each view is templated with a unique context (data model) assembled from material data, front-matter, and <code>src/data</code>. Fabricator scrapes the files in your toolkit and builds theses data models on the fly. They only exist within the <code>fabricator-assemble</code> task; views are templated using these data models, but the data is never written to disk.</p>
 <p>Here's an example scheme:</p>
 <pre><code class="language-javascript">{
@@ -216,9 +216,9 @@ greeting: Hello
 }
 </code></pre>
 <p>You can iterate over the properties in this data model when <a href="/advanced/customization.html">customizing</a> your Fabricator pages.</p>
-<h2 id="Reservedwords"><a name="Reservedwords" class="" href="#"></a>Reserved words</h2>
+<h2 id="reserved-words"><a name="reserved-words" class="" href="#reserved-words">Reserved words</a></h2>
 <p>There are a handful of predefined context properties. You should avoid over-riding these properties.</p>
-<h3 id="%7B%7Bbaseurl%7D%7D"><a name="%7B%7Bbaseurl%7D%7D" class="" href="#"></a>{{baseurl}}</h3>
+<h3 id="baseurl"><a name="baseurl" class="" href="#baseurl">{{baseurl}}</a></h3>
 <p>Used when building links in nested views:</p>
 <pre><code class="language-markup">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{baseurl}}/assets/toolkit/toolkit.css&quot;&gt;
 </code></pre>
