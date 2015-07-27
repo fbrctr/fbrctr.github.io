@@ -30,7 +30,7 @@ $ npm run build
 
 ## Directories
 
-All work is done in`src` directory. Inside you'll find a the following directories:
+All work is done in`src` directory. Inside you'll find the following directories:
 
 ```
 └── src
@@ -53,7 +53,7 @@ All work is done in`src` directory. Inside you'll find a the following directori
 
 ### Materials
 
-By default, Fabricator defines a simple UI taxonomy of "components" and "structures" - components are the smallest unit of UI, and structures are two or components combined. This is a simple, reasonable taxonomy will work in many cases, however, you are free to define your own taxonomy. To do so, rename/create new directories in the `materials` directory as needed. For example, toolkit that follows [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) might look like:
+By default, Fabricator defines a simple UI taxonomy of "components" and "structures" - components are the smallest unit of UI, and structures are two or more components combined. This is a simple, reasonable taxonomy will work in many cases, however, you are free to define your own taxonomy. To do so, rename/create new directories in the `materials` directory as needed. For example, toolkit that follows [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) might look like:
 
 ```
 └── materials
@@ -78,7 +78,7 @@ Tasks are defined in `gulpfile.js`. **Customization of this file is encouraged**
 
 ### toolkit
 
-By default, Fabricator defines almost no architecture. Those decision are best made by you, the developer. Inside of `src/assets/toolkit` you'll find a single `.scss` and `.js` file. Both are entry points for Sass and Browserify, respectively. It is recommended that you compile your toolkit to a single `.js` and `.css` file to increase portability. The Gulp tasks for both stylesheets and scripts is setup to give you all the power of Sass and Browserify to help achieve this.
+By default, Fabricator defines almost no architecture. Those decisions are best made by you, the developer. Inside of `src/assets/toolkit` you'll find a single `.scss` and `.js` file. Both are entry points for Sass and Browserify, respectively. It is recommended that you compile your toolkit to a single `.js` and `.css` file to increase portability. The Gulp tasks for both stylesheets and scripts is setup to give you all the power of Sass and Browserify to help achieve this.
 
 ### f.js and f.css
 
