@@ -32,3 +32,11 @@ $colors: (
 @function color($color, $tone: 0) {
 	@return map-get(map-get($colors, $color), $tone);
 }
+
+.blue {
+	color: color(blue);
+}
+
+.black {
+	color: color(black);
+}

@@ -9,3 +9,42 @@ img {
 		text-align: right;
 	}
 }
+
+.feature-row {
+
+	@include breakpoint ($bp-m) {
+		display: flex;
+		align-items: center;
+	}
+
+
+	a {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 2em;
+		max-width: 10em;
+		opacity: 0.4;
+
+		@include breakpoint($bp-m) {
+			width: percentage(1/3);
+			max-width: 100%;
+			padding: 0 5%;
+			margin-bottom: 0;
+			margin-left: 0;
+			margin-right: 0;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&:not(:last-child) {
+			margin-top: 1em;
+		}
+
+		img {
+			width: 100%;
+		}
+	}
+}
